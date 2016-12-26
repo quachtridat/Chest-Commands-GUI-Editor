@@ -1,0 +1,101 @@
+﻿0	 	nihil
+1	I	ūnus
+2	II	duo
+3	III	trēs
+4	IV	quattuor
+5	V	quīnque
+6	VI	sex
+7	VII	septem
+8	VIII	octō
+9	IX	novem
+10	X	decem
+11	XI	ūndecim
+12	XII	duodēcim
+13	XIII	trēdecim
+14	XIV	quattuordecim
+15	XV	quīndecim
+16	XVI	sēdecim
+17	XVII	septendecim
+18	XVIII	duodēvīgintī
+19	XIX	ūndēvīgintī
+20	XX	vīgintī
+21	XXI	vīgintī   ūnus
+22	XXII	vīgintī   duo
+23	XXIII	vīgintī   trēs
+24	XXIV	vīgintī   quattuor
+25	XXV	vīgintī   quīnque
+26	XXVI	vīgintī   sex
+27	XXVII	vīgintī   septem
+28	XXVIII	duodētrīgintā vīgintī octō
+29	XXIX	ūndētrīgintā vīgintī novem
+30	XXX	trīgintā
+31	XXXI	trīgintā   ūnus
+32	XXXII	trīgintā   duo
+33	XXXIII	trīgintā   trēs
+34	XXXIV	trīgintā quattuor
+35	XXXV	trīgintā   quīnque
+36	XXXVI	trīgintā   sex
+37	XXXVII	trīgintā   septem
+38	XXXVIII	duodēquadrāgintā trīgintā octō
+39	XXXIX	ūndēquadrāgintā trīgintā novem
+40	XL	quadrāgintā
+41	XLI	quadrāgintā   ūnus
+42	XLII	quadrāgintā   duo
+43	XLIII	quadrāgintā   trēs
+44	XLIV	quadrāgintā   quattuor
+45	XLV	quadrāgintā   quīnque
+46	XLVI	quadrāgintā   sex
+47	XLVII	quadrāgintā   septem
+48	XLVIII	duodēquīnquāgintā quadrāgintā octō
+49	XLIX	ūndēquīnquāgintā quadrāgintā novem
+50	L	quīnquāgintā
+51	LI	quīnquāgintā   ūnus
+52	LII	quīnquāgintā   duo
+53	LIII	quīnquāgintā   trēs
+54	LIV	quīnquāgintā quattuor
+55	LV	quīnquāgintā   quīnque
+56	LVI	quīnquāgintā   sex
+57	LVII	quīnquāgintā   septem
+58	LVIII	duodēsexāgintā quīnquāgintā octō
+59	LIX	ūndēsexāgintā quīnquāgintā novem
+60	LX	sexāgintā
+61	LXI	sexāgintā   ūnus
+62	LXII	sexāgintā   duo
+63	LXIII	sexāgintā   trēs
+64	LXIV	sexāgintā   quattuor
+65	LXV	sexāgintā   quīnque
+66	LXVI	sexāgintā   sex
+67	LXVII	sexāgintā   septem
+68	LXVIII	duodēseptuāgintā sexāgintā octō
+69	LXIX	ūndēseptuāgintā sexāgintā novem
+70	LXX	septuāgintā
+71	LXXI	septuāgintā   ūnus
+72	LXXII	septuāgintā   duo
+73	LXXIII	septuāgintā   trēs
+74	LXXIV	septuāgintā   quattuor
+75	LXXV	septuāgintā   quīnque
+76	LXXVI	septuāgintā   sex
+77	LXXVII	septuāgintā   septem
+78	LXXVIII	duodēoctōgintā septuāgintā octō
+79	LXXIX	ūndēoctōgintā septuāgintā novem
+80	LXXX	octōgintā
+81	LXXXI	octōgintā   ūnus
+82	LXXXII	octōgintā   duo
+83	LXXXIII	octōgintā   trēs
+84	LXXXIV	octōgintā   quattuor
+85	LXXXV	octōgintā   quīnque
+86	LXXXVI	octōgintā   sex
+87	LXXXVII	octōgintā   septem
+88	LXXXVIII	duodēnōnāgintā octōgintā octo
+89	LXXXIX	ūndēnōnāgintā octōgintā novem
+90	XC	nōnāgintā
+91	XCI	nōnāgintā   ūnus
+92	XCII	nōnāgintā   duo
+93	XCIII	nōnāgintā   trēs
+94	XCIV	nōnāgintā   quattuor
+95	XCV	nōnāgintā   quīnque
+96	XCVI	nōnāgintā   sex
+97	XCVII	nōnāgintā   septem
+98	XCVIII	duodēcentum nōnāgintā octō
+99	XCIX	ūndēcentum nōnāgintā novem
+100	C	centum

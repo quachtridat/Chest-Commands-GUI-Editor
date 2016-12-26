@@ -1,0 +1,18 @@
+Chest Commands GUI Editor - an application that helps you interactively create a menu for Chest Commands GUI.
+Link to Chest Commands GUI (by filoghost): https://dev.bukkit.org/projects/chest-commands.
+
+I'm Quach Tri Dat, a high school student who are really interested in programming, especially C#. 
+C# is powerful and really easy to use, although currently it is mostly available only for Windows.
+
+The idea of this editor was initially by me. I was working as backend staff of a Minecraft server, and I found it time-consuming to sit and write many lines of YAML code for Chest Commands GUI.
+I want to help the other staff members save the time, and also to strengthen my C# skills.
+Instead of just writing lines of code, now with this application, we can interactively and easily create a menu, then the code will be automatically generated.
+My backend was not so good, but it works well, and I feel glad about it.
+
+This application was first written from the scratch without any fancy appearance, but thanks to MetroFramework - a free, open-source framework that provides good-looking theme for WinForms, developed by Jens Thiel.
+He hosted his work at https://thielj.github.io/MetroFramework/.
+
+Also, YamlDotNet, written by Antoine Aubry, is such a great library for YAML. I really appreciate his work.
+YamlDotNet can be found at his homepage: http://aaubry.net/pages/yamldotnet.html.
+
+And last, thanks a bunch for using this application!

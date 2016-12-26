@@ -1,0 +1,27 @@
+﻿Protection	protection	0
+Fire Protection	fire_protection	1
+Feather Falling	feather_falling	2
+Blast Protection	blast_protection	3
+Projectile Protection	projectile_protection	4
+Respiration	respiration	5
+Aqua Affinity	aqua_affinity	6
+Thorns	thorns	7
+Depth Strider	depth_strider	8
+Frost Walker	frost_walker	9
+Sharpness	sharpness	16
+Smite	smite	17
+Bane of Arthropods	bane_of_arthropods	18
+Knockback	knockback	19
+Fire Aspect	fire_aspect	20
+Looting	looting	21
+Efficiency	efficiency	32
+Silk Touch	silk_touch	33
+Unbreaking	unbreaking	34
+Fortune	fortune	35
+Power	power	48
+Punch	punch	49
+Flame	flame	50
+Infinity	infinity	51
+Luck of the Sea	luck_of_the_sea	61
+Lure	lure	62
+Mending	mending	70

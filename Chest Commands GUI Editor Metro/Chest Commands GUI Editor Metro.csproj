@@ -1,0 +1,832 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{483565C1-57C5-44CF-816E-9716280B1BF3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CCGE_Metro</RootNamespace>
+    <AssemblyName>Chest Commands GUI Editor Metro</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>grass.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>CCGE_Metro.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MetroFramework.Design, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Design.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MetroFramework.Fonts, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Fonts.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="YamlDotNet, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.4.0.0\lib\net35\YamlDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Forms\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MinecraftBase.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Classes\Helpers.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Classes\Animation.cs" />
+    <Compile Include="Classes\Extensions\RichTextBox Extensions.cs" />
+    <Compile Include="Classes\IO Factory.cs" />
+    <Compile Include="Interfaces\IInventoryTable.cs" />
+    <Compile Include="Interfaces\IYamlConvertible.cs" />
+    <Compile Include="User controls\Inventory table.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="User controls\Inventory table.Designer.cs">
+      <DependentUpon>Inventory table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User controls\Minecraft tooltip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\Parser.cs" />
+    <Compile Include="Classes\Types\CCG Menu Settings.cs" />
+    <Compile Include="Forms\Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Edit.Designer.cs">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Splash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Splash.Designer.cs">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Classes\Types\CCG Menu Item.cs" />
+    <Compile Include="Classes\Types\Extended String.cs" />
+    <Compile Include="Classes\Types\Minecraft Enchantment.cs" />
+    <Compile Include="Classes\Types\Minecraft Item.cs" />
+    <Compile Include="User controls\Table cell.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <EmbeddedResource Include="Forms\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Splash.resx">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="User controls\Inventory table.resx">
+      <DependentUpon>Inventory table.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Splash screen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="grass.ico" />
+    <None Include="Resources\About_this_application.txt" />
+    <Content Include="Resources\Icons\0-0.png" />
+    <Content Include="Resources\Icons\1-0.png" />
+    <Content Include="Resources\Icons\1-1.png" />
+    <Content Include="Resources\Icons\1-2.png" />
+    <Content Include="Resources\Icons\1-3.png" />
+    <Content Include="Resources\Icons\1-4.png" />
+    <Content Include="Resources\Icons\1-5.png" />
+    <Content Include="Resources\Icons\1-6.png" />
+    <Content Include="Resources\Icons\10-0.png" />
+    <Content Include="Resources\Icons\100-0.png" />
+    <Content Include="Resources\Icons\101-0.png" />
+    <Content Include="Resources\Icons\102-0.png" />
+    <Content Include="Resources\Icons\103-0.png" />
+    <Content Include="Resources\Icons\104-0.png" />
+    <Content Include="Resources\Icons\105-0.png" />
+    <Content Include="Resources\Icons\106-0.png" />
+    <Content Include="Resources\Icons\107-0.png" />
+    <Content Include="Resources\Icons\108-0.png" />
+    <Content Include="Resources\Icons\109-0.png" />
+    <Content Include="Resources\Icons\11-0.png" />
+    <Content Include="Resources\Icons\110-0.png" />
+    <Content Include="Resources\Icons\111-0.png" />
+    <Content Include="Resources\Icons\112-0.png" />
+    <Content Include="Resources\Icons\113-0.png" />
+    <Content Include="Resources\Icons\114-0.png" />
+    <Content Include="Resources\Icons\115-0.png" />
+    <Content Include="Resources\Icons\116-0.png" />
+    <Content Include="Resources\Icons\117-0.png" />
+    <Content Include="Resources\Icons\118-0.png" />
+    <Content Include="Resources\Icons\119-0.png" />
+    <Content Include="Resources\Icons\12-0.png" />
+    <Content Include="Resources\Icons\12-1.png" />
+    <Content Include="Resources\Icons\120-0.png" />
+    <Content Include="Resources\Icons\121-0.png" />
+    <Content Include="Resources\Icons\122-0.png" />
+    <Content Include="Resources\Icons\123-0.png" />
+    <Content Include="Resources\Icons\124-0.png" />
+    <Content Include="Resources\Icons\125-0.png" />
+    <Content Include="Resources\Icons\125-1.png" />
+    <Content Include="Resources\Icons\125-2.png" />
+    <Content Include="Resources\Icons\125-3.png" />
+    <Content Include="Resources\Icons\125-4.png" />
+    <Content Include="Resources\Icons\125-5.png" />
+    <Content Include="Resources\Icons\126-0.png" />
+    <Content Include="Resources\Icons\126-1.png" />
+    <Content Include="Resources\Icons\126-2.png" />
+    <Content Include="Resources\Icons\126-3.png" />
+    <Content Include="Resources\Icons\126-4.png" />
+    <Content Include="Resources\Icons\126-5.png" />
+    <Content Include="Resources\Icons\127-0.png" />
+    <Content Include="Resources\Icons\128-0.png" />
+    <Content Include="Resources\Icons\129-0.png" />
+    <Content Include="Resources\Icons\13-0.png" />
+    <Content Include="Resources\Icons\130-0.png" />
+    <Content Include="Resources\Icons\131-0.png" />
+    <Content Include="Resources\Icons\132-0.png" />
+    <Content Include="Resources\Icons\133-0.png" />
+    <Content Include="Resources\Icons\134-0.png" />
+    <Content Include="Resources\Icons\135-0.png" />
+    <Content Include="Resources\Icons\136-0.png" />
+    <Content Include="Resources\Icons\137-0.png" />
+    <Content Include="Resources\Icons\138-0.png" />
+    <Content Include="Resources\Icons\139-0.png" />
+    <Content Include="Resources\Icons\139-1.png" />
+    <Content Include="Resources\Icons\14-0.png" />
+    <Content Include="Resources\Icons\140-0.png" />
+    <Content Include="Resources\Icons\141-0.png" />
+    <Content Include="Resources\Icons\142-0.png" />
+    <Content Include="Resources\Icons\143-0.png" />
+    <Content Include="Resources\Icons\144-0.png" />
+    <Content Include="Resources\Icons\145-0.png" />
+    <Content Include="Resources\Icons\146-0.png" />
+    <Content Include="Resources\Icons\147-0.png" />
+    <Content Include="Resources\Icons\148-0.png" />
+    <Content Include="Resources\Icons\149-0.png" />
+    <Content Include="Resources\Icons\15-0.png" />
+    <Content Include="Resources\Icons\150-0.png" />
+    <Content Include="Resources\Icons\151-0.png" />
+    <Content Include="Resources\Icons\152-0.png" />
+    <Content Include="Resources\Icons\153-0.png" />
+    <Content Include="Resources\Icons\154-0.png" />
+    <Content Include="Resources\Icons\155-0.png" />
+    <Content Include="Resources\Icons\155-1.png" />
+    <Content Include="Resources\Icons\155-2.png" />
+    <Content Include="Resources\Icons\156-0.png" />
+    <Content Include="Resources\Icons\157-0.png" />
+    <Content Include="Resources\Icons\158-0.png" />
+    <Content Include="Resources\Icons\159-0.png" />
+    <Content Include="Resources\Icons\159-1.png" />
+    <Content Include="Resources\Icons\159-10.png" />
+    <Content Include="Resources\Icons\159-11.png" />
+    <Content Include="Resources\Icons\159-12.png" />
+    <Content Include="Resources\Icons\159-13.png" />
+    <Content Include="Resources\Icons\159-14.png" />
+    <Content Include="Resources\Icons\159-15.png" />
+    <Content Include="Resources\Icons\159-2.png" />
+    <Content Include="Resources\Icons\159-3.png" />
+    <Content Include="Resources\Icons\159-4.png" />
+    <Content Include="Resources\Icons\159-5.png" />
+    <Content Include="Resources\Icons\159-6.png" />
+    <Content Include="Resources\Icons\159-7.png" />
+    <Content Include="Resources\Icons\159-8.png" />
+    <Content Include="Resources\Icons\159-9.png" />
+    <Content Include="Resources\Icons\16-0.png" />
+    <Content Include="Resources\Icons\160-0.png" />
+    <Content Include="Resources\Icons\160-1.png" />
+    <Content Include="Resources\Icons\160-10.png" />
+    <Content Include="Resources\Icons\160-11.png" />
+    <Content Include="Resources\Icons\160-12.png" />
+    <Content Include="Resources\Icons\160-13.png" />
+    <Content Include="Resources\Icons\160-14.png" />
+    <Content Include="Resources\Icons\160-15.png" />
+    <Content Include="Resources\Icons\160-2.png" />
+    <Content Include="Resources\Icons\160-3.png" />
+    <Content Include="Resources\Icons\160-4.png" />
+    <Content Include="Resources\Icons\160-5.png" />
+    <Content Include="Resources\Icons\160-6.png" />
+    <Content Include="Resources\Icons\160-7.png" />
+    <Content Include="Resources\Icons\160-8.png" />
+    <Content Include="Resources\Icons\160-9.png" />
+    <Content Include="Resources\Icons\161-0.png" />
+    <Content Include="Resources\Icons\161-1.png" />
+    <Content Include="Resources\Icons\162-0.png" />
+    <Content Include="Resources\Icons\162-1.png" />
+    <Content Include="Resources\Icons\163-0.png" />
+    <Content Include="Resources\Icons\164-0.png" />
+    <Content Include="Resources\Icons\165-0.png" />
+    <Content Include="Resources\Icons\166-0.png" />
+    <Content Include="Resources\Icons\167-0.png" />
+    <Content Include="Resources\Icons\168-0.png" />
+    <Content Include="Resources\Icons\168-1.png" />
+    <Content Include="Resources\Icons\168-2.png" />
+    <Content Include="Resources\Icons\169-0.png" />
+    <Content Include="Resources\Icons\17-0.png" />
+    <Content Include="Resources\Icons\17-1.png" />
+    <Content Include="Resources\Icons\17-2.png" />
+    <Content Include="Resources\Icons\17-3.png" />
+    <Content Include="Resources\Icons\170-0.png" />
+    <Content Include="Resources\Icons\171-0.png" />
+    <Content Include="Resources\Icons\171-1.png" />
+    <Content Include="Resources\Icons\171-10.png" />
+    <Content Include="Resources\Icons\171-11.png" />
+    <Content Include="Resources\Icons\171-12.png" />
+    <Content Include="Resources\Icons\171-13.png" />
+    <Content Include="Resources\Icons\171-14.png" />
+    <Content Include="Resources\Icons\171-15.png" />
+    <Content Include="Resources\Icons\171-2.png" />
+    <Content Include="Resources\Icons\171-3.png" />
+    <Content Include="Resources\Icons\171-4.png" />
+    <Content Include="Resources\Icons\171-5.png" />
+    <Content Include="Resources\Icons\171-6.png" />
+    <Content Include="Resources\Icons\171-7.png" />
+    <Content Include="Resources\Icons\171-8.png" />
+    <Content Include="Resources\Icons\171-9.png" />
+    <Content Include="Resources\Icons\172-0.png" />
+    <Content Include="Resources\Icons\173-0.png" />
+    <Content Include="Resources\Icons\174-0.png" />
+    <Content Include="Resources\Icons\175-0.png" />
+    <Content Include="Resources\Icons\175-1.png" />
+    <Content Include="Resources\Icons\175-2.png" />
+    <Content Include="Resources\Icons\175-3.png" />
+    <Content Include="Resources\Icons\175-4.png" />
+    <Content Include="Resources\Icons\175-5.png" />
+    <Content Include="Resources\Icons\176-0.png" />
+    <Content Include="Resources\Icons\177-0.png" />
+    <Content Include="Resources\Icons\178-0.png" />
+    <Content Include="Resources\Icons\179-0.png" />
+    <Content Include="Resources\Icons\179-1.png" />
+    <Content Include="Resources\Icons\179-2.png" />
+    <Content Include="Resources\Icons\18-0.png" />
+    <Content Include="Resources\Icons\18-1.png" />
+    <Content Include="Resources\Icons\18-2.png" />
+    <Content Include="Resources\Icons\18-3.png" />
+    <Content Include="Resources\Icons\180-0.png" />
+    <Content Include="Resources\Icons\181-0.png" />
+    <Content Include="Resources\Icons\182-0.png" />
+    <Content Include="Resources\Icons\183-0.png" />
+    <Content Include="Resources\Icons\184-0.png" />
+    <Content Include="Resources\Icons\185-0.png" />
+    <Content Include="Resources\Icons\186-0.png" />
+    <Content Include="Resources\Icons\187-0.png" />
+    <Content Include="Resources\Icons\188-0.png" />
+    <Content Include="Resources\Icons\189-0.png" />
+    <Content Include="Resources\Icons\19-0.png" />
+    <Content Include="Resources\Icons\19-1.png" />
+    <Content Include="Resources\Icons\190-0.png" />
+    <Content Include="Resources\Icons\191-0.png" />
+    <Content Include="Resources\Icons\192-0.png" />
+    <Content Include="Resources\Icons\193-0.png" />
+    <Content Include="Resources\Icons\194-0.png" />
+    <Content Include="Resources\Icons\195-0.png" />
+    <Content Include="Resources\Icons\196-0.png" />
+    <Content Include="Resources\Icons\197-0.png" />
+    <Content Include="Resources\Icons\198-0.png" />
+    <Content Include="Resources\Icons\199-0.png" />
+    <Content Include="Resources\Icons\2-0.png" />
+    <Content Include="Resources\Icons\20-0.png" />
+    <Content Include="Resources\Icons\200-0.png" />
+    <Content Include="Resources\Icons\201-0.png" />
+    <Content Include="Resources\Icons\202-0.png" />
+    <Content Include="Resources\Icons\203-0.png" />
+    <Content Include="Resources\Icons\204-0.png" />
+    <Content Include="Resources\Icons\205-0.png" />
+    <Content Include="Resources\Icons\206-0.png" />
+    <Content Include="Resources\Icons\207-0.png" />
+    <Content Include="Resources\Icons\208-0.png" />
+    <Content Include="Resources\Icons\209-0.png" />
+    <Content Include="Resources\Icons\21-0.png" />
+    <Content Include="Resources\Icons\210-0.png" />
+    <Content Include="Resources\Icons\211-0.png" />
+    <Content Include="Resources\Icons\212-0.png" />
+    <Content Include="Resources\Icons\22-0.png" />
+    <Content Include="Resources\Icons\2256-0.png" />
+    <Content Include="Resources\Icons\2257-0.png" />
+    <Content Include="Resources\Icons\2258-0.png" />
+    <Content Include="Resources\Icons\2259-0.png" />
+    <Content Include="Resources\Icons\2260-0.png" />
+    <Content Include="Resources\Icons\2261-0.png" />
+    <Content Include="Resources\Icons\2262-0.png" />
+    <Content Include="Resources\Icons\2263-0.png" />
+    <Content Include="Resources\Icons\2264-0.png" />
+    <Content Include="Resources\Icons\2265-0.png" />
+    <Content Include="Resources\Icons\2266-0.png" />
+    <Content Include="Resources\Icons\2267-0.png" />
+    <Content Include="Resources\Icons\23-0.png" />
+    <Content Include="Resources\Icons\24-0.png" />
+    <Content Include="Resources\Icons\24-1.png" />
+    <Content Include="Resources\Icons\24-2.png" />
+    <Content Include="Resources\Icons\25-0.png" />
+    <Content Include="Resources\Icons\255-0.png" />
+    <Content Include="Resources\Icons\256-0.png" />
+    <Content Include="Resources\Icons\257-0.png" />
+    <Content Include="Resources\Icons\258-0.png" />
+    <Content Include="Resources\Icons\259-0.png" />
+    <Content Include="Resources\Icons\26-0.png" />
+    <Content Include="Resources\Icons\260-0.png" />
+    <Content Include="Resources\Icons\261-0.png" />
+    <Content Include="Resources\Icons\262-0.png" />
+    <Content Include="Resources\Icons\263-0.png" />
+    <Content Include="Resources\Icons\263-1.png" />
+    <Content Include="Resources\Icons\264-0.png" />
+    <Content Include="Resources\Icons\265-0.png" />
+    <Content Include="Resources\Icons\266-0.png" />
+    <Content Include="Resources\Icons\267-0.png" />
+    <Content Include="Resources\Icons\268-0.png" />
+    <Content Include="Resources\Icons\269-0.png" />
+    <Content Include="Resources\Icons\27-0.png" />
+    <Content Include="Resources\Icons\270-0.png" />
+    <Content Include="Resources\Icons\271-0.png" />
+    <Content Include="Resources\Icons\272-0.png" />
+    <Content Include="Resources\Icons\273-0.png" />
+    <Content Include="Resources\Icons\274-0.png" />
+    <Content Include="Resources\Icons\275-0.png" />
+    <Content Include="Resources\Icons\276-0.png" />
+    <Content Include="Resources\Icons\277-0.png" />
+    <Content Include="Resources\Icons\278-0.png" />
+    <Content Include="Resources\Icons\279-0.png" />
+    <Content Include="Resources\Icons\28-0.png" />
+    <Content Include="Resources\Icons\280-0.png" />
+    <Content Include="Resources\Icons\281-0.png" />
+    <Content Include="Resources\Icons\282-0.png" />
+    <Content Include="Resources\Icons\283-0.png" />
+    <Content Include="Resources\Icons\284-0.png" />
+    <Content Include="Resources\Icons\285-0.png" />
+    <Content Include="Resources\Icons\286-0.png" />
+    <Content Include="Resources\Icons\287-0.png" />
+    <Content Include="Resources\Icons\288-0.png" />
+    <Content Include="Resources\Icons\289-0.png" />
+    <Content Include="Resources\Icons\29-0.png" />
+    <Content Include="Resources\Icons\290-0.png" />
+    <Content Include="Resources\Icons\291-0.png" />
+    <Content Include="Resources\Icons\292-0.png" />
+    <Content Include="Resources\Icons\293-0.png" />
+    <Content Include="Resources\Icons\294-0.png" />
+    <Content Include="Resources\Icons\295-0.png" />
+    <Content Include="Resources\Icons\296-0.png" />
+    <Content Include="Resources\Icons\297-0.png" />
+    <Content Include="Resources\Icons\298-0.png" />
+    <Content Include="Resources\Icons\299-0.png" />
+    <Content Include="Resources\Icons\3-0.png" />
+    <Content Include="Resources\Icons\3-1.png" />
+    <Content Include="Resources\Icons\3-2.png" />
+    <Content Include="Resources\Icons\30-0.png" />
+    <Content Include="Resources\Icons\300-0.png" />
+    <Content Include="Resources\Icons\301-0.png" />
+    <Content Include="Resources\Icons\302-0.png" />
+    <Content Include="Resources\Icons\303-0.png" />
+    <Content Include="Resources\Icons\304-0.png" />
+    <Content Include="Resources\Icons\305-0.png" />
+    <Content Include="Resources\Icons\306-0.png" />
+    <Content Include="Resources\Icons\307-0.png" />
+    <Content Include="Resources\Icons\308-0.png" />
+    <Content Include="Resources\Icons\309-0.png" />
+    <Content Include="Resources\Icons\31-0.png" />
+    <Content Include="Resources\Icons\31-1.png" />
+    <Content Include="Resources\Icons\31-2.png" />
+    <Content Include="Resources\Icons\310-0.png" />
+    <Content Include="Resources\Icons\311-0.png" />
+    <Content Include="Resources\Icons\312-0.png" />
+    <Content Include="Resources\Icons\313-0.png" />
+    <Content Include="Resources\Icons\314-0.png" />
+    <Content Include="Resources\Icons\315-0.png" />
+    <Content Include="Resources\Icons\316-0.png" />
+    <Content Include="Resources\Icons\317-0.png" />
+    <Content Include="Resources\Icons\318-0.png" />
+    <Content Include="Resources\Icons\319-0.png" />
+    <Content Include="Resources\Icons\32-0.png" />
+    <Content Include="Resources\Icons\320-0.png" />
+    <Content Include="Resources\Icons\321-0.png" />
+    <Content Include="Resources\Icons\322-0.png" />
+    <Content Include="Resources\Icons\322-1.png" />
+    <Content Include="Resources\Icons\323-0.png" />
+    <Content Include="Resources\Icons\324-0.png" />
+    <Content Include="Resources\Icons\325-0.png" />
+    <Content Include="Resources\Icons\326-0.png" />
+    <Content Include="Resources\Icons\327-0.png" />
+    <Content Include="Resources\Icons\328-0.png" />
+    <Content Include="Resources\Icons\329-0.png" />
+    <Content Include="Resources\Icons\33-0.png" />
+    <Content Include="Resources\Icons\330-0.png" />
+    <Content Include="Resources\Icons\331-0.png" />
+    <Content Include="Resources\Icons\332-0.png" />
+    <Content Include="Resources\Icons\333-0.png" />
+    <Content Include="Resources\Icons\334-0.png" />
+    <Content Include="Resources\Icons\335-0.png" />
+    <Content Include="Resources\Icons\336-0.png" />
+    <Content Include="Resources\Icons\337-0.png" />
+    <Content Include="Resources\Icons\338-0.png" />
+    <Content Include="Resources\Icons\339-0.png" />
+    <Content Include="Resources\Icons\34-0.png" />
+    <Content Include="Resources\Icons\340-0.png" />
+    <Content Include="Resources\Icons\341-0.png" />
+    <Content Include="Resources\Icons\342-0.png" />
+    <Content Include="Resources\Icons\343-0.png" />
+    <Content Include="Resources\Icons\344-0.png" />
+    <Content Include="Resources\Icons\345-0.png" />
+    <Content Include="Resources\Icons\346-0.png" />
+    <Content Include="Resources\Icons\347-0.png" />
+    <Content Include="Resources\Icons\348-0.png" />
+    <Content Include="Resources\Icons\349-0.png" />
+    <Content Include="Resources\Icons\349-1.png" />
+    <Content Include="Resources\Icons\349-2.png" />
+    <Content Include="Resources\Icons\349-3.png" />
+    <Content Include="Resources\Icons\35-0.png" />
+    <Content Include="Resources\Icons\35-1.png" />
+    <Content Include="Resources\Icons\35-10.png" />
+    <Content Include="Resources\Icons\35-11.png" />
+    <Content Include="Resources\Icons\35-12.png" />
+    <Content Include="Resources\Icons\35-13.png" />
+    <Content Include="Resources\Icons\35-14.png" />
+    <Content Include="Resources\Icons\35-15.png" />
+    <Content Include="Resources\Icons\35-2.png" />
+    <Content Include="Resources\Icons\35-3.png" />
+    <Content Include="Resources\Icons\35-4.png" />
+    <Content Include="Resources\Icons\35-5.png" />
+    <Content Include="Resources\Icons\35-6.png" />
+    <Content Include="Resources\Icons\35-7.png" />
+    <Content Include="Resources\Icons\35-8.png" />
+    <Content Include="Resources\Icons\35-9.png" />
+    <Content Include="Resources\Icons\350-0.png" />
+    <Content Include="Resources\Icons\350-1.png" />
+    <Content Include="Resources\Icons\351-0.png" />
+    <Content Include="Resources\Icons\351-1.png" />
+    <Content Include="Resources\Icons\351-10.png" />
+    <Content Include="Resources\Icons\351-11.png" />
+    <Content Include="Resources\Icons\351-12.png" />
+    <Content Include="Resources\Icons\351-13.png" />
+    <Content Include="Resources\Icons\351-14.png" />
+    <Content Include="Resources\Icons\351-15.png" />
+    <Content Include="Resources\Icons\351-2.png" />
+    <Content Include="Resources\Icons\351-3.png" />
+    <Content Include="Resources\Icons\351-4.png" />
+    <Content Include="Resources\Icons\351-5.png" />
+    <Content Include="Resources\Icons\351-6.png" />
+    <Content Include="Resources\Icons\351-7.png" />
+    <Content Include="Resources\Icons\351-8.png" />
+    <Content Include="Resources\Icons\351-9.png" />
+    <Content Include="Resources\Icons\352-0.png" />
+    <Content Include="Resources\Icons\353-0.png" />
+    <Content Include="Resources\Icons\354-0.png" />
+    <Content Include="Resources\Icons\355-0.png" />
+    <Content Include="Resources\Icons\356-0.png" />
+    <Content Include="Resources\Icons\357-0.png" />
+    <Content Include="Resources\Icons\358-0.png" />
+    <Content Include="Resources\Icons\359-0.png" />
+    <Content Include="Resources\Icons\360-0.png" />
+    <Content Include="Resources\Icons\361-0.png" />
+    <Content Include="Resources\Icons\362-0.png" />
+    <Content Include="Resources\Icons\363-0.png" />
+    <Content Include="Resources\Icons\364-0.png" />
+    <Content Include="Resources\Icons\365-0.png" />
+    <Content Include="Resources\Icons\366-0.png" />
+    <Content Include="Resources\Icons\367-0.png" />
+    <Content Include="Resources\Icons\368-0.png" />
+    <Content Include="Resources\Icons\369-0.png" />
+    <Content Include="Resources\Icons\37-0.png" />
+    <Content Include="Resources\Icons\370-0.png" />
+    <Content Include="Resources\Icons\371-0.png" />
+    <Content Include="Resources\Icons\372-0.png" />
+    <Content Include="Resources\Icons\373-0.png" />
+    <Content Include="Resources\Icons\374-0.png" />
+    <Content Include="Resources\Icons\375-0.png" />
+    <Content Include="Resources\Icons\376-0.png" />
+    <Content Include="Resources\Icons\377-0.png" />
+    <Content Include="Resources\Icons\378-0.png" />
+    <Content Include="Resources\Icons\379-0.png" />
+    <Content Include="Resources\Icons\38-0.png" />
+    <Content Include="Resources\Icons\38-1.png" />
+    <Content Include="Resources\Icons\38-2.png" />
+    <Content Include="Resources\Icons\38-3.png" />
+    <Content Include="Resources\Icons\38-4.png" />
+    <Content Include="Resources\Icons\38-5.png" />
+    <Content Include="Resources\Icons\38-6.png" />
+    <Content Include="Resources\Icons\38-7.png" />
+    <Content Include="Resources\Icons\38-8.png" />
+    <Content Include="Resources\Icons\380-0.png" />
+    <Content Include="Resources\Icons\381-0.png" />
+    <Content Include="Resources\Icons\382-0.png" />
+    <Content Include="Resources\Icons\383-100.png" />
+    <Content Include="Resources\Icons\383-101.png" />
+    <Content Include="Resources\Icons\383-120.png" />
+    <Content Include="Resources\Icons\383-50.png" />
+    <Content Include="Resources\Icons\383-51.png" />
+    <Content Include="Resources\Icons\383-52.png" />
+    <Content Include="Resources\Icons\383-54.png" />
+    <Content Include="Resources\Icons\383-55.png" />
+    <Content Include="Resources\Icons\383-56.png" />
+    <Content Include="Resources\Icons\383-57.png" />
+    <Content Include="Resources\Icons\383-58.png" />
+    <Content Include="Resources\Icons\383-59.png" />
+    <Content Include="Resources\Icons\383-60.png" />
+    <Content Include="Resources\Icons\383-61.png" />
+    <Content Include="Resources\Icons\383-62.png" />
+    <Content Include="Resources\Icons\383-65.png" />
+    <Content Include="Resources\Icons\383-66.png" />
+    <Content Include="Resources\Icons\383-67.png" />
+    <Content Include="Resources\Icons\383-68.png" />
+    <Content Include="Resources\Icons\383-69.png" />
+    <Content Include="Resources\Icons\383-90.png" />
+    <Content Include="Resources\Icons\383-91.png" />
+    <Content Include="Resources\Icons\383-92.png" />
+    <Content Include="Resources\Icons\383-93.png" />
+    <Content Include="Resources\Icons\383-94.png" />
+    <Content Include="Resources\Icons\383-95.png" />
+    <Content Include="Resources\Icons\383-96.png" />
+    <Content Include="Resources\Icons\383-98.png" />
+    <Content Include="Resources\Icons\384-0.png" />
+    <Content Include="Resources\Icons\385-0.png" />
+    <Content Include="Resources\Icons\386-0.png" />
+    <Content Include="Resources\Icons\387-0.png" />
+    <Content Include="Resources\Icons\388-0.png" />
+    <Content Include="Resources\Icons\389-0.png" />
+    <Content Include="Resources\Icons\39-0.png" />
+    <Content Include="Resources\Icons\390-0.png" />
+    <Content Include="Resources\Icons\391-0.png" />
+    <Content Include="Resources\Icons\392-0.png" />
+    <Content Include="Resources\Icons\393-0.png" />
+    <Content Include="Resources\Icons\394-0.png" />
+    <Content Include="Resources\Icons\395-0.png" />
+    <Content Include="Resources\Icons\396-0.png" />
+    <Content Include="Resources\Icons\397-0.png" />
+    <Content Include="Resources\Icons\397-1.png" />
+    <Content Include="Resources\Icons\397-2.png" />
+    <Content Include="Resources\Icons\397-3.png" />
+    <Content Include="Resources\Icons\397-4.png" />
+    <Content Include="Resources\Icons\397-5.png" />
+    <Content Include="Resources\Icons\398-0.png" />
+    <Content Include="Resources\Icons\399-0.png" />
+    <Content Include="Resources\Icons\4-0.png" />
+    <Content Include="Resources\Icons\40-0.png" />
+    <Content Include="Resources\Icons\400-0.png" />
+    <Content Include="Resources\Icons\401-0.png" />
+    <Content Include="Resources\Icons\402-0.png" />
+    <Content Include="Resources\Icons\403-0.png" />
+    <Content Include="Resources\Icons\404-0.png" />
+    <Content Include="Resources\Icons\405-0.png" />
+    <Content Include="Resources\Icons\406-0.png" />
+    <Content Include="Resources\Icons\407-0.png" />
+    <Content Include="Resources\Icons\408-0.png" />
+    <Content Include="Resources\Icons\409-0.png" />
+    <Content Include="Resources\Icons\41-0.png" />
+    <Content Include="Resources\Icons\410-0.png" />
+    <Content Include="Resources\Icons\411-0.png" />
+    <Content Include="Resources\Icons\412-0.png" />
+    <Content Include="Resources\Icons\413-0.png" />
+    <Content Include="Resources\Icons\414-0.png" />
+    <Content Include="Resources\Icons\415-0.png" />
+    <Content Include="Resources\Icons\416-0.png" />
+    <Content Include="Resources\Icons\417-0.png" />
+    <Content Include="Resources\Icons\418-0.png" />
+    <Content Include="Resources\Icons\419-0.png" />
+    <Content Include="Resources\Icons\42-0.png" />
+    <Content Include="Resources\Icons\420-0.png" />
+    <Content Include="Resources\Icons\421-0.png" />
+    <Content Include="Resources\Icons\422-0.png" />
+    <Content Include="Resources\Icons\423-0.png" />
+    <Content Include="Resources\Icons\424-0.png" />
+    <Content Include="Resources\Icons\425-0.png" />
+    <Content Include="Resources\Icons\427-0.png" />
+    <Content Include="Resources\Icons\428-0.png" />
+    <Content Include="Resources\Icons\429-0.png" />
+    <Content Include="Resources\Icons\43-0.png" />
+    <Content Include="Resources\Icons\43-1.png" />
+    <Content Include="Resources\Icons\43-2.png" />
+    <Content Include="Resources\Icons\43-3.png" />
+    <Content Include="Resources\Icons\43-4.png" />
+    <Content Include="Resources\Icons\43-5.png" />
+    <Content Include="Resources\Icons\43-6.png" />
+    <Content Include="Resources\Icons\43-7.png" />
+    <Content Include="Resources\Icons\430-0.png" />
+    <Content Include="Resources\Icons\431-0.png" />
+    <Content Include="Resources\Icons\432-0.png" />
+    <Content Include="Resources\Icons\433-0.png" />
+    <Content Include="Resources\Icons\434-0.png" />
+    <Content Include="Resources\Icons\435-0.png" />
+    <Content Include="Resources\Icons\436-0.png" />
+    <Content Include="Resources\Icons\437-0.png" />
+    <Content Include="Resources\Icons\438-0.png" />
+    <Content Include="Resources\Icons\439-0.png" />
+    <Content Include="Resources\Icons\44-0.png" />
+    <Content Include="Resources\Icons\44-1.png" />
+    <Content Include="Resources\Icons\44-2.png" />
+    <Content Include="Resources\Icons\44-3.png" />
+    <Content Include="Resources\Icons\44-4.png" />
+    <Content Include="Resources\Icons\44-5.png" />
+    <Content Include="Resources\Icons\44-6.png" />
+    <Content Include="Resources\Icons\44-7.png" />
+    <Content Include="Resources\Icons\440-0.png" />
+    <Content Include="Resources\Icons\441-0.png" />
+    <Content Include="Resources\Icons\442-0.png" />
+    <Content Include="Resources\Icons\443-0.png" />
+    <Content Include="Resources\Icons\444-0.png" />
+    <Content Include="Resources\Icons\445-0.png" />
+    <Content Include="Resources\Icons\446-0.png" />
+    <Content Include="Resources\Icons\447-0.png" />
+    <Content Include="Resources\Icons\448-0.png" />
+    <Content Include="Resources\Icons\45-0.png" />
+    <Content Include="Resources\Icons\46-0.png" />
+    <Content Include="Resources\Icons\47-0.png" />
+    <Content Include="Resources\Icons\48-0.png" />
+    <Content Include="Resources\Icons\49-0.png" />
+    <Content Include="Resources\Icons\5-0.png" />
+    <Content Include="Resources\Icons\5-1.png" />
+    <Content Include="Resources\Icons\5-2.png" />
+    <Content Include="Resources\Icons\5-3.png" />
+    <Content Include="Resources\Icons\5-4.png" />
+    <Content Include="Resources\Icons\5-5.png" />
+    <Content Include="Resources\Icons\50-0.png" />
+    <Content Include="Resources\Icons\51-0.png" />
+    <Content Include="Resources\Icons\52-0.png" />
+    <Content Include="Resources\Icons\53-0.png" />
+    <Content Include="Resources\Icons\54-0.png" />
+    <Content Include="Resources\Icons\55-0.png" />
+    <Content Include="Resources\Icons\56-0.png" />
+    <Content Include="Resources\Icons\57-0.png" />
+    <Content Include="Resources\Icons\58-0.png" />
+    <Content Include="Resources\Icons\59-0.png" />
+    <Content Include="Resources\Icons\6-0.png" />
+    <Content Include="Resources\Icons\6-1.png" />
+    <Content Include="Resources\Icons\6-2.png" />
+    <Content Include="Resources\Icons\6-3.png" />
+    <Content Include="Resources\Icons\6-4.png" />
+    <Content Include="Resources\Icons\6-5.png" />
+    <Content Include="Resources\Icons\60-0.png" />
+    <Content Include="Resources\Icons\61-0.png" />
+    <Content Include="Resources\Icons\62-0.png" />
+    <Content Include="Resources\Icons\63-0.png" />
+    <Content Include="Resources\Icons\64-0.png" />
+    <Content Include="Resources\Icons\65-0.png" />
+    <Content Include="Resources\Icons\66-0.png" />
+    <Content Include="Resources\Icons\67-0.png" />
+    <Content Include="Resources\Icons\68-0.png" />
+    <Content Include="Resources\Icons\69-0.png" />
+    <Content Include="Resources\Icons\7-0.png" />
+    <Content Include="Resources\Icons\70-0.png" />
+    <Content Include="Resources\Icons\71-0.png" />
+    <Content Include="Resources\Icons\72-0.png" />
+    <Content Include="Resources\Icons\73-0.png" />
+    <Content Include="Resources\Icons\74-0.png" />
+    <Content Include="Resources\Icons\75-0.png" />
+    <Content Include="Resources\Icons\76-0.png" />
+    <Content Include="Resources\Icons\77-0.png" />
+    <Content Include="Resources\Icons\78-0.png" />
+    <Content Include="Resources\Icons\79-0.png" />
+    <Content Include="Resources\Icons\8-0.png" />
+    <Content Include="Resources\Icons\80-0.png" />
+    <Content Include="Resources\Icons\81-0.png" />
+    <Content Include="Resources\Icons\82-0.png" />
+    <Content Include="Resources\Icons\83-0.png" />
+    <Content Include="Resources\Icons\84-0.png" />
+    <Content Include="Resources\Icons\85-0.png" />
+    <Content Include="Resources\Icons\86-0.png" />
+    <Content Include="Resources\Icons\87-0.png" />
+    <Content Include="Resources\Icons\88-0.png" />
+    <Content Include="Resources\Icons\89-0.png" />
+    <Content Include="Resources\Icons\9-0.png" />
+    <Content Include="Resources\Icons\90-0.png" />
+    <Content Include="Resources\Icons\91-0.png" />
+    <Content Include="Resources\Icons\92-0.png" />
+    <Content Include="Resources\Icons\93-0.png" />
+    <Content Include="Resources\Icons\94-0.png" />
+    <Content Include="Resources\Icons\95-0.png" />
+    <Content Include="Resources\Icons\95-1.png" />
+    <Content Include="Resources\Icons\95-10.png" />
+    <Content Include="Resources\Icons\95-11.png" />
+    <Content Include="Resources\Icons\95-12.png" />
+    <Content Include="Resources\Icons\95-13.png" />
+    <Content Include="Resources\Icons\95-14.png" />
+    <Content Include="Resources\Icons\95-15.png" />
+    <Content Include="Resources\Icons\95-2.png" />
+    <Content Include="Resources\Icons\95-3.png" />
+    <Content Include="Resources\Icons\95-4.png" />
+    <Content Include="Resources\Icons\95-5.png" />
+    <Content Include="Resources\Icons\95-6.png" />
+    <Content Include="Resources\Icons\95-7.png" />
+    <Content Include="Resources\Icons\95-8.png" />
+    <Content Include="Resources\Icons\95-9.png" />
+    <Content Include="Resources\Icons\96-0.png" />
+    <Content Include="Resources\Icons\97-0.png" />
+    <Content Include="Resources\Icons\97-1.png" />
+    <Content Include="Resources\Icons\97-2.png" />
+    <Content Include="Resources\Icons\97-3.png" />
+    <Content Include="Resources\Icons\97-4.png" />
+    <Content Include="Resources\Icons\97-5.png" />
+    <Content Include="Resources\Icons\98-0.png" />
+    <Content Include="Resources\Icons\98-1.png" />
+    <Content Include="Resources\Icons\98-2.png" />
+    <Content Include="Resources\Icons\98-3.png" />
+    <Content Include="Resources\Icons\99-0.png" />
+    <Content Include="Resources\Icons\arrow_right_background_green_ico290.ico" />
+    <Content Include="Resources\Icons\BitmapCross.bmp" />
+    <Content Include="Resources\Icons\head.quachtridat.png" />
+    <Content Include="Resources\Icons\red_cross_ico240.ico" />
+    <Content Include="Resources\Icons\save_ico16761.ico" />
+    <Content Include="Resources\Text files\Enchantments.txt" />
+    <Content Include="Resources\Text files\Latin.txt" />
+    <Content Include="Resources\Text files\Minecraft Item List.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
