@@ -4,15 +4,16 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using CCGE_Metro.Classes.Structures;
 using MetroFramework;
 using MetroFramework.Forms;
+using MenuItem = CCGE_Metro.Classes.Structures.MenuItem;
 
 namespace CCGE_Metro.Forms {
     using Classes;
-    using Classes.Types;
     using User_controls;
     using static Settings;
-    using MenuItem = Classes.Types.MenuItem;
+    using MenuItem = MenuItem;
     public partial class Edit : MetroForm {
         #region Variables
         private Timer _timerUpdater;
@@ -155,7 +156,6 @@ namespace CCGE_Metro.Forms {
             TemporaryMenuItem.PermissionMessage = txtPermissionMessage.Text;
 
             txtYaml.Lines = TemporaryMenuItem.ToYamlText();
-            
 
             ToolTip.ToolTipText = TemporaryMenuItem.ToFormattedStrings();
         }

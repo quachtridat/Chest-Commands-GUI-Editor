@@ -1,4 +1,4 @@
-﻿namespace CCGE_Metro.Classes.Types {
+﻿namespace CCGE_Metro.Classes.Structures {
     public class MinecraftEnchantment {
         #region Constructor
         /// <summary>

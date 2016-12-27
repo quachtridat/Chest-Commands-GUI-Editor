@@ -1,6 +1,7 @@
-﻿namespace CCGE_Metro.User_controls {
+﻿using CCGE_Metro.Classes.Structures;
+
+namespace CCGE_Metro.User_controls {
     using System.Drawing;
-    using Classes.Types;
     using static Settings;
     public class MinecraftToolTip : MetroFramework.Components.MetroToolTip {
         #region Properties

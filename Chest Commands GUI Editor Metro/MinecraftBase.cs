@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CCGE_Metro.Classes.Types;
+using CCGE_Metro.Classes.Structures;
 using CCGE_Metro.Properties;
 
 namespace CCGE_Metro {

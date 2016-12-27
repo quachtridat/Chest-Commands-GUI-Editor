@@ -1,4 +1,6 @@
-﻿namespace CCGE_Metro.Classes.Extensions {
+﻿using CCGE_Metro.Classes.Structures;
+
+namespace CCGE_Metro.Classes.Extensions {
     /// <summary>
     /// A static class containing extension methods for <see cref="System.Windows.Forms.RichTextBox"/>.
     /// </summary>
@@ -50,11 +52,11 @@
             box.SelectionColor = box.ForeColor;
         }
         /// <summary>
-        /// Appends an <see cref="CCGE_Metro.Classes.Types.ExtendedString"/> to the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
+        /// Appends an <see cref="ExtendedString"/> to the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
-        /// <param name="exStr"><see cref="CCGE_Metro.Classes.Types.ExtendedString"/>.</param>
-        public static void AppendText(this System.Windows.Forms.RichTextBox box, Types.ExtendedString exStr) {
+        /// <param name="exStr"><see cref="ExtendedString"/>.</param>
+        public static void AppendText(this System.Windows.Forms.RichTextBox box, ExtendedString exStr) {
             if (!string.IsNullOrEmpty(exStr.String))
                 if (exStr.Color == System.Drawing.Color.Empty && exStr.Font == null) box.AppendText(exStr.String);
                 else if (exStr.Color != System.Drawing.Color.Empty && exStr.Font == null) box.AppendText(exStr.String, exStr.Color);
@@ -108,13 +110,13 @@
                 }
         }
         /// <summary>
-        /// Adds the text of an array of <see cref="CCGE_Metro.Classes.Types.ExtendedString"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
+        /// Adds the text of an array of <see cref="ExtendedString"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
-        /// <param name="exStrArr">An array of <see cref="CCGE_Metro.Classes.Types.ExtendedString"/>.</param>
+        /// <param name="exStrArr">An array of <see cref="ExtendedString"/>.</param>
         /// <param name="separate"><see cref="CCGE_Metro.Classes.Extensions.RichTextBoxExt.LineSeparateOptions"/> value.</param>
-        public static void AppendText(this System.Windows.Forms.RichTextBox box, Types.ExtendedString[] exStrArr, LineSeparateOptions separate = LineSeparateOptions.None) {
-            foreach (Types.ExtendedString exStr in exStrArr)
+        public static void AppendText(this System.Windows.Forms.RichTextBox box, ExtendedString[] exStrArr, LineSeparateOptions separate = LineSeparateOptions.None) {
+            foreach (ExtendedString exStr in exStrArr)
                 switch (separate) {
                     case LineSeparateOptions.EmptyLineBefore: box.AppendText("\r"); box.AppendText(exStr); break;
                     case LineSeparateOptions.EmptyLineAfter: box.AppendText(exStr); box.AppendText("\r"); break;

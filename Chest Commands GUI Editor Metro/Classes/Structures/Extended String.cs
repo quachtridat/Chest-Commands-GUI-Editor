@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace CCGE_Metro.Classes.Types {
+namespace CCGE_Metro.Classes.Structures {
     /// <summary>
     /// A <see cref="string"/> that has custom color and font style.
     /// </summary>

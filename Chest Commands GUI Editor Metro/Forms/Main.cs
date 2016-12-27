@@ -3,17 +3,18 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
 using CCGE_Metro.Classes;
-using CCGE_Metro.Classes.Types;
+using CCGE_Metro.Classes.Structures;
 using CCGE_Metro.Properties;
 using CCGE_Metro.User_controls;
 using MetroFramework;
 using MetroFramework.Controls;
 using MetroFramework.Forms;
 using YamlDotNet.RepresentationModel;
+using MenuItem = CCGE_Metro.Classes.Structures.MenuItem;
 
 namespace CCGE_Metro.Forms {
     using Settings = Settings;
-    using MenuItem = Classes.Types.MenuItem;
+    using MenuItem = MenuItem;
     public partial class Main : MetroForm {
         #region Fields
         private Timer _timerUpdater;
@@ -109,6 +110,10 @@ namespace CCGE_Metro.Forms {
 
             tableMain.Clear();           
             CurrentMenuSettings = importer.GetMenuSettings((YamlMappingNode)importer.MainNodes[new YamlScalarNode(@"menu-settings")]);
+            if (CurrentMenuSettings == null) {
+                MetroMessageBox.Show(this, $"Failed to import menu settings!", "Import failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             SetFields(CurrentMenuSettings);
 
             foreach (YamlNode node in importer.MainNodes.Keys) {
@@ -117,7 +122,7 @@ namespace CCGE_Metro.Forms {
                     MenuItem result = importer.GetMenuItem(node);
                     Program.MenuItems[result.Column, result.Row] = result;
                 } catch {
-                    MetroMessageBox.Show(this, $"Failed to import menu item {node}!");
+                    MetroMessageBox.Show(this, $"Failed to import menu item {node}!", "Import failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 

@@ -1,4 +1,4 @@
-﻿using CCGE_Metro.Classes.Types;
+﻿using CCGE_Metro.Classes.Structures;
 
 namespace CCGE_Metro.User_controls {
     public sealed class TableCell : System.Windows.Forms.PictureBox {

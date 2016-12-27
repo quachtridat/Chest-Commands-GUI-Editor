@@ -105,7 +105,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Classes\Parser.cs" />
-    <Compile Include="Classes\Types\CCG Menu Settings.cs" />
+    <Compile Include="Classes\Structures\CCG Menu Settings.cs" />
     <Compile Include="Forms\Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,10 +126,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Classes\Types\CCG Menu Item.cs" />
-    <Compile Include="Classes\Types\Extended String.cs" />
-    <Compile Include="Classes\Types\Minecraft Enchantment.cs" />
-    <Compile Include="Classes\Types\Minecraft Item.cs" />
+    <Compile Include="Classes\Structures\CCG Menu Item.cs" />
+    <Compile Include="Classes\Structures\Extended String.cs" />
+    <Compile Include="Classes\Structures\Minecraft Enchantment.cs" />
+    <Compile Include="Classes\Structures\Minecraft Item.cs" />
     <Compile Include="User controls\Table cell.cs">
       <SubType>Component</SubType>
     </Compile>

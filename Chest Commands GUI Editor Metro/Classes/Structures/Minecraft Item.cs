@@ -1,4 +1,4 @@
-﻿namespace CCGE_Metro.Classes.Types {
+﻿namespace CCGE_Metro.Classes.Structures {
     public class MinecraftItem {
         #region Constructor
         /// <summary>
@@ -65,11 +65,10 @@
         /// </summary>
         /// <param name="s">A string containing information of a Minecraft item.</param>
         /// <param name="i">When this method returns, contains the Minecraft item object equivalent to the information contained in s, if the conversion succeeded, or null if the conversion failed. The conversion fails if the s parameter is null or String.Empty, is not of the correct format, or represents a Minecraft item that does not exist. This parameter is passed uninitialized; any value originally supplied in result will be overwritten.</param>
-        /// <param name="checkAmount">A boolean value indicates whether the item amount need checking.</param>
         /// <returns></returns>
-        public static bool TryParse(string s, out MinecraftItem i, bool checkAmount = false) {
+        public static bool TryParse(string s, out MinecraftItem i) {
             try {
-                i = Parse(s, checkAmount);
+                i = Parse(s);
                 return true;
             }
             catch {
@@ -80,10 +79,9 @@
         /// <summary>
         /// Convert the string representation of information of a <see cref="MinecraftItem"/> to a <see cref="MinecraftItem"/> object.
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="checkAmount"></param>
+        /// <param name="s">A string containing information of a <see cref="MinecraftItem"/>.</param>
         /// <returns></returns>
-        public static MinecraftItem Parse(string s, bool checkAmount = false) {
+        public static MinecraftItem Parse(string s) {
             MinecraftItem item = null;
             int itemIndex;
 

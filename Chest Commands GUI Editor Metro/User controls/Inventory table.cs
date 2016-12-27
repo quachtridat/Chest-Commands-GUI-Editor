@@ -2,7 +2,8 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using MenuItem = CCGE_Metro.Classes.Types.MenuItem;
+using CCGE_Metro.Classes.Structures;
+using MenuItem = CCGE_Metro.Classes.Structures.MenuItem;
 
 namespace CCGE_Metro.User_controls {
     using Forms;
@@ -35,11 +36,11 @@ namespace CCGE_Metro.User_controls {
         }
 
         /// <summary>
-        /// Set a <see cref="Classes.Types.MinecraftItem"/> icon to a <see cref="CCGE_Metro.User_controls.TableCell"/>.
+        /// Set a <see cref="MinecraftItem"/> icon to a <see cref="CCGE_Metro.User_controls.TableCell"/>.
         /// </summary>
         /// <param name="item"></param>
         /// <param name="box"></param>
-        public static void SetCellIcon(Classes.Types.MinecraftItem item, TableCell box) => box.Image = item?.Icon;
+        public static void SetCellIcon(MinecraftItem item, TableCell box) => box.Image = item?.Icon;
 
         /// <summary>
         /// Set a <see cref="MenuItem"/> to a <see cref="CCGE_Metro.User_controls.TableCell"/>.
