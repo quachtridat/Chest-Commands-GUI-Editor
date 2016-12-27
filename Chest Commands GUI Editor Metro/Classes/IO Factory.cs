@@ -43,17 +43,8 @@ namespace CCGE_Metro.Classes {
             } else return null;
         }
         public MenuItem GetMenuItem(YamlNode itemKey) {
-            YamlMappingNode itemMappingNode;
-
-            try {
-                 itemMappingNode = (YamlMappingNode) MainNodes[itemKey];
-            }
-            catch {
-                throw new ArgumentException(@"Invalid item key!");
-            }
-
-            MenuItem result;
-            return MenuItem.TryParse(itemKey.ToString(), itemMappingNode, out result) ? result : null;
+            try { return MenuItem.Parse(itemKey.ToString(), (YamlMappingNode) MainNodes[itemKey]); }
+            catch { return null; }
         }
         #endregion
 
