@@ -55,10 +55,12 @@ namespace CCGE_Metro.Classes {
         }
 
         /// <summary>
-        /// Get 32x32 player head from web.
+        /// Get a 32x32 player head from web.
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="username">Player's username.</param>
+        /// <param name="forceReload">Whether the player head needs to be re-downloaded.</param>
         /// <returns></returns>
+        /// <exception cref="Exception">An error occurs while creating <see cref="Settings.HEAD_FOLDER"/> folder.</exception>
         public static Image GetPlayerHead(string username, bool forceReload = false) {
             Image result = (Bitmap) Resources.ResourceManager.GetObject("_397_3");
 
@@ -82,9 +84,9 @@ namespace CCGE_Metro.Classes {
         }
 
         /// <summary>
-        /// Returns the file path of the player head image based on username and the head folder.
+        /// Returns the file path of the player head image based on username and the <see cref="Settings.HEAD_FOLDER"/> folder.
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="username">Player's username.</param>
         /// <returns></returns>
         public static string GeneratePlayerHeadPath(string username) {
             string directory = Path.GetDirectoryName(Resources.HEAD_FOLDER);
@@ -96,9 +98,9 @@ namespace CCGE_Metro.Classes {
         }
 
         /// <summary>
-        /// Download player head.
+        /// Downloads player head.
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="username">Player's username.</param>
         /// <param name="path">The folder path where the player head will be located.</param>
         /// <returns></returns>
         public static bool DownloadPlayerHead(string username, string path) {

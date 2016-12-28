@@ -1,6 +1,5 @@
-﻿using CCGE_Metro.Classes.Structures;
-
-namespace CCGE_Metro.Classes.Extensions {
+﻿namespace CCGE_Metro.Classes.Extensions {
+    using Structures;
     /// <summary>
     /// A static class containing extension methods for <see cref="System.Windows.Forms.RichTextBox"/>.
     /// </summary>
@@ -64,7 +63,7 @@ namespace CCGE_Metro.Classes.Extensions {
                 else box.AppendText(exStr.String, exStr.Color, exStr.Font);
         }
         /// <summary>
-        /// Adds the text of an array of <see cref="System.String"/> with specified <see cref="System.Drawing.Color"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
+        /// Appends text of an array of <see cref="System.String"/> with specified <see cref="System.Drawing.Color"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
         /// <param name="text">An array of <see cref="System.String"/>.</param>
@@ -79,7 +78,7 @@ namespace CCGE_Metro.Classes.Extensions {
                 }
         }
         /// <summary>
-        /// Adds the text of an array of <see cref="System.String"/> with specified <see cref="System.Drawing.Font"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
+        /// Appends text of an array of <see cref="System.String"/> with specified <see cref="System.Drawing.Font"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
         /// <param name="text">An array of <see cref="System.String"/>.</param>
@@ -94,7 +93,7 @@ namespace CCGE_Metro.Classes.Extensions {
                 }
         }
         /// <summary>
-        /// Adds the text of an array of <see cref="System.String"/> with specified <see cref="System.Drawing.Color"/> and <see cref="System.Drawing.Font"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
+        /// Appends text of an array of <see cref="System.String"/> with specified <see cref="System.Drawing.Color"/> and <see cref="System.Drawing.Font"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
         /// <param name="text"><see cref="System.String"/>.</param>
@@ -110,7 +109,7 @@ namespace CCGE_Metro.Classes.Extensions {
                 }
         }
         /// <summary>
-        /// Adds the text of an array of <see cref="ExtendedString"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
+        /// Appends text of an array of <see cref="ExtendedString"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
         /// <param name="exStrArr">An array of <see cref="ExtendedString"/>.</param>

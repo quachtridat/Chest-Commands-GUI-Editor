@@ -5,7 +5,7 @@ using YamlDotNet.RepresentationModel;
 
 namespace CCGE_Metro.Classes.Structures {
     [System.ComponentModel.Description("A class of Chest Commands GUI's menu settings.")]
-    public class MenuSettings : Interfaces.IYamlConvertible {
+    public class MenuSettings : ICloneable, Interfaces.IYamlConvertible {
         #region Constructor
         /// <summary>
         /// Constructs a new instance of a <see cref="MenuSettings"/>.
@@ -20,7 +20,7 @@ namespace CCGE_Metro.Classes.Structures {
 
         #region Methods
         /// <summary>
-        /// Convert the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuSettings"/> to a <see cref="T:MenuSettings"/> object.
+        /// Converts the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuSettings"/> to a <see cref="T:MenuSettings"/> object.
         /// A return value indicates whether the conversion succeeded.
         /// </summary>
         /// <param name="mappingNode">A <see cref="T:YamlMappingNode"/> containing information of a <see cref="T:MenuSettings"/>.</param>
@@ -35,13 +35,13 @@ namespace CCGE_Metro.Classes.Structures {
             }
         }
         /// <summary>
-        /// Convert the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuSettings"/> to a <see cref="T:MenuSettings"/> object.
+        /// Converts the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuSettings"/> to a <see cref="T:MenuSettings"/> object.
         /// </summary>
         /// <param name="mappingNode">A <see cref="T:YamlMappingNode"/> containing information of a <see cref="T:MenuSettings"/>.</param>
         /// <returns></returns>
         public static MenuSettings Parse(YamlMappingNode mappingNode) => FromYamlNode(mappingNode);
         /// <summary>
-        /// Convert the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuSettings"/> to a <see cref="T:MenuSettings"/> object.
+        /// Converts the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuSettings"/> to a <see cref="T:MenuSettings"/> object.
         /// </summary>
         /// <param name="settingsMappingNode">A <see cref="T:YamlMappingNode"/> containing information of a <see cref="T:MenuSettings"/>.</param>
         /// <returns></returns>
@@ -99,6 +99,12 @@ namespace CCGE_Metro.Classes.Structures {
 
             return settings;
         }
+
+        #region ICloneable member
+        public object Clone() => MemberwiseClone();
+        #endregion
+
+        #region IYamlConvertible members
         public string[] ToYamlText(bool useYamlParser = false) {
             if (useYamlParser) {
                 YamlDotNet.Serialization.Serializer serializer = new YamlDotNet.Serialization.Serializer();
@@ -128,7 +134,6 @@ namespace CCGE_Metro.Classes.Structures {
                 return result.Select((s, i) => i > 0 ? new string(' ', 2) + s : s).ToArray();
             }
         }
-
         public Dictionary<YamlNode, YamlNode> ToYamlDictionary() {
             string cmdString = string.Empty;
             if (Commands?.Length > 0)
@@ -177,31 +182,22 @@ namespace CCGE_Metro.Classes.Structures {
 
             return result;
         }
-
         public KeyValuePair<YamlScalarNode, YamlMappingNode> ToYamlSection()
             => new KeyValuePair<YamlScalarNode, YamlMappingNode>
             (new YamlScalarNode(@"menu-settings"), new YamlMappingNode(ToYamlDictionary()));
         #endregion
+        #endregion
 
         #region Properties
-        [System.ComponentModel.Description("Menu's name.")]
-        public string Name { get; set; }
-        [System.ComponentModel.Description("Menu's escaped name.")]
-        public string EscapedName => Helpers.EscapeSingleQuotes(Name);
-        [System.ComponentModel.Description("Menu's row count.")]
-        public uint Rows { get; set; }
-        [System.ComponentModel.Description("Menu's command lines. Use these commands to open the menu.")]
-        public string[] Commands { get; set; }
-        [System.ComponentModel.Description("Menu's escaped command lines.")]
-        public string[] EscapedCommandStrings => Helpers.EscapeSingleQuotes(Commands);
-        [System.ComponentModel.Description("Menu's auto-refresh interval.")]
-        public uint AutoRefresh { get; set; }
-        [System.ComponentModel.Description("Menu's open actions. These actions will be executed as soon as the menu is opened.")]
-        public string[] OpenActions { get; set; }
-        [System.ComponentModel.Description("Menu's escaped open-action lines.")]
-        public string[] EscapedOpenActionStrings => Helpers.EscapeSingleQuotes(OpenActions);
-        [System.ComponentModel.Description("Menu's open item. Use this item to open the menu.")]
-        public MinecraftItem OpenItem { get; set; }
+        [System.ComponentModel.Description("Menu's name.")] public string Name { get; set; }
+        [System.ComponentModel.Description("Menu's escaped name.")] public string EscapedName => Helpers.EscapeSingleQuotes(Name);
+        [System.ComponentModel.Description("Menu's row count.")] public uint Rows { get; set; }
+        [System.ComponentModel.Description("Menu's command lines. Use these commands to open the menu.")] public string[] Commands { get; set; }
+        [System.ComponentModel.Description("Menu's escaped command lines.")] public string[] EscapedCommandStrings => Helpers.EscapeSingleQuotes(Commands);
+        [System.ComponentModel.Description("Menu's auto-refresh interval.")] public uint AutoRefresh { get; set; }
+        [System.ComponentModel.Description("Menu's open actions. These actions will be executed as soon as the menu is opened.")] public string[] OpenActions { get; set; }
+        [System.ComponentModel.Description("Menu's escaped open-action lines.")] public string[] EscapedOpenActionStrings => Helpers.EscapeSingleQuotes(OpenActions);
+        [System.ComponentModel.Description("Menu's open item. Use this item to open the menu.")] public MinecraftItem OpenItem { get; set; }
         /// <summary>
         /// Whether the item can be opened by left-clicking the <see cref="OpenItem"/>.
         /// </summary>

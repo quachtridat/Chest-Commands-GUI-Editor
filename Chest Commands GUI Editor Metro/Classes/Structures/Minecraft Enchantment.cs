@@ -16,14 +16,10 @@
         #endregion
 
         #region Properties
-        [System.ComponentModel.Description(@"Enchantment's display name.")]
-        public string Name { get; }
-        [System.ComponentModel.Description(@"Enchantment's level.")]
-        public uint Level { get; set; }
-        [System.ComponentModel.Description(@"Enchantment's ID.")]
-        public int Id { get; }
-        [System.ComponentModel.Description(@"Enchantment's literal name.")]
-        public string Literal { get; }
+        [System.ComponentModel.Description(@"Enchantment's display name.")] public string Name { get; }
+        [System.ComponentModel.Description(@"Enchantment's level.")] public uint Level { get; set; }
+        [System.ComponentModel.Description(@"Enchantment's ID.")] public int Id { get; }
+        [System.ComponentModel.Description(@"Enchantment's literal name.")] public string Literal { get; }
         #endregion
 
         #region Methods
@@ -33,7 +29,7 @@
             return result;
         }       
         /// <summary>
-        /// Convert the string representation of information of a <see cref="MinecraftEnchantment"/> to a <see cref="MinecraftEnchantment"/> object.
+        /// Converts the string representation of information of a <see cref="MinecraftEnchantment"/> to a <see cref="MinecraftEnchantment"/> object.
         /// A return value indicates whether the conversion succeeded.
         /// </summary>
         /// <param name="s"></param>
@@ -56,13 +52,15 @@
             }
         }
         /// <summary>
-        /// Convert the string representation of information of a <see cref="MinecraftEnchantment"/> to a <see cref="MinecraftEnchantment"/> object.
+        /// Converts the string representation of information of a <see cref="MinecraftEnchantment"/> to a <see cref="MinecraftEnchantment"/> object.
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException"><see cref="s"/> is null or empty.</exception>
+        /// <exception cref="System.FormatException"><see cref="s"/> is not in the correct format.</exception>
+        /// <exception cref="System.FormatException">Resulting <see cref="MinecraftEnchantment"/> is not valid or does not exist.</exception>
         public static MinecraftEnchantment Parse(string s) {
-            if (string.IsNullOrEmpty(s))
-                throw new System.ArgumentNullException(nameof(s));
+            if (string.IsNullOrEmpty(s)) throw new System.ArgumentNullException(nameof(s));
 
             string[] parts = s.Split(new[] {','}, System.StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length > 2 || parts[0].ToUpper().Equals(parts[0].ToLower()))
@@ -72,7 +70,7 @@
             MinecraftEnchantment result = System.Array.Find(MinecraftBase.MinecraftEnchantments, enchantment => enchantment.Literal.Equals(literal));
 
             if (result == null)
-                throw new System.Exception($"{nameof(MinecraftEnchantment)}'s name is not valid or does not exist.");
+                throw new System.FormatException($"{nameof(MinecraftEnchantment)}'s name is not valid or does not exist.");
 
             try { result.Level = System.Convert.ToUInt32(parts[1]); } 
             catch { /* ignored */ }

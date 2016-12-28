@@ -1,14 +1,14 @@
-﻿using CCGE_Metro.Classes.Structures;
+﻿using System.Drawing;
 
 namespace CCGE_Metro.User_controls {
-    using System.Drawing;
+    using Classes.Structures;
     using static Settings;
     public class MinecraftToolTip : MetroFramework.Components.MetroToolTip {
         #region Properties
         public ExtendedString[][] ToolTipText { get; set; }
-        public int Padding { get; set; } = (int) TOOLTIP_PADDING;
-        public int LineSpace { get; set; } = (int) TOOLTIP_LINE_SPACE;
-        public new Color BackColor {
+        [System.ComponentModel.Description(@"Line padding.")] public int Padding { get; set; } = (int) TOOLTIP_PADDING;
+        [System.ComponentModel.Description(@"Space between each line.")] public int LineSpace { get; set; } = (int) TOOLTIP_LINE_SPACE;
+        [System.ComponentModel.Description(@"Background color.")] public new Color BackColor {
             get { return base.BackColor; }
             set { base.BackColor = value; }
         }

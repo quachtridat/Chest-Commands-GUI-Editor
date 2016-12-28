@@ -42,6 +42,8 @@
 
         public const string DEFAULT_COLOR_BUTTON_TEXT = @"Click to change color!";
 
+        public static bool AllowMenuItemImportOutOfRange = true;
+
         public static System.Text.RegularExpressions.Regex ItemLiteralNameRegex = new System.Text.RegularExpressions.Regex(@"^minecraft:([a-z_]+)$", System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline);
         public static System.Text.RegularExpressions.Regex ItemDisplayNameRegex = new System.Text.RegularExpressions.Regex(@"^(?<!minecraft:)[A-Za-z\s]+$", System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline);
         internal static System.Collections.Generic.Dictionary<string, string> FixedLiteralName = new System.Collections.Generic.Dictionary<string, string> {

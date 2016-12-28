@@ -4,23 +4,25 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using CCGE_Metro.Classes.Structures;
 using MetroFramework;
 using MetroFramework.Forms;
-using MenuItem = CCGE_Metro.Classes.Structures.MenuItem;
 
 namespace CCGE_Metro.Forms {
     using Classes;
+    using Classes.Structures;
     using User_controls;
     using static Settings;
-    using MenuItem = MenuItem;
+    using MenuItem = Classes.Structures.MenuItem;
     public partial class Edit : MetroForm {
-        #region Variables
+        #region Fields
         private Timer _timerUpdater;
-
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Constructs a new instance of <see cref="Edit"/> with a specified <see cref="TableCell"/>.
+        /// </summary>
+        /// <param name="cell"></param>
         public Edit(TableCell cell) {
             InitializeComponent();
             cboxItem.SelectedIndexChanged -= cboxItem_SelectedIndexChanged;
@@ -29,6 +31,9 @@ namespace CCGE_Metro.Forms {
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Loads data of the <see cref="MenuItem"/> in given <see cref="TableCell"/> to <see cref="TemporaryMenuItem"/>.
+        /// </summary>
         private void LoadCurrentItemData() {
             if (Program.MenuItems == null) {
                 Close();
@@ -109,6 +114,9 @@ namespace CCGE_Metro.Forms {
                 lblItemPos.Text = $"X = {TemporaryMenuItem.X}, Y = {TemporaryMenuItem.Y}";
             } else throw new Exception(@"CurrentMenuItem is null!");
         }
+        /// <summary>
+        /// Load updater that runs <see cref="UpdateCurrent"/> automatically by interval.
+        /// </summary>
         private void LoadUpdater() {
             _timerUpdater = new Timer {Interval = (int) MENU_ITEM_UPDATE_INTERVAL};
             _timerUpdater.Tick +=
@@ -117,6 +125,9 @@ namespace CCGE_Metro.Forms {
                 };
             _timerUpdater.Start();
         }
+        /// <summary>
+        /// Set data sources for <see cref="BindingSource"/>s.
+        /// </summary>
         private void SetDataSources() {
             Main.SetDataSources(bsMCItems, MinecraftStruct.Item);
             cboxItem.DisplayMember = cboxItem.ValueMember = "Name";
@@ -127,6 +138,11 @@ namespace CCGE_Metro.Forms {
             Main.SetDataSources(bsMCRequiredItems, MinecraftStruct.Item);
             cboxRequiredItem.DisplayMember = cboxRequiredItem.ValueMember = "Name";
         }
+        /// <summary>
+        /// Writes changes to <see cref="TemporaryMenuItem"/>.
+        /// Updates preview text for <see cref="txtYaml"/>.
+        /// Updates tool-tip text.
+        /// </summary>
         private void UpdateCurrent() {
             if (TemporaryMenuItem == null) return;
 
@@ -159,6 +175,10 @@ namespace CCGE_Metro.Forms {
 
             ToolTip.ToolTipText = TemporaryMenuItem.ToFormattedStrings();
         }
+        /// <summary>
+        /// Saves all data to the actual <see cref="MenuItem"/>.
+        /// </summary>
+        /// <returns></returns>
         private bool Save() {
             if (Program.MenuItems != null)
                 if (MenuItem.IsDuplicatedInternalName(TemporaryMenuItem, Program.MenuItems)) {
@@ -210,6 +230,9 @@ namespace CCGE_Metro.Forms {
             txtViewPermission.ResetText();
             txtPermissionMessage.ResetText();
         }
+        /// <summary>
+        /// Adds the selected <see cref="MinecraftEnchantment"/> in <see cref="cboxEnchantments"/> to the <see cref="MenuItem"/>.
+        /// </summary>
         private void AddEnchantment() {
             MinecraftEnchantment selectedEnchantment = (MinecraftEnchantment)cboxEnchantments.SelectedItem;
             uint enchantmentLevel = (uint)numEnchantmentLevel.Value;

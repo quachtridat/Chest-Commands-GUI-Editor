@@ -19,7 +19,7 @@ namespace CCGE_Metro.Classes.Structures {
 
         #region Methods
         /// <summary>
-        /// Returns whether the specified <see cref="MenuItem"/>'s <see cref="InternalName"/>
+        /// Indicates whether the specified <see cref="MenuItem"/>'s <see cref="InternalName"/>
         /// is duplicated with another <see cref="MenuItem"/> in the specified array of <see cref="MenuItem"/>s.
         /// </summary>
         /// <param name="item"></param>
@@ -125,7 +125,7 @@ namespace CCGE_Metro.Classes.Structures {
         #endregion  
 
         /// <summary>
-        /// Convert the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuItem"/> to a <see cref="T:MenuItem"/> object.
+        /// Converts the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuItem"/> to a <see cref="T:MenuItem"/> object.
         /// A return value indicates whether the conversion succeeded.
         /// </summary>
         /// <param name="internalName"></param>
@@ -141,18 +141,28 @@ namespace CCGE_Metro.Classes.Structures {
             }
         }
         /// <summary>
-        /// Convert the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuItem"/> to a <see cref="T:MenuItem"/> object.
+        /// Converts the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuItem"/> to a <see cref="T:MenuItem"/> object.
         /// </summary>
         /// <param name="internalName"></param>
         /// <param name="mappingNode">A <see cref="T:YamlMappingNode"/> containing information of a <see cref="T:MenuItem"/>.</param>
         /// <returns></returns>
         public static MenuItem Parse(string internalName, YamlMappingNode mappingNode) => FromYamlNode(internalName, mappingNode);
         /// <summary>
-        /// Convert the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuSettings"/> to a <see cref="T:MenuSettings"/> object.
+        /// Converts the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuSettings"/> to a <see cref="T:MenuSettings"/> object.
         /// </summary>
         /// <param name="internalName"></param>
         /// <param name="itemMappingNode">A <see cref="T:YamlMappingNode"/> containing information of a <see cref="T:MenuItem"/>.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException"><see cref="YamlNode"/> itemNode is null, causing loss of <see cref="MinecraftItem"/> in the <see cref="MenuItem"/>.</exception>
+        /// <exception cref="ArgumentNullException"><see cref="YamlNode"/> posXNode is null, causing loss of column (X) index in the <see cref="MenuItem"/>.</exception>
+        /// <exception cref="ArgumentNullException"><see cref="YamlNode"/> posYNode is null, causing loss of row (Y) index in the <see cref="MenuItem"/>.</exception>
+        /// <exception cref="FormatException">Value of <see cref="YamlNode"/> itemNode is not in the correct format.</exception>
+        /// <exception cref="FormatException">Value of <see cref="YamlNode"/> posXNode is not in the correct format.</exception>
+        /// <exception cref="FormatException">Value of <see cref="YamlNode"/> posYNode is not in the correct format.</exception>
+        /// <exception cref="IndexOutOfRangeException">Column (X) index is out of range.</exception>
+        /// <exception cref="IndexOutOfRangeException">Row (Y) index is out of range.</exception>
+        /// <exception cref="Exception">Column (X) index is invalid.</exception>
+        /// <exception cref="Exception">Row (Y) index is invalid.</exception>
         public static MenuItem FromYamlNode(string internalName, YamlMappingNode itemMappingNode) {
             IDictionary<YamlNode, YamlNode> dict = itemMappingNode.Children;
 
@@ -198,14 +208,14 @@ namespace CCGE_Metro.Classes.Structures {
             if (posXNode?.NodeType == YamlNodeType.Scalar) {
                 try {
                     menuItem.X = Convert.ToUInt32(((YamlScalarNode)posXNode).Value);
-                    if (menuItem.X <= 0 || menuItem.X > 9) throw new Exception("Invalid position X!");
+                    if (menuItem.X <= 0 || menuItem.X > 9) throw new IndexOutOfRangeException("Invalid position X!");
                 } catch { throw new Exception("Invalid position X!"); }
             }
 
             if (posYNode?.NodeType == YamlNodeType.Scalar) {
                 try {
                     menuItem.Y = Convert.ToUInt32(((YamlScalarNode)posYNode).Value);
-                    if (menuItem.Y <= 0 || menuItem.Y > 6) throw new Exception("Invalid position Y!");
+                    if (menuItem.Y <= 0 || menuItem.Y > 6) throw new IndexOutOfRangeException("Invalid position Y!");
                 } catch { throw new Exception("Invalid position Y!"); }
             }
 

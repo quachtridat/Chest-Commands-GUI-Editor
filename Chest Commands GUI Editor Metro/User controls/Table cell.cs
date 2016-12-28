@@ -20,14 +20,10 @@ namespace CCGE_Metro.User_controls {
         #endregion
 
         #region Properties
-        [System.ComponentModel.Description(@"Column of the cell (0-based index).")]
-        public int Column { get; }
-        [System.ComponentModel.Description(@"Row of the cell (0-based index).")]
-        public int Row { get; }
-        [System.ComponentModel.Description(@"Column of the cell (1-based index).")]
-        public int X => Column + 1;
-        [System.ComponentModel.Description(@"Row of the cell (1-based index).")]
-        public int Y => Row + 1;
+        [System.ComponentModel.Description(@"Column of the cell (0-based index).")] public int Column { get; }
+        [System.ComponentModel.Description(@"Row of the cell (0-based index).")] public int Row { get; }
+        [System.ComponentModel.Description(@"Column of the cell (1-based index).")] public int X => Column + 1;
+        [System.ComponentModel.Description(@"Row of the cell (1-based index).")] public int Y => Row + 1;
         /// <summary>
         /// Cell's associated <see cref="MenuItem"/>.
         /// </summary>
@@ -35,8 +31,7 @@ namespace CCGE_Metro.User_controls {
             get { return Program.MenuItems?[Column, Row]; }
             set { Program.MenuItems[Column, Row] = value; }
         }
-        [System.ComponentModel.Description(@"Whether the cell is selected.")]
-        public bool IsSelected { get; set; }
+        [System.ComponentModel.Description(@"Whether the cell is selected.")] public bool IsSelected { get; set; }
         #endregion
     }
 }

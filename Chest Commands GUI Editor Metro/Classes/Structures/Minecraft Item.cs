@@ -23,22 +23,14 @@
         #endregion
 
         #region Properties
-        [System.ComponentModel.Description(@"Item's ID.")]
-        public uint Id { get; }
-        [System.ComponentModel.Description(@"Item's display name.")]
-        public string Name { get; }
-        [System.ComponentModel.Description(@"Item's literal name.")]
-        public string Literal { get; }
-        [System.ComponentModel.Description(@"Item's data value.")]
-        public uint Data { get; }
-        [System.ComponentModel.Description(@"Amount of item.")]
-        public uint Amount { get; set; }
-        [System.ComponentModel.Description(@"Item's full ID.")]
-        public string FullId => Id + ":" + Data;
-        [System.ComponentModel.Description(@"Item's full ID, with non-zero data value.")]
-        public string FullIdWithoutZero => Data > 0 ? FullId : Id.ToString();
-        [System.ComponentModel.Description(@"Item icon.")]
-        public System.Drawing.Bitmap Icon {
+        [System.ComponentModel.Description(@"Item's ID.")] public uint Id { get; }
+        [System.ComponentModel.Description(@"Item's display name.")] public string Name { get; }
+        [System.ComponentModel.Description(@"Item's literal name.")] public string Literal { get; }
+        [System.ComponentModel.Description(@"Item's data value.")] public uint Data { get; }
+        [System.ComponentModel.Description(@"Amount of item.")] public uint Amount { get; set; }
+        [System.ComponentModel.Description(@"Item's full ID.")] public string FullId => Id + ":" + Data;
+        [System.ComponentModel.Description(@"Item's full ID, with non-zero data value.")] public string FullIdWithoutZero => Data > 0 ? FullId : Id.ToString();
+        [System.ComponentModel.Description(@"Item icon.")] public System.Drawing.Bitmap Icon {
             get {
                 try {
                     return (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject("_" + FullId.Replace(':', '_'));
@@ -47,10 +39,8 @@
                 }
             }
         }
-        [System.ComponentModel.Description(@"Whether item is dye-able.")]
-        public bool IsDyeable => Name.StartsWith("Leather ", System.StringComparison.CurrentCultureIgnoreCase);
-        [System.ComponentModel.Description(@"Whether item is a player head.")]
-        public bool IsPlayerHead => Id == 397 && Data == 3;
+        [System.ComponentModel.Description(@"Whether item is dye-able.")] public bool IsDyeable => Name.StartsWith("Leather ", System.StringComparison.CurrentCultureIgnoreCase);
+        [System.ComponentModel.Description(@"Whether item is a player head.")] public bool IsPlayerHead => Id == 397 && Data == 3;
         #endregion
 
         #region Methods
@@ -60,7 +50,7 @@
             return result;
         }
         /// <summary>
-        /// Convert the string representation of information of a <see cref="MinecraftItem"/> to a <see cref="MinecraftItem"/> object.
+        /// Converts the string representation of information of a <see cref="MinecraftItem"/> to a <see cref="MinecraftItem"/> object.
         /// A return value indicates whether the conversion succeeded.
         /// </summary>
         /// <param name="s">A string containing information of a Minecraft item.</param>
@@ -77,16 +67,19 @@
             }
         }
         /// <summary>
-        /// Convert the string representation of information of a <see cref="MinecraftItem"/> to a <see cref="MinecraftItem"/> object.
+        /// Converts the string representation of information of a <see cref="MinecraftItem"/> to a <see cref="MinecraftItem"/> object.
         /// </summary>
         /// <param name="s">A string containing information of a <see cref="MinecraftItem"/>.</param>
         /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException"><see cref="s"/> is null or empty.</exception>
+        /// <exception cref="System.FormatException"><see cref="s"/> is not in the correct format.</exception>
+        /// <exception cref="System.FormatException">Item data included in <see cref="s"/> is not in the correct format.</exception>
+        /// <exception cref="System.FormatException">Item name/ID included in item data in <see cref="s"/> is not in the correct format.</exception>
         public static MinecraftItem Parse(string s) {
             MinecraftItem item = null;
             int itemIndex;
 
-            if (string.IsNullOrEmpty(s))
-                throw new System.ArgumentNullException(nameof(s));
+            if (string.IsNullOrEmpty(s)) throw new System.ArgumentNullException(nameof(s));
 
             // Separate the ID part and the amount part
             string[] parts = s.Split(new[] {','}, System.StringSplitOptions.RemoveEmptyEntries);
@@ -110,8 +103,7 @@
                         name = @"minecraft:" + name;
                     }
                     itemIndex = System.Array.FindLastIndex(MinecraftBase.MinecraftItems, i => i.Literal.Equals(name, System.StringComparison.OrdinalIgnoreCase));
-                }
-                else if (Settings.ItemDisplayNameRegex.IsMatch(name.Replace('_', ' '))) {
+                } else if (Settings.ItemDisplayNameRegex.IsMatch(name.Replace('_', ' '))) {
                     name = name.Replace('_', ' ');
                     itemIndex = System.Array.FindLastIndex(MinecraftBase.MinecraftItems, i =>
                         i.Data == 0 && 

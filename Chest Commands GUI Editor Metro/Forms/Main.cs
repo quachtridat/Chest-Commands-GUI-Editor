@@ -41,11 +41,12 @@ namespace CCGE_Metro.Forms {
 
         #region Methods
         /// <summary>
-        /// Set data source of a specific <see cref="System.Windows.Forms.BindingSource"/> 
+        /// Sets data source of a specific <see cref="System.Windows.Forms.BindingSource"/> 
         /// to a list of Minecraft default items or Minecraft default enchantments.
         /// </summary>
         /// <param name="bs"></param>
         /// <param name="type"></param>
+        /// <exception cref="ArgumentOutOfRangeException"><see cref="type"/> is not a valid <see cref="MinecraftStruct"/>.</exception>
         public static void SetDataSources(BindingSource bs, MinecraftStruct type) {
             switch (type) {
                 case MinecraftStruct.Item:
@@ -59,7 +60,7 @@ namespace CCGE_Metro.Forms {
             }
         }
         /// <summary>
-        /// Load updater to automatically run <see cref="UpdateCurrent"/>.
+        /// Loads updater that runs <see cref="UpdateCurrent"/> automatically by interval.
         /// </summary>
         private void LoadUpdater() {
             _timerUpdater = new Timer {Interval = (int) Settings.MENU_ITEM_UPDATE_INTERVAL};
@@ -119,10 +120,10 @@ namespace CCGE_Metro.Forms {
             foreach (YamlNode node in importer.MainNodes.Keys) {
                 if (node.ToString().Equals(@"menu-settings")) continue;
                 try {
-                    MenuItem result = importer.GetMenuItem(node);
+                    MenuItem result = importer.GetMenuItem(node, Settings.AllowMenuItemImportOutOfRange);
                     Program.MenuItems[result.Column, result.Row] = result;
-                } catch {
-                    MetroMessageBox.Show(this, $"Failed to import menu item {node}!", "Import failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } catch (Exception e) {
+                    MetroMessageBox.Show(this, $"Failed to import menu item {node}!{Environment.NewLine}{e.Message}", "Import failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -152,7 +153,7 @@ namespace CCGE_Metro.Forms {
                 if (startOverDialogResult == DialogResult.Yes) tableMain.Clear();
             }
             catch (Exception e) {
-                MetroMessageBox.Show(this, $"Failed! An error occurred while saving file: {Environment.NewLine}{e.Message}");
+                MetroMessageBox.Show(this, $"Failed to export data!{Environment.NewLine}{e.Message}", "Export failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion

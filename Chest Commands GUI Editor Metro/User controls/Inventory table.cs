@@ -2,16 +2,18 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using CCGE_Metro.Classes.Structures;
-using MenuItem = CCGE_Metro.Classes.Structures.MenuItem;
 
 namespace CCGE_Metro.User_controls {
     using Forms;
     using Interfaces;
-    using MenuItem = MenuItem;
+    using Classes.Structures;
+    using MenuItem = Classes.Structures.MenuItem;
     public delegate void ChangeStatusBarTextDelegate(string text);
     public partial class InventoryTable : TableLayoutPanel, IInventoryTable {
         #region Constructor
+        /// <summary>
+        /// Constructs a new instance of an <see cref="InventoryTable"/>.
+        /// </summary>
         public InventoryTable() {
             InitializeComponent();
             FillCells(0);
@@ -25,8 +27,7 @@ namespace CCGE_Metro.User_controls {
         /// <param name="cell1"><see cref="TableCell"/> 1.</param>
         /// <param name="cell2"><see cref="TableCell"/> 2.</param>
         /// <returns></returns>
-        public static bool InSameLocation(TableCell cell1, TableCell cell2)
-            => cell1?.Column == cell2?.Column && cell1?.Row == cell2?.Row;
+        public static bool InSameLocation(TableCell cell1, TableCell cell2) => cell1?.Column == cell2?.Column && cell1?.Row == cell2?.Row;
         /// <summary>
         /// Empties the table.
         /// </summary>
@@ -34,14 +35,12 @@ namespace CCGE_Metro.User_controls {
             Table.Controls.Clear();
             for (uint i = 0; i < Table.RowCount; ++i) FillCells(i);
         }
-
         /// <summary>
         /// Set a <see cref="MinecraftItem"/> icon to a <see cref="CCGE_Metro.User_controls.TableCell"/>.
         /// </summary>
         /// <param name="item"></param>
         /// <param name="box"></param>
         public static void SetCellIcon(MinecraftItem item, TableCell box) => box.Image = item?.Icon;
-
         /// <summary>
         /// Set a <see cref="MenuItem"/> to a <see cref="CCGE_Metro.User_controls.TableCell"/>.
         /// If <see cref="MenuItem.Item"/> is a player head and the <see cref="MenuItem"/> has <see cref="MenuItem.SkullOwner"/> set,
