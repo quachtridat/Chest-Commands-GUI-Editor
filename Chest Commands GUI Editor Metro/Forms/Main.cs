@@ -10,11 +10,10 @@ using MetroFramework;
 using MetroFramework.Controls;
 using MetroFramework.Forms;
 using YamlDotNet.RepresentationModel;
-using MenuItem = CCGE_Metro.Classes.Structures.MenuItem;
 
 namespace CCGE_Metro.Forms {
     using Settings = Settings;
-    using MenuItem = MenuItem;
+    using MenuItem = Classes.Structures.MenuItem;
     public partial class Main : MetroForm {
         #region Fields
         private Timer _timerUpdater;
