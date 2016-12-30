@@ -36,7 +36,7 @@ namespace CCGE_Metro.Forms {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.mainMenustrip = new System.Windows.Forms.MenuStrip();
             this.fileToolstrip = new System.Windows.Forms.ToolStripMenuItem();
-            this.newTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolstrip = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolstrip = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolstrip = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolstrip = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,11 +45,14 @@ namespace CCGE_Metro.Forms {
             this.aboutToolstrip = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain = new MetroFramework.Controls.MetroPanel();
             this.panelMainRight = new MetroFramework.Controls.MetroPanel();
+            this.splitContCmdsOpenAction = new System.Windows.Forms.SplitContainer();
+            this.grpCommands = new System.Windows.Forms.GroupBox();
+            this.txtCommands = new System.Windows.Forms.TextBox();
+            this.grpOpenAction = new System.Windows.Forms.GroupBox();
+            this.txtOpenAction = new System.Windows.Forms.TextBox();
             this.grpAutoRefresh = new System.Windows.Forms.GroupBox();
             this.lblSeconds = new MetroFramework.Controls.MetroLabel();
             this.numAutoRefresh = new System.Windows.Forms.NumericUpDown();
-            this.grpOpenAction = new System.Windows.Forms.GroupBox();
-            this.txtOpenAction = new System.Windows.Forms.TextBox();
             this.grpOpenWithItem = new System.Windows.Forms.GroupBox();
             this.chkRight = new MetroFramework.Controls.MetroCheckBox();
             this.chkLeft = new MetroFramework.Controls.MetroCheckBox();
@@ -58,8 +61,6 @@ namespace CCGE_Metro.Forms {
             this.picIcon = new System.Windows.Forms.PictureBox();
             this.grpName = new System.Windows.Forms.GroupBox();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.grpCommands = new System.Windows.Forms.GroupBox();
-            this.txtCommands = new System.Windows.Forms.TextBox();
             this.panelMainLeft = new System.Windows.Forms.Panel();
             this.tableMain = new CCGE_Metro.User_controls.InventoryTable();
             this.tableContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -69,6 +70,8 @@ namespace CCGE_Metro.Forms {
             this.pasteToolstrip = new System.Windows.Forms.ToolStripMenuItem();
             this.swapToolstrip = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolstrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.tableMenuToolstripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.reloadIconToolstrip = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeleteAll = new MetroFramework.Controls.MetroButton();
             this.trackbarRows = new MetroFramework.Controls.MetroTrackBar();
             this.panelMisc = new MetroFramework.Controls.MetroPanel();
@@ -77,19 +80,20 @@ namespace CCGE_Metro.Forms {
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.lblStatusToolstrip = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tableMenuToolstripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.reloadIconToolstrip = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenustrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.panelMainRight.SuspendLayout();
+            this.splitContCmdsOpenAction.Panel1.SuspendLayout();
+            this.splitContCmdsOpenAction.Panel2.SuspendLayout();
+            this.splitContCmdsOpenAction.SuspendLayout();
+            this.grpCommands.SuspendLayout();
+            this.grpOpenAction.SuspendLayout();
             this.grpAutoRefresh.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAutoRefresh)).BeginInit();
-            this.grpOpenAction.SuspendLayout();
             this.grpOpenWithItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsMCItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picIcon)).BeginInit();
             this.grpName.SuspendLayout();
-            this.grpCommands.SuspendLayout();
             this.panelMainLeft.SuspendLayout();
             this.tableContextMenu.SuspendLayout();
             this.panelMisc.SuspendLayout();
@@ -112,7 +116,7 @@ namespace CCGE_Metro.Forms {
             // fileToolstrip
             // 
             this.fileToolstrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newTSMI,
+            this.newToolstrip,
             this.importToolstrip,
             this.exportToolstrip,
             this.quitToolstrip});
@@ -120,12 +124,13 @@ namespace CCGE_Metro.Forms {
             this.fileToolstrip.Size = new System.Drawing.Size(37, 20);
             this.fileToolstrip.Text = "&File";
             // 
-            // newTSMI
+            // newToolstrip
             // 
-            this.newTSMI.Name = "newTSMI";
-            this.newTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newTSMI.Size = new System.Drawing.Size(187, 22);
-            this.newTSMI.Text = "New";
+            this.newToolstrip.Name = "newToolstrip";
+            this.newToolstrip.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newToolstrip.Size = new System.Drawing.Size(187, 22);
+            this.newToolstrip.Text = "New";
+            this.newToolstrip.Click += new System.EventHandler(this.newToolstrip_Click);
             // 
             // importToolstrip
             // 
@@ -196,11 +201,10 @@ namespace CCGE_Metro.Forms {
             this.panelMainRight.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelMainRight.Controls.Add(this.splitContCmdsOpenAction);
             this.panelMainRight.Controls.Add(this.grpAutoRefresh);
-            this.panelMainRight.Controls.Add(this.grpOpenAction);
             this.panelMainRight.Controls.Add(this.grpOpenWithItem);
             this.panelMainRight.Controls.Add(this.grpName);
-            this.panelMainRight.Controls.Add(this.grpCommands);
             this.panelMainRight.HorizontalScrollbarBarColor = true;
             this.panelMainRight.HorizontalScrollbarHighlightOnWheel = false;
             this.panelMainRight.HorizontalScrollbarSize = 2;
@@ -211,6 +215,69 @@ namespace CCGE_Metro.Forms {
             this.panelMainRight.VerticalScrollbarBarColor = true;
             this.panelMainRight.VerticalScrollbarHighlightOnWheel = false;
             this.panelMainRight.VerticalScrollbarSize = 2;
+            // 
+            // splitContCmdsOpenAction
+            // 
+            this.splitContCmdsOpenAction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContCmdsOpenAction.Location = new System.Drawing.Point(0, 50);
+            this.splitContCmdsOpenAction.Name = "splitContCmdsOpenAction";
+            // 
+            // splitContCmdsOpenAction.Panel1
+            // 
+            this.splitContCmdsOpenAction.Panel1.Controls.Add(this.grpCommands);
+            // 
+            // splitContCmdsOpenAction.Panel2
+            // 
+            this.splitContCmdsOpenAction.Panel2.Controls.Add(this.grpOpenAction);
+            this.splitContCmdsOpenAction.Size = new System.Drawing.Size(672, 182);
+            this.splitContCmdsOpenAction.SplitterDistance = 326;
+            this.splitContCmdsOpenAction.TabIndex = 11;
+            // 
+            // grpCommands
+            // 
+            this.grpCommands.BackColor = System.Drawing.Color.Transparent;
+            this.grpCommands.Controls.Add(this.txtCommands);
+            this.grpCommands.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpCommands.Location = new System.Drawing.Point(0, 0);
+            this.grpCommands.Name = "grpCommands";
+            this.grpCommands.Size = new System.Drawing.Size(326, 182);
+            this.grpCommands.TabIndex = 8;
+            this.grpCommands.TabStop = false;
+            this.grpCommands.Text = "Commands (optional)";
+            // 
+            // txtCommands
+            // 
+            this.txtCommands.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtCommands.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtCommands.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCommands.Location = new System.Drawing.Point(3, 19);
+            this.txtCommands.Multiline = true;
+            this.txtCommands.Name = "txtCommands";
+            this.txtCommands.Size = new System.Drawing.Size(320, 160);
+            this.txtCommands.TabIndex = 0;
+            // 
+            // grpOpenAction
+            // 
+            this.grpOpenAction.BackColor = System.Drawing.Color.Transparent;
+            this.grpOpenAction.Controls.Add(this.txtOpenAction);
+            this.grpOpenAction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpOpenAction.Location = new System.Drawing.Point(0, 0);
+            this.grpOpenAction.Name = "grpOpenAction";
+            this.grpOpenAction.Size = new System.Drawing.Size(342, 182);
+            this.grpOpenAction.TabIndex = 9;
+            this.grpOpenAction.TabStop = false;
+            this.grpOpenAction.Text = "Open action (optional)";
+            // 
+            // txtOpenAction
+            // 
+            this.txtOpenAction.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtOpenAction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtOpenAction.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOpenAction.Location = new System.Drawing.Point(3, 19);
+            this.txtOpenAction.Multiline = true;
+            this.txtOpenAction.Name = "txtOpenAction";
+            this.txtOpenAction.Size = new System.Drawing.Size(336, 160);
+            this.txtOpenAction.TabIndex = 0;
             // 
             // grpAutoRefresh
             // 
@@ -246,30 +313,6 @@ namespace CCGE_Metro.Forms {
             this.numAutoRefresh.Name = "numAutoRefresh";
             this.numAutoRefresh.Size = new System.Drawing.Size(605, 19);
             this.numAutoRefresh.TabIndex = 0;
-            // 
-            // grpOpenAction
-            // 
-            this.grpOpenAction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpOpenAction.BackColor = System.Drawing.Color.Transparent;
-            this.grpOpenAction.Controls.Add(this.txtOpenAction);
-            this.grpOpenAction.Location = new System.Drawing.Point(342, 56);
-            this.grpOpenAction.Name = "grpOpenAction";
-            this.grpOpenAction.Size = new System.Drawing.Size(330, 170);
-            this.grpOpenAction.TabIndex = 9;
-            this.grpOpenAction.TabStop = false;
-            this.grpOpenAction.Text = "Open action (optional)";
-            // 
-            // txtOpenAction
-            // 
-            this.txtOpenAction.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtOpenAction.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtOpenAction.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOpenAction.Location = new System.Drawing.Point(3, 19);
-            this.txtOpenAction.Multiline = true;
-            this.txtOpenAction.Name = "txtOpenAction";
-            this.txtOpenAction.Size = new System.Drawing.Size(324, 148);
-            this.txtOpenAction.TabIndex = 0;
             // 
             // grpOpenWithItem
             // 
@@ -360,31 +403,6 @@ namespace CCGE_Metro.Forms {
             this.txtName.TabIndex = 0;
             this.txtName.Text = "menu";
             // 
-            // grpCommands
-            // 
-            this.grpCommands.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpCommands.BackColor = System.Drawing.Color.Transparent;
-            this.grpCommands.Controls.Add(this.txtCommands);
-            this.grpCommands.Location = new System.Drawing.Point(0, 56);
-            this.grpCommands.Name = "grpCommands";
-            this.grpCommands.Size = new System.Drawing.Size(339, 170);
-            this.grpCommands.TabIndex = 8;
-            this.grpCommands.TabStop = false;
-            this.grpCommands.Text = "Commands (optional)";
-            // 
-            // txtCommands
-            // 
-            this.txtCommands.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtCommands.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCommands.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCommands.Location = new System.Drawing.Point(3, 19);
-            this.txtCommands.Multiline = true;
-            this.txtCommands.Name = "txtCommands";
-            this.txtCommands.Size = new System.Drawing.Size(333, 148);
-            this.txtCommands.TabIndex = 0;
-            // 
             // panelMainLeft
             // 
             this.panelMainLeft.BackColor = System.Drawing.Color.Transparent;
@@ -419,7 +437,7 @@ namespace CCGE_Metro.Forms {
             this.tableMenuToolstripSeparator,
             this.reloadIconToolstrip});
             this.tableContextMenu.Name = "contextMenuStrip";
-            this.tableContextMenu.Size = new System.Drawing.Size(155, 186);
+            this.tableContextMenu.Size = new System.Drawing.Size(155, 164);
             this.tableContextMenu.Opened += new System.EventHandler(this.tableContextMenu_Opened);
             // 
             // selectToolstrip
@@ -463,6 +481,18 @@ namespace CCGE_Metro.Forms {
             this.deleteToolstrip.Size = new System.Drawing.Size(154, 22);
             this.deleteToolstrip.Text = "&Delete";
             this.deleteToolstrip.Click += new System.EventHandler(this.deleteToolstrip_Click);
+            // 
+            // tableMenuToolstripSeparator
+            // 
+            this.tableMenuToolstripSeparator.Name = "tableMenuToolstripSeparator";
+            this.tableMenuToolstripSeparator.Size = new System.Drawing.Size(151, 6);
+            // 
+            // reloadIconToolstrip
+            // 
+            this.reloadIconToolstrip.Name = "reloadIconToolstrip";
+            this.reloadIconToolstrip.Size = new System.Drawing.Size(154, 22);
+            this.reloadIconToolstrip.Text = "Reload icon";
+            this.reloadIconToolstrip.Click += new System.EventHandler(this.reloadIconToolstrip_Click);
             // 
             // btnDeleteAll
             // 
@@ -556,18 +586,6 @@ namespace CCGE_Metro.Forms {
             this.lblStatusToolstrip.Size = new System.Drawing.Size(39, 17);
             this.lblStatusToolstrip.Text = "Ready";
             // 
-            // tableMenuToolstripSeparator
-            // 
-            this.tableMenuToolstripSeparator.Name = "tableMenuToolstripSeparator";
-            this.tableMenuToolstripSeparator.Size = new System.Drawing.Size(151, 6);
-            // 
-            // reloadIconToolstrip
-            // 
-            this.reloadIconToolstrip.Name = "reloadIconToolstrip";
-            this.reloadIconToolstrip.Size = new System.Drawing.Size(154, 22);
-            this.reloadIconToolstrip.Text = "Reload icon";
-            this.reloadIconToolstrip.Click += new System.EventHandler(this.reloadIconToolstrip_Click);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -591,19 +609,22 @@ namespace CCGE_Metro.Forms {
             this.mainMenustrip.PerformLayout();
             this.panelMain.ResumeLayout(false);
             this.panelMainRight.ResumeLayout(false);
+            this.splitContCmdsOpenAction.Panel1.ResumeLayout(false);
+            this.splitContCmdsOpenAction.Panel2.ResumeLayout(false);
+            this.splitContCmdsOpenAction.ResumeLayout(false);
+            this.grpCommands.ResumeLayout(false);
+            this.grpCommands.PerformLayout();
+            this.grpOpenAction.ResumeLayout(false);
+            this.grpOpenAction.PerformLayout();
             this.grpAutoRefresh.ResumeLayout(false);
             this.grpAutoRefresh.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAutoRefresh)).EndInit();
-            this.grpOpenAction.ResumeLayout(false);
-            this.grpOpenAction.PerformLayout();
             this.grpOpenWithItem.ResumeLayout(false);
             this.grpOpenWithItem.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsMCItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();
             this.grpName.ResumeLayout(false);
             this.grpName.PerformLayout();
-            this.grpCommands.ResumeLayout(false);
-            this.grpCommands.PerformLayout();
             this.panelMainLeft.ResumeLayout(false);
             this.tableContextMenu.ResumeLayout(false);
             this.panelMisc.ResumeLayout(false);
@@ -617,7 +638,7 @@ namespace CCGE_Metro.Forms {
         #endregion
         private MenuStrip mainMenustrip;
         private ToolStripMenuItem fileToolstrip;
-        private ToolStripMenuItem newTSMI;
+        private ToolStripMenuItem newToolstrip;
         private ToolStripMenuItem importToolstrip;
         private ToolStripMenuItem exportToolstrip;
         private ToolStripMenuItem quitToolstrip;
@@ -660,6 +681,7 @@ namespace CCGE_Metro.Forms {
         private ToolStripStatusLabel lblStatusToolstrip;
         private ToolStripSeparator tableMenuToolstripSeparator;
         private ToolStripMenuItem reloadIconToolstrip;
+        private SplitContainer splitContCmdsOpenAction;
     }
 }
 

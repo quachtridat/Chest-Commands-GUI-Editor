@@ -40,6 +40,8 @@
             this.txtInternalName = new System.Windows.Forms.TextBox();
             this.tabpageLore = new MetroFramework.Controls.MetroTabPage();
             this.grpLore = new System.Windows.Forms.GroupBox();
+            this.splitContLore = new System.Windows.Forms.SplitContainer();
+            this.toolStripLore = new System.Windows.Forms.ToolStrip();
             this.txtLore = new System.Windows.Forms.TextBox();
             this.tabpageEnchantments = new MetroFramework.Controls.MetroTabPage();
             this.grpEnchantments = new System.Windows.Forms.GroupBox();
@@ -64,6 +66,8 @@
             this.tileColor = new MetroFramework.Controls.MetroTile();
             this.tabpageCommands = new MetroFramework.Controls.MetroTabPage();
             this.grpCommands = new System.Windows.Forms.GroupBox();
+            this.splitContCmds = new System.Windows.Forms.SplitContainer();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.txtCommands = new System.Windows.Forms.TextBox();
             this.tabpagesRequirements = new MetroFramework.Controls.MetroTabPage();
             this.grpRequiredItem = new System.Windows.Forms.GroupBox();
@@ -102,6 +106,9 @@
             this.grpInternalName.SuspendLayout();
             this.tabpageLore.SuspendLayout();
             this.grpLore.SuspendLayout();
+            this.splitContLore.Panel1.SuspendLayout();
+            this.splitContLore.Panel2.SuspendLayout();
+            this.splitContLore.SuspendLayout();
             this.tabpageEnchantments.SuspendLayout();
             this.grpEnchantments.SuspendLayout();
             this.panelEnchantmentList.SuspendLayout();
@@ -115,6 +122,9 @@
             this.grpColor.SuspendLayout();
             this.tabpageCommands.SuspendLayout();
             this.grpCommands.SuspendLayout();
+            this.splitContCmds.Panel1.SuspendLayout();
+            this.splitContCmds.Panel2.SuspendLayout();
+            this.splitContCmds.SuspendLayout();
             this.tabpagesRequirements.SuspendLayout();
             this.grpRequiredItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsMCRequiredItems)).BeginInit();
@@ -162,7 +172,7 @@
             this.tabcontrolMain.FontWeight = MetroFramework.MetroTabControlWeight.Regular;
             this.tabcontrolMain.Location = new System.Drawing.Point(0, 0);
             this.tabcontrolMain.Name = "tabcontrolMain";
-            this.tabcontrolMain.SelectedIndex = 0;
+            this.tabcontrolMain.SelectedIndex = 3;
             this.tabcontrolMain.Size = new System.Drawing.Size(1146, 426);
             this.tabcontrolMain.TabIndex = 2;
             this.tabcontrolMain.UseSelectable = true;
@@ -322,7 +332,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpLore.BackColor = System.Drawing.Color.White;
-            this.grpLore.Controls.Add(this.txtLore);
+            this.grpLore.Controls.Add(this.splitContLore);
             this.grpLore.Location = new System.Drawing.Point(0, 1);
             this.grpLore.Name = "grpLore";
             this.grpLore.Size = new System.Drawing.Size(1138, 384);
@@ -330,16 +340,44 @@
             this.grpLore.TabStop = false;
             this.grpLore.Text = "Lore (optional)";
             // 
+            // splitContLore
+            // 
+            this.splitContLore.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContLore.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContLore.Location = new System.Drawing.Point(3, 19);
+            this.splitContLore.Name = "splitContLore";
+            this.splitContLore.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContLore.Panel1
+            // 
+            this.splitContLore.Panel1.Controls.Add(this.toolStripLore);
+            // 
+            // splitContLore.Panel2
+            // 
+            this.splitContLore.Panel2.Controls.Add(this.txtLore);
+            this.splitContLore.Size = new System.Drawing.Size(1132, 362);
+            this.splitContLore.SplitterDistance = 25;
+            this.splitContLore.TabIndex = 1;
+            // 
+            // toolStripLore
+            // 
+            this.toolStripLore.Location = new System.Drawing.Point(0, 0);
+            this.toolStripLore.Name = "toolStripLore";
+            this.toolStripLore.Size = new System.Drawing.Size(1132, 25);
+            this.toolStripLore.TabIndex = 0;
+            this.toolStripLore.Text = "toolStrip1";
+            // 
             // txtLore
             // 
             this.txtLore.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtLore.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtLore.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLore.Location = new System.Drawing.Point(3, 19);
+            this.txtLore.Location = new System.Drawing.Point(0, 0);
+            this.txtLore.Margin = new System.Windows.Forms.Padding(2);
             this.txtLore.Multiline = true;
             this.txtLore.Name = "txtLore";
             this.txtLore.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLore.Size = new System.Drawing.Size(1132, 362);
+            this.txtLore.Size = new System.Drawing.Size(1132, 333);
             this.txtLore.TabIndex = 0;
             // 
             // tabpageEnchantments
@@ -654,7 +692,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpCommands.BackColor = System.Drawing.Color.White;
-            this.grpCommands.Controls.Add(this.txtCommands);
+            this.grpCommands.Controls.Add(this.splitContCmds);
             this.grpCommands.Location = new System.Drawing.Point(0, 1);
             this.grpCommands.Name = "grpCommands";
             this.grpCommands.Size = new System.Drawing.Size(1138, 384);
@@ -662,16 +700,44 @@
             this.grpCommands.TabStop = false;
             this.grpCommands.Text = "Commands (optional)";
             // 
+            // splitContCmds
+            // 
+            this.splitContCmds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContCmds.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContCmds.Location = new System.Drawing.Point(3, 19);
+            this.splitContCmds.Name = "splitContCmds";
+            this.splitContCmds.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContCmds.Panel1
+            // 
+            this.splitContCmds.Panel1.Controls.Add(this.toolStrip1);
+            // 
+            // splitContCmds.Panel2
+            // 
+            this.splitContCmds.Panel2.Controls.Add(this.txtCommands);
+            this.splitContCmds.Size = new System.Drawing.Size(1132, 362);
+            this.splitContCmds.SplitterDistance = 25;
+            this.splitContCmds.TabIndex = 1;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1132, 25);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
             // txtCommands
             // 
             this.txtCommands.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCommands.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtCommands.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCommands.Location = new System.Drawing.Point(3, 19);
+            this.txtCommands.Location = new System.Drawing.Point(0, 0);
+            this.txtCommands.Margin = new System.Windows.Forms.Padding(2);
             this.txtCommands.Multiline = true;
             this.txtCommands.Name = "txtCommands";
             this.txtCommands.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCommands.Size = new System.Drawing.Size(1132, 362);
+            this.txtCommands.Size = new System.Drawing.Size(1132, 333);
             this.txtCommands.TabIndex = 0;
             // 
             // tabpagesRequirements
@@ -1028,7 +1094,11 @@
             this.grpInternalName.PerformLayout();
             this.tabpageLore.ResumeLayout(false);
             this.grpLore.ResumeLayout(false);
-            this.grpLore.PerformLayout();
+            this.splitContLore.Panel1.ResumeLayout(false);
+            this.splitContLore.Panel1.PerformLayout();
+            this.splitContLore.Panel2.ResumeLayout(false);
+            this.splitContLore.Panel2.PerformLayout();
+            this.splitContLore.ResumeLayout(false);
             this.tabpageEnchantments.ResumeLayout(false);
             this.grpEnchantments.ResumeLayout(false);
             this.panelEnchantmentList.ResumeLayout(false);
@@ -1043,7 +1113,11 @@
             this.grpColor.ResumeLayout(false);
             this.tabpageCommands.ResumeLayout(false);
             this.grpCommands.ResumeLayout(false);
-            this.grpCommands.PerformLayout();
+            this.splitContCmds.Panel1.ResumeLayout(false);
+            this.splitContCmds.Panel1.PerformLayout();
+            this.splitContCmds.Panel2.ResumeLayout(false);
+            this.splitContCmds.Panel2.PerformLayout();
+            this.splitContCmds.ResumeLayout(false);
             this.tabpagesRequirements.ResumeLayout(false);
             this.grpRequiredItem.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bsMCRequiredItems)).EndInit();
@@ -1136,5 +1210,9 @@
         private System.Windows.Forms.NumericUpDown numRequiredItemAmount;
         private System.Windows.Forms.PictureBox picRequiredItemIcon;
         private System.Windows.Forms.PictureBox picSkullOwner;
+        private System.Windows.Forms.SplitContainer splitContLore;
+        private System.Windows.Forms.ToolStrip toolStripLore;
+        private System.Windows.Forms.SplitContainer splitContCmds;
+        private System.Windows.Forms.ToolStrip toolStrip1;
     }
 }

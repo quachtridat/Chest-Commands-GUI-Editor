@@ -1,10 +1,8 @@
-﻿using CCGE_Metro.Classes.Structures;
-
-namespace CCGE_Metro {
+﻿namespace CCGE_Metro {
     using Classes;
     static class Program {
         [System.ComponentModel.Description(@"A 2D array containing menu items.")]
-        public static MenuItem[,] MenuItems { get; private set; }
+        public static Classes.Structures.MenuItem[,] MenuItems { get; private set; }
         public static void ShowSplashScreen(MetroFramework.Forms.MetroForm mainForm, MetroFramework.Forms.MetroForm splashForm) {
             if (mainForm == null || splashForm == null) return;
 
@@ -43,7 +41,7 @@ namespace CCGE_Metro {
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
             MinecraftBase.LoadMinecraftItems();
             MinecraftBase.LoadMinecraftEnchantments();
-            MenuItems = new MenuItem[Settings.INVENTORY_MAX_COLUMNS, Settings.INVENTORY_MAX_ROWS];
+            MenuItems = new Classes.Structures.MenuItem[Settings.INVENTORY_MAX_COLUMNS, Settings.INVENTORY_MAX_ROWS];
             System.Windows.Forms.Application.Run(new Forms.Main());
             //ShowSplashScreen(new Forms.Splash(), new Forms.Main());
         }

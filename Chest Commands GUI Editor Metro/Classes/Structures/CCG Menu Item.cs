@@ -5,7 +5,8 @@ using System.Linq;
 using YamlDotNet.RepresentationModel;
 
 namespace CCGE_Metro.Classes.Structures {
-    public class MenuItem : Interfaces.IYamlConvertible, ICloneable {
+    using static Extensions.Util;
+    public class MenuItem : ICloneable, IEquatable<MenuItem>, Interfaces.IYamlConvertible {
         #region Constructor
         /// <summary>
         /// Constructs a new instance of a <see cref="MenuItem"/>.
@@ -61,7 +62,7 @@ namespace CCGE_Metro.Classes.Structures {
                 defaultFont = new Font(font, FontStyle.Italic);
 
                 // Add new empty line to separate with name
-                exStrList.Add(new[] { new ExtendedString(Environment.NewLine, fontColor, defaultFont) });
+                exStrList.Add(new []{ new ExtendedString(Environment.NewLine, fontColor, defaultFont) });
 
                 // Add to menu item & rich-text-box
                 foreach (string loreLine in Lore) {
@@ -81,7 +82,7 @@ namespace CCGE_Metro.Classes.Structures {
                 defaultFont = font;
 
                 // Add new empty line to separate with lore lines
-                exStrList.Add(new[] { new ExtendedString(Environment.NewLine, fontColor, defaultFont) });
+                exStrList.Add(new []{ new ExtendedString(Environment.NewLine, fontColor, defaultFont) });
 
                 // Add to menu item & rich-text-box
                 foreach (MinecraftEnchantment e in Enchantments) {
@@ -89,7 +90,7 @@ namespace CCGE_Metro.Classes.Structures {
                     string ench = $"{e.Name} {Helpers.LatinNumber(e.Level)}";
 
                     // Add to menu item
-                    exStrList.Add(new[] { new ExtendedString(ench, defaultColor, defaultFont) });
+                    exStrList.Add(new []{ new ExtendedString(ench, defaultColor, defaultFont) });
                 }
             }
             #endregion
@@ -97,7 +98,7 @@ namespace CCGE_Metro.Classes.Structures {
             return exStrList.ToArray();
         }
 
-        #region System.IClonable members
+        #region System.IClonable member
         public object Clone() {
             return new MenuItem {
                 Color = Color,
@@ -122,7 +123,32 @@ namespace CCGE_Metro.Classes.Structures {
                 Y = Y
             };
         }
-        #endregion  
+        #endregion
+
+        #region System.IEquatable<T> member
+        public bool Equals(MenuItem item) {
+            if (item == null) return false;
+            return
+                (item.InternalName ?? string.Empty).Equals(InternalName ?? string.Empty) &&
+                new MinecraftItemEqualityComparer().Equals(item.Item, Item) &&
+                item.X.Equals(X) &&
+                item.Y.Equals(Y) &&
+                (item.Name ?? string.Empty).Equals(Name ?? string.Empty) &&
+                (item.Lore ?? new []{string.Empty}).SequenceEqual(Lore ?? new []{string.Empty}) &&
+                (item.Enchantments ?? new []{EmptyMinecraftEnchantment}).SequenceEqual(Enchantments ?? new []{EmptyMinecraftEnchantment}, new MinecraftEnchantmentEqualityComparer()) &&
+                item.Color.ToArgb().Equals(Color.ToArgb()) &&
+                (item.SkullOwner ?? string.Empty).Equals(SkullOwner ?? string.Empty) &&
+                (item.Commands ?? new []{string.Empty}).SequenceEqual(Commands ?? new []{string.Empty}) &&
+                item.Price.Equals(Price) &&
+                item.Levels.Equals(Levels) &&
+                item.Points.Equals(Points) &&
+                new MinecraftItemEqualityComparer().Equals(item.RequiredItem, RequiredItem) &&
+                item.KeepOpen.Equals(KeepOpen) &&
+                (item.Permission ?? string.Empty).Equals(Permission ?? string.Empty) &&
+                (item.ViewPermission ?? string.Empty).Equals(ViewPermission ?? string.Empty) &&
+                (item.PermissionMessage ?? string.Empty).Equals(PermissionMessage ?? string.Empty);
+        }
+        #endregion
 
         /// <summary>
         /// Converts the <see cref="T:YamlMappingNode"/> representation of information of a <see cref="T:MenuItem"/> to a <see cref="T:MenuItem"/> object.
@@ -233,7 +259,7 @@ namespace CCGE_Metro.Classes.Structures {
             }
 
             if (enchNode?.NodeType == YamlNodeType.Scalar) {
-                string[] enchantmentStrings = ((YamlScalarNode)enchNode).Value.Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] enchantmentStrings = ((YamlScalarNode)enchNode).Value.Split(new []{ "; ", ";" }, StringSplitOptions.RemoveEmptyEntries);
                 List<MinecraftEnchantment> enchantments = new List<MinecraftEnchantment>();
                 foreach (string enchantmentString in enchantmentStrings) {
                     try { enchantments.Add(MinecraftEnchantment.Parse(enchantmentString)); } catch { /* ignore and continue */ }
@@ -259,7 +285,7 @@ namespace CCGE_Metro.Classes.Structures {
                 menuItem.SkullOwner = ((YamlScalarNode)skullNode).Value;
 
             if (cmdNode?.NodeType == YamlNodeType.Scalar)
-                menuItem.Commands = ((YamlScalarNode)cmdNode).Value.Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries);
+                menuItem.Commands = ((YamlScalarNode)cmdNode).Value.Split(new []{ "; ", ";" }, StringSplitOptions.RemoveEmptyEntries);
 
             if (priceNode?.NodeType == YamlNodeType.Scalar)
                 try { menuItem.Price = Convert.ToDouble(((YamlScalarNode)priceNode).Value); } catch { /* ignored */}
@@ -299,7 +325,7 @@ namespace CCGE_Metro.Classes.Structures {
                     {NewLine = Environment.NewLine}) {
                     serializer.Serialize(textWriter, ToYamlDictionary());
                     List<string> result = new List<string> {$"{InternalName}:"};
-                    result.AddRange(textWriter.ToString().Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries).Select(s => new string(' ', 2) + s).ToArray());
+                    result.AddRange(textWriter.ToString().Split(new []{Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries).Select(s => new string(' ', 2) + s).ToArray());
                     return result.ToArray();
                 }
             } else {
@@ -444,5 +470,17 @@ namespace CCGE_Metro.Classes.Structures {
         [System.ComponentModel.Description("Whether the item is available.")] public bool IsAvailable { get; set; }
         [System.ComponentModel.Description("Whether the item is being modified.")] public bool IsBeingModified { get; set; }
         #endregion
+    }
+
+    public class MenuItemEqualityComparer : IEqualityComparer<MenuItem> {
+        public bool Equals(MenuItem item1, MenuItem item2) {
+            if (item1 == null && item2 == null) return true;
+            else if (item1 == null || item2 == null) return false;
+            return item1.Equals(item2) && item1.IsAvailable.Equals(item2.IsAvailable);
+        }
+        public int GetHashCode(MenuItem item) {
+            int hashCode = (int)(item.InternalName.Length + item.Item.ToString().Length + item.X + item.Y) ^ (item.IsAvailable ? 1 : 0);
+            return hashCode.GetHashCode();
+        }
     }
 }

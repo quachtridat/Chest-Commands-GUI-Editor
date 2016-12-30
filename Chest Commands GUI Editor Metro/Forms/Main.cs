@@ -2,24 +2,28 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
-using CCGE_Metro.Classes;
-using CCGE_Metro.Classes.Structures;
-using CCGE_Metro.Properties;
-using CCGE_Metro.User_controls;
 using MetroFramework;
 using MetroFramework.Controls;
 using MetroFramework.Forms;
 using YamlDotNet.RepresentationModel;
 
 namespace CCGE_Metro.Forms {
+    using Classes;
+    using Classes.Structures;
+    using Classes.Extensions;
+    using Properties;
+    using User_controls;
     using Settings = Settings;
     using MenuItem = Classes.Structures.MenuItem;
     public partial class Main : MetroForm {
         #region Fields
         private Timer _timerUpdater;
+        private MenuSettings _originalMenuSettings;
+        private MenuItem[,] _originalMenuItems;
         #endregion
 
         #region Properties
+        private Timer Timer => _timerUpdater;
         /// <summary>
         /// Current <see cref="TableCell"/>.
         /// </summary>
@@ -28,6 +32,11 @@ namespace CCGE_Metro.Forms {
         /// Current <see cref="MenuSettings"/>.
         /// </summary>
         public MenuSettings CurrentMenuSettings { get; protected set; }
+        /// <summary>
+        /// Whether the menu has been modified.
+        /// </summary>
+        private bool Modified 
+            => !_originalMenuSettings.Equals(CurrentMenuSettings) || !Util.SequenceEqual(_originalMenuItems, Program.MenuItems, new MenuItemEqualityComparer());
         #endregion
 
         #region Constructor
@@ -61,7 +70,7 @@ namespace CCGE_Metro.Forms {
         /// <summary>
         /// Loads updater that runs <see cref="UpdateCurrent"/> automatically by interval.
         /// </summary>
-        private void LoadUpdater() {
+        private void LoadUpdater() {            
             _timerUpdater = new Timer {Interval = (int) Settings.MENU_ITEM_UPDATE_INTERVAL};
             _timerUpdater.Tick +=
                 delegate {
@@ -106,16 +115,53 @@ namespace CCGE_Metro.Forms {
         /// </summary>
         /// <param name="path"></param>
         private void ImportYaml(string path) {
-            Importer importer = new Importer(path);
+            Importer importer = new Importer();
 
-            tableMain.Clear();           
+            UpdateCurrent();
+            if (Modified) {
+                string saveConfirmation = "Do you want to save your changes?";
+                if (MetroMessageBox.Show(this, saveConfirmation, "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) saveFileDialog.ShowDialog();
+            }
+
+            try {
+                importer.Load(path);
+            } catch (Exception e) {
+                MetroMessageBox.Show(this, $"Failed to import!{Environment.NewLine}{e.Message}", "Import failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            ResetAll();
+
+            Timer?.Stop();
+            ImportMenuSettings(importer);
+            _originalMenuSettings = (MenuSettings) CurrentMenuSettings.Clone();
+
+            ImportMenuItems(importer);
+            _originalMenuItems = (MenuItem[,]) Program.MenuItems.Clone();
+
+            tableMain.RefreshCells();
+            Timer?.Start();
+        }
+        /// <summary>
+        /// Imports <see cref="MenuSettings"/> from a non-null <see cref="Importer"/>.
+        /// </summary>
+        /// <param name="importer">A non-null <see cref="Importer"/>.</param>
+        private void ImportMenuSettings(Importer importer) {
+            if (importer == null) return;
             CurrentMenuSettings = importer.GetMenuSettings((YamlMappingNode)importer.MainNodes[new YamlScalarNode(@"menu-settings")]);
             if (CurrentMenuSettings == null) {
-                MetroMessageBox.Show(this, $"Failed to import menu settings!", "Import failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "Failed to import menu settings!", "Import failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             SetFields(CurrentMenuSettings);
-
+            UpdateCurrent();
+        }
+        /// <summary>
+        /// Imports <see cref="MenuItem"/> from a non-null <see cref="Importer"/>.
+        /// </summary>
+        /// <param name="importer">A non-null <see cref="Importer"/>.</param>
+        private void ImportMenuItems(Importer importer) {
+            if (importer == null) return;
+            tableMain.Enabled = false;
             foreach (YamlNode node in importer.MainNodes.Keys) {
                 if (node.ToString().Equals(@"menu-settings")) continue;
                 try {
@@ -125,14 +171,14 @@ namespace CCGE_Metro.Forms {
                     MetroMessageBox.Show(this, $"Failed to import menu item {node}!{Environment.NewLine}{e.Message}", "Import failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
-            tableMain.RefreshCells();
+            tableMain.Enabled = true;
         }
         /// <summary>
         /// Exports data to a YAML configuration file.
         /// </summary>
         /// <param name="path"></param>
         private void ExportYaml(string path) {
+            UpdateCurrent();
             Exporter exporter = new Exporter(CurrentMenuSettings, Program.MenuItems);
             try {
                 exporter.Export(path);
@@ -155,6 +201,18 @@ namespace CCGE_Metro.Forms {
                 MetroMessageBox.Show(this, $"Failed to export data!{Environment.NewLine}{e.Message}", "Export failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void ResetAll() {
+            // Table
+            tableMain.Clear();
+
+            // Other fields
+            txtName.Text = Settings.DEFAULT_MENU_NAME;
+            txtCommands.ResetText();
+            txtOpenAction.ResetText();
+            numAutoRefresh.Value = numAutoRefresh.Minimum;
+            cboxOpenWithItem.SelectedIndex = 0;
+            chkLeft.CheckState = chkRight.CheckState = CheckState.Unchecked;
+        }
         #endregion
 
         #region Event handlers
@@ -166,12 +224,17 @@ namespace CCGE_Metro.Forms {
             if (CurrentMenuSettings == null)
                 CurrentMenuSettings = new MenuSettings(txtName.Text, (uint)tableMain.Table.RowCount);
 
+            UpdateCurrent();
+            _originalMenuSettings = (MenuSettings) CurrentMenuSettings.Clone();
+            _originalMenuItems = (MenuItem[,]) Program.MenuItems.Clone();
             LoadUpdater();
         }
         private void Main_FormClosing(object sender, FormClosingEventArgs e) {
-            DialogResult confirm = MetroMessageBox.Show(this, "Do you want to save your work?", "Quit", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            if (confirm == DialogResult.Cancel) e.Cancel = true;
-            else cboxOpenWithItem.SelectedIndexChanged -= cboxOpenWithItem_SelectedIndexChanged;
+            if (Modified) {
+                DialogResult confirm = MetroMessageBox.Show(this, "Do you want to save your changes?", "Quit", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (confirm == DialogResult.Cancel) e.Cancel = true;
+                else cboxOpenWithItem.SelectedIndexChanged -= cboxOpenWithItem_SelectedIndexChanged;
+            } else cboxOpenWithItem.SelectedIndexChanged -= cboxOpenWithItem_SelectedIndexChanged;
         }
         #endregion
 
@@ -248,21 +311,20 @@ namespace CCGE_Metro.Forms {
         }
         private void reloadIconToolstrip_Click(object sender, EventArgs e)
             => tableMain.SelectedCell.Image = Helpers.GetPlayerHead(tableMain.SelectedCell.Item.SkullOwner, true);
+        private void newToolstrip_Click(object sender, EventArgs e) {
+            if (Modified) {
+                string saveConfirmation = "Do you want to save your changes?";
+                if (MetroMessageBox.Show(this, saveConfirmation, "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) saveFileDialog.ShowDialog();
+            }
+            ResetAll();
+            _originalMenuSettings = (MenuSettings) CurrentMenuSettings.Clone();
+            _originalMenuItems = (MenuItem[,]) Program.MenuItems.Clone();
+        }
+
         #endregion
 
         #region (Metro) Tile
-        private void tileReset_Click(object sender, EventArgs e) {
-            // Table
-            tableMain.Clear();
-
-            // Other fields
-            txtName.Text = @"menu";
-            txtCommands.ResetText();
-            txtOpenAction.ResetText();
-            numAutoRefresh.Value = numAutoRefresh.Minimum;
-            cboxOpenWithItem.SelectedIndex = 0;
-            chkLeft.CheckState = chkRight.CheckState = CheckState.Unchecked;
-        }
+        private void tileReset_Click(object sender, EventArgs e) => ResetAll();
         #endregion
 
         #region File dialog

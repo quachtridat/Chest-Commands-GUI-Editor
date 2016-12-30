@@ -4,8 +4,9 @@ using System.Linq;
 using YamlDotNet.RepresentationModel;
 
 namespace CCGE_Metro.Classes.Structures {
+    using static Extensions.Util;
     [System.ComponentModel.Description("A class of Chest Commands GUI's menu settings.")]
-    public class MenuSettings : ICloneable, Interfaces.IYamlConvertible {
+    public class MenuSettings : ICloneable, IEquatable<MenuSettings>, Interfaces.IYamlConvertible {
         #region Constructor
         /// <summary>
         /// Constructs a new instance of a <see cref="MenuSettings"/>.
@@ -72,11 +73,11 @@ namespace CCGE_Metro.Classes.Structures {
             MenuSettings settings = new MenuSettings(((YamlScalarNode)nameNode).Value, rows);
 
             if (cmdNode?.NodeType == YamlNodeType.Scalar)
-                settings.Commands = ((YamlScalarNode)cmdNode).Value.Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries);
+                settings.Commands = ((YamlScalarNode)cmdNode).Value.Split(new []{ "; ", ";" }, StringSplitOptions.RemoveEmptyEntries);
             if (refreshNode?.NodeType == YamlNodeType.Scalar)
                 try { settings.AutoRefresh = Convert.ToUInt32(((YamlScalarNode)refreshNode).Value); } catch { /* ignored */ }
             if (actionNode?.NodeType == YamlNodeType.Scalar)
-                settings.OpenActions = ((YamlScalarNode)actionNode).Value.Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries);
+                settings.OpenActions = ((YamlScalarNode)actionNode).Value.Split(new []{ "; ", ";" }, StringSplitOptions.RemoveEmptyEntries);
             if (openWithItemNode?.NodeType == YamlNodeType.Mapping) {
                 IDictionary<YamlNode, YamlNode> dict2 = ((YamlMappingNode)openWithItemNode).Children;
 
@@ -101,7 +102,25 @@ namespace CCGE_Metro.Classes.Structures {
         }
 
         #region ICloneable member
-        public object Clone() => MemberwiseClone();
+
+        public object Clone() {
+            return MemberwiseClone();
+        }
+        #endregion
+
+        #region IEquatable<T> member
+        public bool Equals(MenuSettings settings) {
+            if (settings == null) return false;
+            return
+                (settings.Name ?? string.Empty).Equals(Name ?? string.Empty) &&
+                settings.Rows.Equals(Rows) &&
+                (settings.Commands ?? new []{string.Empty}).SequenceEqual(Commands ?? new []{string.Empty}) &&
+                settings.AutoRefresh.Equals(AutoRefresh) &&
+                (settings.OpenActions ?? new []{string.Empty}).SequenceEqual(OpenActions ?? new []{string.Empty}) &&
+                (settings.OpenItem ?? EmptyMinecraftItem).Equals(OpenItem ?? EmptyMinecraftItem) &&
+                settings.OpenWithLeftClick.Equals(OpenWithLeftClick) &&
+                settings.OpenWithRightClick.Equals(OpenWithRightClick);
+        }
         #endregion
 
         #region IYamlConvertible members
@@ -112,7 +131,7 @@ namespace CCGE_Metro.Classes.Structures {
                     new System.IO.StringWriter(System.Globalization.CultureInfo.InvariantCulture) {NewLine = Environment.NewLine}) {
                     serializer.Serialize(textWriter, ToYamlDictionary());
                     List<string> result = new List<string> {@"menu-settings:"};
-                    result.AddRange(textWriter.ToString().Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries).Select(s => new string(' ', 2) + s).ToArray());
+                    result.AddRange(textWriter.ToString().Split(new []{Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries).Select(s => new string(' ', 2) + s).ToArray());
                     return result.ToArray();
                 }
             } else {

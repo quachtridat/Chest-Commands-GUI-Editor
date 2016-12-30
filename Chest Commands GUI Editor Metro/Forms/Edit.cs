@@ -25,6 +25,7 @@ namespace CCGE_Metro.Forms {
         /// <param name="cell"></param>
         public Edit(TableCell cell) {
             InitializeComponent();
+            tileColor.Text = DEFAULT_COLOR_BUTTON_TEXT;
             cboxItem.SelectedIndexChanged -= cboxItem_SelectedIndexChanged;
             CurrentTableCell = cell;
         }
@@ -42,7 +43,7 @@ namespace CCGE_Metro.Forms {
             if (Program.MenuItems[CurrentTableCell.Column, CurrentTableCell.Row] != null) {
                 Program.MenuItems[CurrentTableCell.Column, CurrentTableCell.Row].IsBeingModified = true;
                 TemporaryMenuItem = (MenuItem) Program.MenuItems[CurrentTableCell.Column, CurrentTableCell.Row].Clone();
-            } else TemporaryMenuItem = new MenuItem {InternalName = "ITEM", X = (uint) CurrentTableCell.X, Y = (uint) CurrentTableCell.Y};
+            } else TemporaryMenuItem = new MenuItem {InternalName = DEFAULT_MENU_ITEM_INTERNAL_NAME, X = (uint) CurrentTableCell.X, Y = (uint) CurrentTableCell.Y};
 
             if (TemporaryMenuItem != null) {
                 TemporaryMenuItem.IsBeingModified = true;
@@ -70,19 +71,22 @@ namespace CCGE_Metro.Forms {
                     listviewEnchantments.Items.AddRange(
                         Enchantments
                         .ToArray()
-                        .Select(e => new ListViewItem(new[] {e.Name, e.Level.ToString()}))
+                        .Select(e => new ListViewItem(new []{e.Name, e.Level.ToString()}))
                         .ToArray());
                 }
 
-                // Extras
+                // Color
                 if (TemporaryMenuItem.Color != Color.Empty) {
                     tileColor.BackColor = TemporaryMenuItem.Color;
                     tileColor.Text = $"{TemporaryMenuItem.Color.R}, {TemporaryMenuItem.Color.G}, {TemporaryMenuItem.Color.B}";
                 }
 
                 // Skull owner
-                if (!string.IsNullOrEmpty(TemporaryMenuItem.SkullOwner))
+                if (!string.IsNullOrEmpty(TemporaryMenuItem.SkullOwner)) {
                     txtSkullOwner.Text = TemporaryMenuItem.SkullOwner;
+                    if (TemporaryMenuItem.Item != null && TemporaryMenuItem.Item.IsPlayerHead)
+                        picSkullOwner.Image = Helpers.GetPlayerHead(TemporaryMenuItem.SkullOwner);
+                }
 
                 // Commands
                 if (TemporaryMenuItem.EscapedCommandStrings != null && TemporaryMenuItem.EscapedCommandStrings.Length > 0)
@@ -112,7 +116,7 @@ namespace CCGE_Metro.Forms {
                 chkKeepOpen.Checked = TemporaryMenuItem.KeepOpen;
 
                 lblItemPos.Text = $"X = {TemporaryMenuItem.X}, Y = {TemporaryMenuItem.Y}";
-            } else throw new Exception(@"CurrentMenuItem is null!");
+            } else throw new NullReferenceException($"{nameof(CurrentTableCell.Item)} is null!");
         }
         /// <summary>
         /// Load updater that runs <see cref="UpdateCurrent"/> automatically by interval.
@@ -159,7 +163,7 @@ namespace CCGE_Metro.Forms {
             TemporaryMenuItem.Name = txtName.Text;
             TemporaryMenuItem.Lore = txtLore.Lines;
             TemporaryMenuItem.Enchantments = Enchantments.ToArray();
-            TemporaryMenuItem.Color = grpColor.Enabled ? colorDialog.Color : Color.Empty;
+            TemporaryMenuItem.Color = grpColor.Enabled && !tileColor.Text.Equals(DEFAULT_COLOR_BUTTON_TEXT) ? colorDialog.Color : Color.Empty;
             TemporaryMenuItem.SkullOwner = grpSkullOwner.Enabled ? txtSkullOwner.Text : null;
             TemporaryMenuItem.Commands = txtCommands.Lines;
             TemporaryMenuItem.Price = (double) numPrice.Value;
@@ -198,7 +202,8 @@ namespace CCGE_Metro.Forms {
         }
         private void ResetAll() {
             // Tab-page 'Information'
-            txtInternalName.Text = @"item" + (TemporaryMenuItem.X - 1 + (TemporaryMenuItem.Y - 1) * INVENTORY_MAX_COLUMNS + 1);
+            //txtInternalName.Text = @"item" + (TemporaryMenuItem.X - 1 + (TemporaryMenuItem.Y - 1) * INVENTORY_MAX_COLUMNS + 1);
+            txtInternalName.Text = DEFAULT_MENU_ITEM_INTERNAL_NAME;
             cboxItem.SelectedIndex = 0;
             numItemAmount.Value = numItemAmount.Minimum;
             txtName.ResetText();
@@ -246,7 +251,7 @@ namespace CCGE_Metro.Forms {
                 listviewEnchantments.Items[index].SubItems[1].Text = enchantmentLevel.ToString();
             } else {
                 Enchantments.Add(newEnchantment);
-                listviewEnchantments.Items.Add(new ListViewItem(new[] { selectedEnchantment.Name, enchantmentLevel.ToString() }));
+                listviewEnchantments.Items.Add(new ListViewItem(new []{ selectedEnchantment.Name, enchantmentLevel.ToString() }));
             }
         }
         #endregion
@@ -263,9 +268,9 @@ namespace CCGE_Metro.Forms {
 
             SetDataSources();
             Enchantments = new List<MinecraftEnchantment>();
+            cboxItem.SelectedIndexChanged += cboxItem_SelectedIndexChanged;
             LoadCurrentItemData();
 
-            cboxItem.SelectedIndexChanged += cboxItem_SelectedIndexChanged;
             ToolTip = new MinecraftToolTip { BackColor = TooltipBackgroundColor };
             UpdateCurrent();
 
@@ -295,7 +300,9 @@ namespace CCGE_Metro.Forms {
         private void txtInternalName_KeyPress(object sender, KeyPressEventArgs e) {
             e.Handled = !(e.KeyChar.Equals('_') || char.IsControl(e.KeyChar) || char.IsLetterOrDigit(e.KeyChar));
         }
-        private void txtSkullOwner_Validated(object sender, EventArgs e) => CurrentTableCell.Image = Helpers.GetPlayerHead(((MetroFramework.Controls.MetroTextBox)sender).Text);
+        private void txtSkullOwner_Validated(object sender, EventArgs e) {
+            CurrentTableCell.Image = picSkullOwner.Image = Helpers.GetPlayerHead(((MetroFramework.Controls.MetroTextBox)sender).Text);
+        }
         #endregion
 
         #region ComboBox
@@ -345,7 +352,6 @@ namespace CCGE_Metro.Forms {
         private void contextmenuEnchantment_Opening(object sender, CancelEventArgs e) {
             e.Cancel = listviewEnchantments.SelectedIndices.Count < 1;
         }
-
         #endregion
 
         #region Toolstrip menu item

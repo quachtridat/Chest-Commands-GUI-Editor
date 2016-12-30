@@ -37,8 +37,8 @@ namespace CCGE_Metro.Classes {
         /// <returns></returns>
         public static string LatinNumber(uint number) {
             if (number >= 40 || number <= 0) return "level " + number;
-            string[] latin = Resources.Latin.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            return latin[number].Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[1];
+            string[] latin = Resources.Latin.Split(new []{ '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            return latin[number].Split(new []{ '\t' }, StringSplitOptions.RemoveEmptyEntries)[1];
         }
 
         /// <summary>

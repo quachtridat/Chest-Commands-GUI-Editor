@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using CCGE_Metro.Classes.Structures;
-using CCGE_Metro.Properties;
 
 namespace CCGE_Metro {
+    using Classes.Structures;
     public static class MinecraftBase {
         [System.ComponentModel.Description(@"An array containing Minecraft items.")]
         public static MinecraftItem[] MinecraftItems { get; private set; }
@@ -13,7 +12,7 @@ namespace CCGE_Metro {
 
         public static void LoadMinecraftItems() {
             // Load Minecraft items list
-            string[] items = Resources.MC_Items.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            string[] items = Properties.Resources.MC_Items.Split(new []{ Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             List<MinecraftItem> result = new List<MinecraftItem>();
 
             // Add each item to list
@@ -30,12 +29,12 @@ namespace CCGE_Metro {
 
         public static void LoadMinecraftEnchantments() {
             // Load Minecraft enchantments list
-            string[] enchantments = Resources.Enchantments.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            string[] enchantments = Properties.Resources.Enchantments.Split(new []{ Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             List<MinecraftEnchantment> result = new List<MinecraftEnchantment>();
 
             // Add each enchantment to list
             foreach (string ench in enchantments) {
-                string[] parts = ench.Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] parts = ench.Split(new []{ '\t' }, StringSplitOptions.RemoveEmptyEntries);
                 result.Add(new MinecraftEnchantment(parts[0], parts[1], Convert.ToInt32(parts[2])));
             }
 

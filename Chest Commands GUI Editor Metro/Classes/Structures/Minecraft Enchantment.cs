@@ -1,5 +1,5 @@
 ﻿namespace CCGE_Metro.Classes.Structures {
-    public class MinecraftEnchantment {
+    public class MinecraftEnchantment : System.ICloneable, System.IEquatable<MinecraftEnchantment>, System.IComparable<MinecraftEnchantment> {
         #region Constructor
         /// <summary>
         /// Constructs a new instance of a <see cref="MinecraftEnchantment"/>.
@@ -62,7 +62,7 @@
         public static MinecraftEnchantment Parse(string s) {
             if (string.IsNullOrEmpty(s)) throw new System.ArgumentNullException(nameof(s));
 
-            string[] parts = s.Split(new[] {','}, System.StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = s.Split(new []{','}, System.StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length > 2 || parts[0].ToUpper().Equals(parts[0].ToLower()))
                 throw new System.FormatException($"{nameof(s)} is not in the correct format.");
 
@@ -77,6 +77,41 @@
 
             return result;
         }
+
+        #region System.ICloneable member
+        public object Clone() {
+            return MemberwiseClone();
+        }
         #endregion
+
+        #region System.IEquatable<T> member
+        public bool Equals(MinecraftEnchantment enc) {
+            if (enc == null) return false;
+            return
+                enc.Id.Equals(Id) &&
+                enc.Name.Equals(Name) &&
+                enc.Literal.Equals(Literal);
+        }
+        #endregion
+
+        #region System.IComparable member
+        public int CompareTo(MinecraftEnchantment enc) {
+            if (enc == null) return (int)(0 - (Id + Level));
+            return (int)((Id + Level) - (enc.Id + enc.Level));
+        }
+        #endregion
+        #endregion
+    }
+
+    public class MinecraftEnchantmentEqualityComparer : System.Collections.Generic.IEqualityComparer<MinecraftEnchantment> {
+        public bool Equals(MinecraftEnchantment enc1, MinecraftEnchantment enc2) {
+            if (enc1 == null && enc2 == null) return true;
+            else if (enc1 == null || enc2 == null) return false;
+            return enc1.Equals(enc2) && enc1.Level.Equals(enc2.Level);
+        }
+        public int GetHashCode(MinecraftEnchantment enc) {
+            int hashCode = enc.Id ^ (int)enc.Level;
+            return hashCode.GetHashCode();
+        }
     }
 }

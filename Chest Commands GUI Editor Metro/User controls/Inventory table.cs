@@ -32,6 +32,7 @@ namespace CCGE_Metro.User_controls {
         /// Empties the table.
         /// </summary>
         public void Clear() {
+            Array.Clear(Program.MenuItems, 0, Program.MenuItems.Length);
             Table.Controls.Clear();
             for (uint i = 0; i < Table.RowCount; ++i) FillCells(i);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -6,7 +7,7 @@ namespace CCGE_Metro.Classes.Structures {
     /// <summary>
     /// A <see cref="string"/> that has custom color and font style.
     /// </summary>
-    public class ExtendedString {
+    public class ExtendedString : IComparable, ICloneable, IConvertible, IComparable<string>, IEnumerable<char>, IEquatable<string>, IEquatable<ExtendedString> {
         #region Constructors
         /// <summary>
         /// Constructs a new instance of an <see cref="ExtendedString"/>.
@@ -353,6 +354,113 @@ namespace CCGE_Metro.Classes.Structures {
 
             return container.ToArray();
         }
+        
+        #region IComparable member
+        public int CompareTo(object obj) {
+            return String.CompareTo(obj);
+        }
+        #endregion
+        #region ICloneable member
+        public object Clone() {
+            return MemberwiseClone();
+        }
+        #endregion
+        #region IConvertible members
+        public TypeCode GetTypeCode() {
+            return String.GetTypeCode();
+        }
+
+        public bool ToBoolean(IFormatProvider provider) {
+            return Convert.ToBoolean(String, provider);
+        }
+
+        public char ToChar(IFormatProvider provider) {
+            return Convert.ToChar(String, provider);
+        }
+
+        public sbyte ToSByte(IFormatProvider provider) {
+            return Convert.ToSByte(String, provider);
+        }
+
+        public byte ToByte(IFormatProvider provider) {
+            return Convert.ToByte(String, provider);
+        }
+
+        public short ToInt16(IFormatProvider provider) {
+            return Convert.ToInt16(String, provider);
+        }
+
+        public ushort ToUInt16(IFormatProvider provider) {
+            return Convert.ToUInt16(String, provider);
+        }
+
+        public int ToInt32(IFormatProvider provider) {
+            return Convert.ToInt32(String, provider);
+        }
+
+        public uint ToUInt32(IFormatProvider provider) {
+            return Convert.ToUInt32(String, provider);
+        }
+
+        public long ToInt64(IFormatProvider provider) {
+            return Convert.ToInt64(String, provider);
+        }
+
+        public ulong ToUInt64(IFormatProvider provider) {
+            return Convert.ToUInt64(String, provider);
+        }
+
+        public float ToSingle(IFormatProvider provider) {
+            return Convert.ToSingle(String, provider);
+        }
+
+        public double ToDouble(IFormatProvider provider) {
+            return Convert.ToDouble(String, provider);
+        }
+
+        public decimal ToDecimal(IFormatProvider provider) {
+            return Convert.ToDecimal(String, provider);
+        }
+
+        public DateTime ToDateTime(IFormatProvider provider) {
+            return Convert.ToDateTime(String, provider);
+        }
+
+        public string ToString(IFormatProvider provider) {
+            return Convert.ToString(String, provider);
+        }
+
+        public object ToType(Type conversionType, IFormatProvider provider) {
+            throw new NotImplementedException();
+        }
+        #endregion
+        #region IComparable<T> member
+        public int CompareTo(string other) {
+            if (string.IsNullOrEmpty(other)) return 0 - String.Length;
+            return string.Compare(String, other, StringComparison.Ordinal);
+        }
+        #endregion
+        #region IEnumerable<T> member
+        public IEnumerator<char> GetEnumerator() {
+            return String.GetEnumerator();
+        }
+        #endregion
+        #region IENumerable member
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
+        #endregion
+        #region IEquatable<T> members
+        public bool Equals(string other) {
+            if (string.IsNullOrEmpty(String) && string.IsNullOrEmpty(other)) return true;
+            else if (string.IsNullOrEmpty(String) || string.IsNullOrEmpty(other)) return false;
+            return String.Equals(other);
+        }
+        public bool Equals(ExtendedString other) {
+            if (other == null) return false;
+            return String.Equals(other.String) && Color.Equals(other.Color) && Font.Equals(other.Font);
+        }
+        #endregion
         #endregion
     }
 }

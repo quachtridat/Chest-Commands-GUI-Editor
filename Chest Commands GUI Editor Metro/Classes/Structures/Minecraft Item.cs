@@ -1,5 +1,5 @@
 ﻿namespace CCGE_Metro.Classes.Structures {
-    public class MinecraftItem {
+    public class MinecraftItem : System.ICloneable,  System.IEquatable<MinecraftItem>, System.IComparable<MinecraftItem> {
         #region Constructor
         /// <summary>
         /// Constructs a new instance of a <see cref="MinecraftItem"/>.
@@ -8,17 +8,24 @@
         /// <param name="itemName">Item's display name.</param>
         /// <param name="literalName">Item's literal name.</param>
         public MinecraftItem(string fullId, string itemName, string literalName) {
-            if (fullId.Contains(":")) {
-                string[] tokens = fullId.Split(':');
-                Id = System.Convert.ToUInt32(tokens[0]);
-                Data = System.Convert.ToUInt32(tokens[1]);
-            } else {
-                Id = System.Convert.ToUInt32(fullId);
-                Data = 0;
+            try {
+                if (fullId.Contains(":")) {
+                    string[] tokens = fullId.Split(':');
+                    Id = System.Convert.ToUInt32(tokens[0]);
+                    Data = System.Convert.ToUInt32(tokens[1]);
+                } else {
+                    Id = System.Convert.ToUInt32(fullId);
+                    Data = 0;
+                }
+                Name = itemName;
+                Literal = literalName;
+                Amount = 0;
             }
-            Name = itemName;
-            Literal = literalName;
-            Amount = 0;
+            catch {
+                Name = string.Empty;
+                Literal = string.Empty;
+                Amount = 0;
+            }
         }
         #endregion
 
@@ -82,12 +89,12 @@
             if (string.IsNullOrEmpty(s)) throw new System.ArgumentNullException(nameof(s));
 
             // Separate the ID part and the amount part
-            string[] parts = s.Split(new[] {','}, System.StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = s.Split(new []{','}, System.StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length > 2 || string.IsNullOrEmpty(parts[0]))
                 throw new System.FormatException($"{nameof(s)} is not in the correct format.");
 
             // Separate the ID part and the data value part
-            string[] leftParts = parts[0].Split(new[] {':'}, System.StringSplitOptions.RemoveEmptyEntries);
+            string[] leftParts = parts[0].Split(new []{':'}, System.StringSplitOptions.RemoveEmptyEntries);
             if (leftParts.Length > 2 || string.IsNullOrEmpty(leftParts[0]))
                 throw new System.FormatException($"{nameof(leftParts)} is not in the correct format.");
 
@@ -128,6 +135,42 @@
 
             return item;
         }
+
+        #region System.ICloneable member
+        public object Clone() {
+            return MemberwiseClone();
+        }
         #endregion
+
+        #region System.IEquatable<T> member
+        public bool Equals(MinecraftItem item) {
+            if (item == null) return false;
+            return
+                item.Id.Equals(Id) &&
+                item.Data.Equals(Data) &&
+                item.Literal.Equals(Literal) &&
+                item.Name.Equals(Name);
+        }
+        #endregion
+
+        #region System.IComparable member
+        public int CompareTo(MinecraftItem item) {
+            if (item == null) return (int)(0 - (Id + Data + Amount));
+            return (int)((Id + Data + Amount) - (item.Id + item.Data + item.Amount));
+        }
+        #endregion
+        #endregion
+    }
+
+    public class MinecraftItemEqualityComparer : System.Collections.Generic.IEqualityComparer<MinecraftItem> {
+        public bool Equals(MinecraftItem item1, MinecraftItem item2) {
+            if (item1 == null && item2 == null) return true;
+            else if (item1 == null || item2 == null) return false;
+            return item1.Equals(item2) && item1.Amount.Equals(item2.Amount);
+        }
+        public int GetHashCode(MinecraftItem item) {
+            int hashCode = (int)((item.Id + item.Data) ^ item.Amount);
+            return hashCode.GetHashCode();
+        }
     }
 }

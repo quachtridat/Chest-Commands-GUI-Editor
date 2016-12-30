@@ -40,7 +40,9 @@
 
         public const string HEAD_FOLDER = @"Heads";
 
-        public const string DEFAULT_COLOR_BUTTON_TEXT = @"Click to change color!";
+        public const string DEFAULT_MENU_NAME = @"menu";
+        public const string DEFAULT_COLOR_BUTTON_TEXT = @"Click to change color";
+        public const string DEFAULT_MENU_ITEM_INTERNAL_NAME = @"ITEM";
 
         public static bool AllowMenuItemImportOutOfRange = true;
 
