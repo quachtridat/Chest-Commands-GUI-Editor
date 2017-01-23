@@ -40,18 +40,18 @@ namespace CCGE_Metro.User_controls {
         /// Set a <see cref="MinecraftItem"/> icon to a <see cref="CCGE_Metro.User_controls.TableCell"/>.
         /// </summary>
         /// <param name="item"></param>
-        /// <param name="box"></param>
-        public static void SetCellIcon(MinecraftItem item, TableCell box) => box.Image = item?.Icon;
+        /// <param name="cell"></param>
+        public static void SetCellIcon(MinecraftItem item, TableCell cell) => cell.Image = item?.Icon;
         /// <summary>
         /// Set a <see cref="MenuItem"/> to a <see cref="CCGE_Metro.User_controls.TableCell"/>.
         /// If <see cref="MenuItem.Item"/> is a player head and the <see cref="MenuItem"/> has <see cref="MenuItem.SkullOwner"/> set,
         /// set a player head of the <see cref="MenuItem.SkullOwner"/>  to the <see cref="CCGE_Metro.User_controls.TableCell"/>.
         /// </summary>
         /// <param name="item"></param>
-        /// <param name="box"></param>
-        public static void SetCellIcon(MenuItem item, TableCell box) {
-            SetCellIcon(item.Item, box);
-            if (item.Item != null && item.Item.IsPlayerHead) box.Image = Classes.Helpers.GetPlayerHead(item.SkullOwner);
+        /// <param name="cell"></param>
+        public static void SetCellIcon(MenuItem item, TableCell cell) {
+            SetCellIcon(item.Item, cell);
+            if (item.Item != null && item.Item.IsPlayerHead) cell.Image = Classes.Helpers.GetPlayerHead(item.SkullOwner);
         }
 
         #region Modify rows
@@ -75,6 +75,7 @@ namespace CCGE_Metro.User_controls {
             int rowH = Table.Height/Table.RowCount;
             RowStyle newRow = new RowStyle(SizeType.Percent, rowH);
             Height += rowH;
+            EnableCellItem(Table.RowCount);
             ++Table.RowCount;
             Table.RowStyles.Add(newRow);
             FillCells((uint) Table.RowCount - 1);
@@ -88,6 +89,7 @@ namespace CCGE_Metro.User_controls {
             RemoveCells((uint) Table.RowCount - 1);
             Table.RowStyles.RemoveAt(Table.RowCount - 1);
             Height -= rowH;
+            DisableCellItem(Table.RowCount - 1);
             --Table.RowCount;
             AutoRowHeight();
         }
@@ -162,6 +164,18 @@ namespace CCGE_Metro.User_controls {
 
             // Run worker
             backgroundWorker.RunWorkerAsync();
+        }
+        public void EnableCellItem(int row) {
+            for (int i = 0; i < Table.ColumnCount; ++i) {
+                TableCell currentCell = (TableCell) Table.GetControlFromPosition(i, row);
+                if (currentCell?.Item != null) currentCell.Item.IsAvailable = true;
+            }
+        }
+        public void DisableCellItem(int row) {
+            for (int i = 0; i < Table.ColumnCount; ++i) {
+                TableCell currentCell = (TableCell)Table.GetControlFromPosition(i, row);
+                if (currentCell?.Item != null) currentCell.Item.IsAvailable = false;
+            }
         }
         #endregion
 

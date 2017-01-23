@@ -119,8 +119,9 @@ namespace CCGE_Metro.Forms {
 
             UpdateCurrent();
             if (Modified) {
-                string saveConfirmation = "Do you want to save your changes?";
-                if (MetroMessageBox.Show(this, saveConfirmation, "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) saveFileDialog.ShowDialog();
+                DialogResult result = PromptSave();
+                if (result == DialogResult.Yes) saveFileDialog.ShowDialog();
+                else if (result == DialogResult.Cancel) return;
             }
 
             try {
@@ -178,6 +179,7 @@ namespace CCGE_Metro.Forms {
         /// </summary>
         /// <param name="path"></param>
         private void ExportYaml(string path) {
+            // TODO: Confirm include hidden menu items (item.IsAvailable = false).
             UpdateCurrent();
             Exporter exporter = new Exporter(CurrentMenuSettings, Program.MenuItems);
             try {
@@ -200,6 +202,10 @@ namespace CCGE_Metro.Forms {
             catch (Exception e) {
                 MetroMessageBox.Show(this, $"Failed to export data!{Environment.NewLine}{e.Message}", "Export failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private DialogResult PromptSave() {
+            string saveConfirmation = "Do you want to save your changes?";
+            return MetroMessageBox.Show(this, saveConfirmation, "Save", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
         }
         private void ResetAll() {
             // Table
@@ -231,8 +237,7 @@ namespace CCGE_Metro.Forms {
         }
         private void Main_FormClosing(object sender, FormClosingEventArgs e) {
             if (Modified) {
-                DialogResult confirm = MetroMessageBox.Show(this, "Do you want to save your changes?", "Quit", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (confirm == DialogResult.Cancel) e.Cancel = true;
+                if (PromptSave() == DialogResult.Cancel) e.Cancel = true;
                 else cboxOpenWithItem.SelectedIndexChanged -= cboxOpenWithItem_SelectedIndexChanged;
             } else cboxOpenWithItem.SelectedIndexChanged -= cboxOpenWithItem_SelectedIndexChanged;
         }
@@ -313,14 +318,14 @@ namespace CCGE_Metro.Forms {
             => tableMain.SelectedCell.Image = Helpers.GetPlayerHead(tableMain.SelectedCell.Item.SkullOwner, true);
         private void newToolstrip_Click(object sender, EventArgs e) {
             if (Modified) {
-                string saveConfirmation = "Do you want to save your changes?";
-                if (MetroMessageBox.Show(this, saveConfirmation, "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) saveFileDialog.ShowDialog();
+                DialogResult result = PromptSave();
+                if (result == DialogResult.Yes) saveFileDialog.ShowDialog();
+                else if (result == DialogResult.Cancel) return;
             }
             ResetAll();
             _originalMenuSettings = (MenuSettings) CurrentMenuSettings.Clone();
             _originalMenuItems = (MenuItem[,]) Program.MenuItems.Clone();
         }
-
         #endregion
 
         #region (Metro) Tile

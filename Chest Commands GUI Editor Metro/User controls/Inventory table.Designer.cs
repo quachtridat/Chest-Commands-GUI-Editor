@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
-using MetroFramework;
 
-namespace CCGE_Metro.User_controls {
+namespace CCGE_Metro.User_controls
+{
     partial class InventoryTable {
         /// <summary> 
         /// Required designer variable.

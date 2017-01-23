@@ -1,12 +1,10 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
 using CCGE_Metro.User_controls;
-using MetroFramework;
 using MetroFramework.Controls;
 
-namespace CCGE_Metro.Forms {
+namespace CCGE_Metro.Forms
+{
 
     partial class Main {
         /// <summary>
@@ -128,7 +126,7 @@ namespace CCGE_Metro.Forms {
             // 
             this.newToolstrip.Name = "newToolstrip";
             this.newToolstrip.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolstrip.Size = new System.Drawing.Size(187, 22);
+            this.newToolstrip.Size = new System.Drawing.Size(152, 22);
             this.newToolstrip.Text = "New";
             this.newToolstrip.Click += new System.EventHandler(this.newToolstrip_Click);
             // 
@@ -136,23 +134,23 @@ namespace CCGE_Metro.Forms {
             // 
             this.importToolstrip.Name = "importToolstrip";
             this.importToolstrip.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.importToolstrip.Size = new System.Drawing.Size(187, 22);
-            this.importToolstrip.Text = "Open/Import";
+            this.importToolstrip.Size = new System.Drawing.Size(152, 22);
+            this.importToolstrip.Text = "Load";
             this.importToolstrip.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
             // exportToolstrip
             // 
             this.exportToolstrip.Name = "exportToolstrip";
             this.exportToolstrip.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.exportToolstrip.Size = new System.Drawing.Size(187, 22);
-            this.exportToolstrip.Text = "Save/Export";
+            this.exportToolstrip.Size = new System.Drawing.Size(152, 22);
+            this.exportToolstrip.Text = "Export";
             this.exportToolstrip.Click += new System.EventHandler(this.saveExportToolStripMenuItem_Click);
             // 
             // quitToolstrip
             // 
             this.quitToolstrip.Name = "quitToolstrip";
             this.quitToolstrip.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.quitToolstrip.Size = new System.Drawing.Size(187, 22);
+            this.quitToolstrip.Size = new System.Drawing.Size(152, 22);
             this.quitToolstrip.Text = "Quit";
             this.quitToolstrip.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
