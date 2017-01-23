@@ -44,6 +44,8 @@
         public const string DEFAULT_COLOR_BUTTON_TEXT = @"Click to change color";
         public const string DEFAULT_MENU_ITEM_INTERNAL_NAME = @"ITEM";
 
+        public const string CCG_BUKKITDEV_PAGE = "https://dev.bukkit.org/bukkit-plugins/chest-commands/";
+
         public static bool AllowMenuItemImportOutOfRange = true;
 
         public static System.Text.RegularExpressions.Regex ItemLiteralNameRegex = new System.Text.RegularExpressions.Regex(@"^minecraft:([a-z_]+)$", System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline);

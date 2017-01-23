@@ -93,7 +93,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Classes\Animation.cs" />
     <Compile Include="Classes\Extensions\RichTextBox Extensions.cs" />
-    <Compile Include="Classes\IO Factory.cs" />
+    <Compile Include="Classes\Importer.cs" />
     <Compile Include="Interfaces\IInventoryTable.cs" />
     <Compile Include="Interfaces\IYamlConvertible.cs" />
     <Compile Include="User controls\Inventory table.cs">
@@ -170,6 +170,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Classes\Exporter.cs" />
+    <Compile Include="Classes\Structures\Minecraft Formatting Codes.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

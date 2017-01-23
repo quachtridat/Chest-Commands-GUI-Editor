@@ -48,7 +48,7 @@ namespace CCGE_Metro.Classes.Structures {
                 defaultFont = new Font(font, FontStyle.Regular);
 
                 // Get strings
-                ExtendedString[] result = ExtendedString.Parse(Name, defaultColor, defaultFont);
+                ExtendedString[] result = MinecraftFormatting.GetFormattedStrings(Name, defaultColor, defaultFont);
 
                 // Add to menu item (to create hover tooltip)
                 exStrList.Add(result);
@@ -67,7 +67,7 @@ namespace CCGE_Metro.Classes.Structures {
                 // Add to menu item & rich-text-box
                 foreach (string loreLine in Lore) {
                     // Get strings
-                    ExtendedString[] result = ExtendedString.Parse(loreLine, defaultColor, defaultFont);
+                    ExtendedString[] result = MinecraftFormatting.GetFormattedStrings(loreLine, defaultColor, defaultFont);
 
                     // Add to menu item
                     exStrList.Add(result);

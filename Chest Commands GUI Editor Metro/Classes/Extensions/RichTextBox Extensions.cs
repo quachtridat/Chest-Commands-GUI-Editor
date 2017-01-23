@@ -72,8 +72,8 @@
         public static void AppendText(this System.Windows.Forms.RichTextBox box, string[] text, System.Drawing.Color color, LineSeparateOptions separate = LineSeparateOptions.None) {
             foreach (string line in text)
                 switch (separate) {
-                    case LineSeparateOptions.EmptyLineBefore: box.AppendText("\r"); box.AppendText(line, color); break;
-                    case LineSeparateOptions.EmptyLineAfter: box.AppendText(line, color); box.AppendText("\r"); break;
+                    case LineSeparateOptions.EmptyLineBefore: box.AppendText(System.Environment.NewLine); box.AppendText(line, color); break;
+                    case LineSeparateOptions.EmptyLineAfter: box.AppendText(line, color); box.AppendText(System.Environment.NewLine); break;
                     default: box.AppendText(line, color); break;
                 }
         }
@@ -87,8 +87,8 @@
         public static void AppendText(this System.Windows.Forms.RichTextBox box, string[] text, System.Drawing.Font font, LineSeparateOptions separate = LineSeparateOptions.None) {
             foreach (string line in text)
                 switch (separate) {
-                    case LineSeparateOptions.EmptyLineBefore: box.AppendText("\r"); box.AppendText(line, font); break;
-                    case LineSeparateOptions.EmptyLineAfter: box.AppendText(line, font); box.AppendText("\r"); break;
+                    case LineSeparateOptions.EmptyLineBefore: box.AppendText(System.Environment.NewLine); box.AppendText(line, font); break;
+                    case LineSeparateOptions.EmptyLineAfter: box.AppendText(line, font); box.AppendText(System.Environment.NewLine); break;
                     default: box.AppendText(line, font); break;
                 }
         }
@@ -103,8 +103,8 @@
         public static void AppendText(this System.Windows.Forms.RichTextBox box, string[] text, System.Drawing.Color color, System.Drawing.Font font, LineSeparateOptions separate = LineSeparateOptions.None) {
             foreach (string line in text)
                 switch (separate) {
-                    case LineSeparateOptions.EmptyLineBefore: box.AppendText("\r"); box.AppendText(line, color, font); break;
-                    case LineSeparateOptions.EmptyLineAfter: box.AppendText(line, color, font); box.AppendText("\r"); break;
+                    case LineSeparateOptions.EmptyLineBefore: box.AppendText(System.Environment.NewLine); box.AppendText(line, color, font); break;
+                    case LineSeparateOptions.EmptyLineAfter: box.AppendText(line, color, font); box.AppendText(System.Environment.NewLine); break;
                     default: box.AppendText(line, color, font); break;
                 }
         }
@@ -117,8 +117,8 @@
         public static void AppendText(this System.Windows.Forms.RichTextBox box, ExtendedString[] exStrArr, LineSeparateOptions separate = LineSeparateOptions.None) {
             foreach (ExtendedString exStr in exStrArr)
                 switch (separate) {
-                    case LineSeparateOptions.EmptyLineBefore: box.AppendText("\r"); box.AppendText(exStr); break;
-                    case LineSeparateOptions.EmptyLineAfter: box.AppendText(exStr); box.AppendText("\r"); break;
+                    case LineSeparateOptions.EmptyLineBefore: box.AppendText(System.Environment.NewLine); box.AppendText(exStr); break;
+                    case LineSeparateOptions.EmptyLineAfter: box.AppendText(exStr); box.AppendText(System.Environment.NewLine); break;
                     default: box.AppendText(exStr); break;
                 }
         }

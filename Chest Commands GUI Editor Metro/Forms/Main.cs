@@ -54,7 +54,7 @@ namespace CCGE_Metro.Forms {
         /// </summary>
         /// <param name="bs"></param>
         /// <param name="type"></param>
-        /// <exception cref="ArgumentOutOfRangeException"><see cref="type"/> is not a valid <see cref="MinecraftStruct"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="type"/> is not a valid <see cref="MinecraftStruct"/>.</exception>
         public static void SetDataSources(BindingSource bs, MinecraftStruct type) {
             switch (type) {
                 case MinecraftStruct.Item:
@@ -68,14 +68,11 @@ namespace CCGE_Metro.Forms {
             }
         }
         /// <summary>
-        /// Loads updater that runs <see cref="UpdateCurrent"/> automatically by interval.
+        /// Loads updater that runs <method name="UpdateCurrent"/> automatically by interval.
         /// </summary>
         private void LoadUpdater() {            
             _timerUpdater = new Timer {Interval = (int) Settings.MENU_ITEM_UPDATE_INTERVAL};
-            _timerUpdater.Tick +=
-                delegate {
-                    UpdateCurrent();
-                };
+            _timerUpdater.Tick += UpdateCurrent;
             _timerUpdater.Start();
         }
         /// <summary>
@@ -91,6 +88,10 @@ namespace CCGE_Metro.Forms {
             CurrentMenuSettings.OpenWithLeftClick = chkLeft.Checked;
             CurrentMenuSettings.OpenWithRightClick = chkRight.Checked;
         }
+        /// <summary>
+        /// Writes menu settings to <see cref="P:CurrentMenuSettings"/>.
+        /// </summary>
+        private void UpdateCurrent(object sender, EventArgs e) => UpdateCurrent();
         /// <summary>
         /// Changes text in status bar.
         /// </summary>
@@ -266,7 +267,7 @@ namespace CCGE_Metro.Forms {
         private void quitToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();
         private void officialChestCommandsGUIPageToolStripMenuItem_Click(object sender, EventArgs e) {
             try {
-                Process.Start("https://dev.bukkit.org/bukkit-plugins/chest-commands/");
+                Process.Start(Settings.CCG_BUKKITDEV_PAGE);
             } catch {
                 // ignored
             }
