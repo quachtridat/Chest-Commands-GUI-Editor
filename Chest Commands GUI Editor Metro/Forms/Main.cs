@@ -293,7 +293,12 @@ namespace CCGE_Metro.Forms {
         }
         private void pasteToolstrip_Click(object sender, EventArgs e) {
             try {
-                tableMain.PasteCell();
+                if (tableMain.SelectedCell.Item != null) {
+                    string message = "This cell is not empty! Do you want to overwrite it?";
+                    if (MetroMessageBox.Show(this, message, "Overwrite", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                        tableMain.PasteCell(overwrite: true);
+                    else tableMain.PasteCell(overwrite: false);
+                } else tableMain.PasteCell();
             } catch (Exception exception) {
                 MetroMessageBox.Show(this, $"An error occurred while pasting cell!{Environment.NewLine}{exception.Message}");
             }
@@ -340,9 +345,10 @@ namespace CCGE_Metro.Forms {
 
         #region Context menu
         private void tableContextMenu_Opened(object sender, EventArgs e) {
-            ((ContextMenuStrip) sender).Items[nameof(pasteToolstrip)].Enabled = tableMain.CutCopyMode != CutCopyMode.None;
-            ((ContextMenuStrip) sender).Items[nameof(reloadIconToolstrip)].Enabled 
-                = tableMain.SelectedCell?.Item?.Item != null && tableMain.SelectedCell.Item.Item.IsPlayerHead;
+            ((ContextMenuStrip)sender).Items[nameof(cutToolstrip)].Enabled = tableMain.SelectedCell?.Item != null && tableMain.SelectedCell.Item.IsAvailable && !tableMain.SelectedCell.Item.IsBeingModified;
+            ((ContextMenuStrip)sender).Items[nameof(copyToolstrip)].Enabled = tableMain.SelectedCell?.Item != null && tableMain.SelectedCell.Item.IsAvailable;
+            ((ContextMenuStrip)sender).Items[nameof(pasteToolstrip)].Enabled = tableMain.CutCopyMode != CutCopyMode.None;
+            ((ContextMenuStrip)sender).Items[nameof(reloadIconToolstrip)].Enabled = tableMain.SelectedCell?.Item?.Item != null && tableMain.SelectedCell.Item.Item.IsPlayerHead;
         }
         #endregion
         #endregion

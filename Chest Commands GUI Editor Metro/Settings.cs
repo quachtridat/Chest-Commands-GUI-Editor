@@ -27,9 +27,9 @@
         public static System.Drawing.Color TooltipForegroundColor
             => System.Drawing.Color.FromArgb(TOOLTIP_FOREGROUND_COLOR_R, TOOLTIP_FOREGROUND_COLOR_G, TOOLTIP_FOREGROUND_COLOR_B);
 
-        public static System.Drawing.FontFamily TooltipFontfamily = System.Drawing.FontFamily.GenericSansSerif;
-        public const float TOOLTIP_FONTSIZE = 13;
-        public const System.Drawing.FontStyle   TOOLTIP_FONTSTYLE = System.Drawing.FontStyle.Regular;
+        public static System.Drawing.FontFamily DefaultFontfamily = System.Drawing.FontFamily.GenericSansSerif;
+        public const float DEFAULT_FONTSIZE = 13;
+        public const System.Drawing.FontStyle DEFAULT_FONTSTYLE = System.Drawing.FontStyle.Regular;
 
         public const int TOOLTIP_MINIMUM_WIDTH = 175;
         public const int TOOLTIP_MINIMUM_HEIGHT = 125;

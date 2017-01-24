@@ -67,9 +67,9 @@
             this.tabpageCommands = new MetroFramework.Controls.MetroTabPage();
             this.grpCommands = new System.Windows.Forms.GroupBox();
             this.splitContCmds = new System.Windows.Forms.SplitContainer();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripCmds = new System.Windows.Forms.ToolStrip();
             this.txtCommands = new System.Windows.Forms.TextBox();
-            this.tabpagesRequirements = new MetroFramework.Controls.MetroTabPage();
+            this.tabpageRequirements = new MetroFramework.Controls.MetroTabPage();
             this.grpRequiredItem = new System.Windows.Forms.GroupBox();
             this.cboxRequiredItem = new System.Windows.Forms.ComboBox();
             this.bsMCRequiredItems = new System.Windows.Forms.BindingSource(this.components);
@@ -95,6 +95,10 @@
             this.lblItemPos = new MetroFramework.Controls.MetroLabel();
             this.panelMisc = new System.Windows.Forms.Panel();
             this.tileResetAll = new MetroFramework.Controls.MetroTile();
+#if DEBUG
+            this.tabpageDebug = new MetroFramework.Controls.MetroTabPage();
+            this.picTooltipPreview = new System.Windows.Forms.PictureBox();
+#endif
             this.panelMain.SuspendLayout();
             this.tabcontrolMain.SuspendLayout();
             this.tabpageInfo.SuspendLayout();
@@ -125,7 +129,7 @@
             this.splitContCmds.Panel1.SuspendLayout();
             this.splitContCmds.Panel2.SuspendLayout();
             this.splitContCmds.SuspendLayout();
-            this.tabpagesRequirements.SuspendLayout();
+            this.tabpageRequirements.SuspendLayout();
             this.grpRequiredItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsMCRequiredItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRequiredItemAmount)).BeginInit();
@@ -142,6 +146,9 @@
             this.grpPermissions.SuspendLayout();
             this.panelPreview.SuspendLayout();
             this.panelMisc.SuspendLayout();
+#if DEBUG
+            this.tabpageDebug.SuspendLayout();
+#endif
             this.SuspendLayout();
             // 
             // panelMain
@@ -166,8 +173,11 @@
             this.tabcontrolMain.Controls.Add(this.tabpageEnchantments);
             this.tabcontrolMain.Controls.Add(this.tabpageExtras);
             this.tabcontrolMain.Controls.Add(this.tabpageCommands);
-            this.tabcontrolMain.Controls.Add(this.tabpagesRequirements);
+            this.tabcontrolMain.Controls.Add(this.tabpageRequirements);
             this.tabcontrolMain.Controls.Add(this.tabpagePermissions);
+#if DEBUG
+            this.tabcontrolMain.Controls.Add(this.tabpageDebug);
+#endif
             this.tabcontrolMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabcontrolMain.FontWeight = MetroFramework.MetroTabControlWeight.Regular;
             this.tabcontrolMain.Location = new System.Drawing.Point(0, 0);
@@ -710,7 +720,7 @@
             // 
             // splitContCmds.Panel1
             // 
-            this.splitContCmds.Panel1.Controls.Add(this.toolStrip1);
+            this.splitContCmds.Panel1.Controls.Add(this.toolStripCmds);
             // 
             // splitContCmds.Panel2
             // 
@@ -721,11 +731,11 @@
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1132, 25);
-            this.toolStrip1.TabIndex = 0;
-            this.toolStrip1.Text = "toolStrip1";
+            this.toolStripCmds.Location = new System.Drawing.Point(0, 0);
+            this.toolStripCmds.Name = "toolStrip1";
+            this.toolStripCmds.Size = new System.Drawing.Size(1132, 25);
+            this.toolStripCmds.TabIndex = 0;
+            this.toolStripCmds.Text = "toolStrip1";
             // 
             // txtCommands
             // 
@@ -742,21 +752,21 @@
             // 
             // tabpagesRequirements
             // 
-            this.tabpagesRequirements.Controls.Add(this.grpRequiredItem);
-            this.tabpagesRequirements.Controls.Add(this.grpPoints);
-            this.tabpagesRequirements.Controls.Add(this.grpLevels);
-            this.tabpagesRequirements.Controls.Add(this.grpPrice);
-            this.tabpagesRequirements.HorizontalScrollbarBarColor = true;
-            this.tabpagesRequirements.HorizontalScrollbarHighlightOnWheel = false;
-            this.tabpagesRequirements.HorizontalScrollbarSize = 2;
-            this.tabpagesRequirements.Location = new System.Drawing.Point(4, 38);
-            this.tabpagesRequirements.Name = "tabpagesRequirements";
-            this.tabpagesRequirements.Size = new System.Drawing.Size(1138, 384);
-            this.tabpagesRequirements.TabIndex = 4;
-            this.tabpagesRequirements.Text = "Requirements";
-            this.tabpagesRequirements.VerticalScrollbarBarColor = true;
-            this.tabpagesRequirements.VerticalScrollbarHighlightOnWheel = false;
-            this.tabpagesRequirements.VerticalScrollbarSize = 2;
+            this.tabpageRequirements.Controls.Add(this.grpRequiredItem);
+            this.tabpageRequirements.Controls.Add(this.grpPoints);
+            this.tabpageRequirements.Controls.Add(this.grpLevels);
+            this.tabpageRequirements.Controls.Add(this.grpPrice);
+            this.tabpageRequirements.HorizontalScrollbarBarColor = true;
+            this.tabpageRequirements.HorizontalScrollbarHighlightOnWheel = false;
+            this.tabpageRequirements.HorizontalScrollbarSize = 2;
+            this.tabpageRequirements.Location = new System.Drawing.Point(4, 38);
+            this.tabpageRequirements.Name = "tabpagesRequirements";
+            this.tabpageRequirements.Size = new System.Drawing.Size(1138, 384);
+            this.tabpageRequirements.TabIndex = 4;
+            this.tabpageRequirements.Text = "Requirements";
+            this.tabpageRequirements.VerticalScrollbarBarColor = true;
+            this.tabpageRequirements.VerticalScrollbarHighlightOnWheel = false;
+            this.tabpageRequirements.VerticalScrollbarSize = 2;
             // 
             // grpRequiredItem
             // 
@@ -1061,6 +1071,28 @@
             this.tileResetAll.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
             this.tileResetAll.UseSelectable = true;
             this.tileResetAll.Click += new System.EventHandler(this.tileResetAll_Click);
+#if DEBUG
+            //
+            // tabpageDebug
+            //
+            this.tabpageDebug.Controls.Add(this.picTooltipPreview);
+            this.tabpageDebug.HorizontalScrollbarBarColor = true;
+            this.tabpageDebug.HorizontalScrollbarHighlightOnWheel = false;
+            this.tabpageDebug.HorizontalScrollbarSize = 2;
+            this.tabpageDebug.Location = new System.Drawing.Point(4, 38);
+            this.tabpageDebug.Name = "tabpageDebug";
+            this.tabpageDebug.Size = new System.Drawing.Size(1138, 384);
+            this.tabpageDebug.TabIndex = 4;
+            this.tabpageDebug.Text = "Debug";
+            this.tabpageDebug.VerticalScrollbarBarColor = true;
+            this.tabpageDebug.VerticalScrollbarHighlightOnWheel = false;
+            this.tabpageDebug.VerticalScrollbarSize = 2;
+            //
+            // picTooltipPreview
+            //
+            this.picTooltipPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picTooltipPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal;
+#endif
             // 
             // Edit
             // 
@@ -1118,7 +1150,7 @@
             this.splitContCmds.Panel2.ResumeLayout(false);
             this.splitContCmds.Panel2.PerformLayout();
             this.splitContCmds.ResumeLayout(false);
-            this.tabpagesRequirements.ResumeLayout(false);
+            this.tabpageRequirements.ResumeLayout(false);
             this.grpRequiredItem.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bsMCRequiredItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRequiredItemAmount)).EndInit();
@@ -1139,6 +1171,9 @@
             this.panelPreview.ResumeLayout(false);
             this.panelPreview.PerformLayout();
             this.panelMisc.ResumeLayout(false);
+#if DEBUG
+            this.tabpageDebug.ResumeLayout(false);
+#endif
             this.ResumeLayout(false);
 
         }
@@ -1153,7 +1188,7 @@
         private MetroFramework.Controls.MetroTile tilePreview;
         private MetroFramework.Controls.MetroTabPage tabpageExtras;
         private MetroFramework.Controls.MetroTabPage tabpageCommands;
-        private MetroFramework.Controls.MetroTabPage tabpagesRequirements;
+        private MetroFramework.Controls.MetroTabPage tabpageRequirements;
         private MetroFramework.Controls.MetroTabPage tabpagePermissions;
         private System.Windows.Forms.GroupBox grpInternalName;
         private System.Windows.Forms.GroupBox grpItem;
@@ -1213,6 +1248,10 @@
         private System.Windows.Forms.SplitContainer splitContLore;
         private System.Windows.Forms.ToolStrip toolStripLore;
         private System.Windows.Forms.SplitContainer splitContCmds;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip toolStripCmds;
+#if DEBUG
+        private MetroFramework.Controls.MetroTabPage tabpageDebug;
+        private System.Windows.Forms.PictureBox picTooltipPreview;
+#endif
     }
 }

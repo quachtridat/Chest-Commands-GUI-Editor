@@ -15,13 +15,13 @@
         /// </summary>
         /// <param name="src"></param>
         /// <param name="dest"></param>
-        void Cut(User_controls.TableCell src, User_controls.TableCell dest);
+        void Cut(User_controls.TableCell src, User_controls.TableCell dest, bool overwrite);
         /// <summary>
         /// Copies a <see cref="CCGE_Metro.User_controls.TableCell"/> to another location.
         /// </summary>
         /// <param name="src"></param>
         /// <param name="dest"></param>
-        void Copy(User_controls.TableCell src, User_controls.TableCell dest);
+        void Copy(User_controls.TableCell src, User_controls.TableCell dest, bool overwrite);
         /// <summary>
         /// Swaps a <see cref="CCGE_Metro.User_controls.TableCell"/> with another <see cref="CCGE_Metro.User_controls.TableCell"/>.
         /// </summary>

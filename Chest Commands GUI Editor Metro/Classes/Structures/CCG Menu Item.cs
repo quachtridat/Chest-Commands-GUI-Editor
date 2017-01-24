@@ -34,9 +34,7 @@ namespace CCGE_Metro.Classes.Structures {
         /// <returns></returns>
         public ExtendedString[][] ToFormattedStrings() {
             // Set default values
-            Color defaultColor;
-            Font defaultFont;
-            Font font = new Font(Settings.TooltipFontfamily, Settings.TOOLTIP_FONTSIZE, Settings.TOOLTIP_FONTSTYLE);
+            Font font = new Font(Settings.DefaultFontfamily, Settings.DEFAULT_FONTSIZE, Settings.DEFAULT_FONTSTYLE);
             Color fontColor = Settings.TooltipForegroundColor;
 
             // Get menu item's extended string arrays as list
@@ -44,53 +42,26 @@ namespace CCGE_Metro.Classes.Structures {
 
             #region Name
             if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(EscapedName)) {
-                defaultColor = Color.White;
-                defaultFont = new Font(font, FontStyle.Regular);
-
-                // Get strings
-                ExtendedString[] result = MinecraftFormatting.GetFormattedStrings(Name, defaultColor, defaultFont);
-
-                // Add to menu item (to create hover tooltip)
-                exStrList.Add(result);
+                exStrList.Add(MinecraftFormatting.GetFormattedStrings(Name, MinecraftColor.White, MinecraftTextStyle.Regular));
             }
             #endregion
 
             #region Lore
             if (Lore != null && Lore.Length > 0) {
-                // Set default values
-                defaultColor = Color.FromArgb(190, 0, 190);
-                defaultFont = new Font(font, FontStyle.Italic);
-
-                // Add new empty line to separate with name
-                exStrList.Add(new []{ new ExtendedString(Environment.NewLine, fontColor, defaultFont) });
-
-                // Add to menu item & rich-text-box
-                foreach (string loreLine in Lore) {
-                    // Get strings
-                    ExtendedString[] result = MinecraftFormatting.GetFormattedStrings(loreLine, defaultColor, defaultFont);
-
-                    // Add to menu item
-                    exStrList.Add(result);
-                }
+                // Add new empty line to separate from name
+                exStrList.Add(new []{ ExtendedString.NewLine });
+                foreach (string line in Lore)
+                    exStrList.Add(MinecraftFormatting.GetFormattedStrings(line, MinecraftColor.DarkPurple, MinecraftTextStyle.Italic));
             }
             #endregion
 
             #region Enchantments
             if (Enchantments != null && Enchantments.Length > 0) {
-                // Set default values
-                defaultColor = Color.FromArgb(63, 63, 254);
-                defaultFont = font;
-
-                // Add new empty line to separate with lore lines
-                exStrList.Add(new []{ new ExtendedString(Environment.NewLine, fontColor, defaultFont) });
-
-                // Add to menu item & rich-text-box
+                // Add new empty line to separate from lore lines
+                exStrList.Add(new []{ ExtendedString.NewLine });
                 foreach (MinecraftEnchantment e in Enchantments) {
-                    // Get full enchantment line
                     string ench = $"{e.Name} {Helpers.LatinNumber(e.Level)}";
-
-                    // Add to menu item
-                    exStrList.Add(new []{ new ExtendedString(ench, defaultColor, defaultFont) });
+                    exStrList.Add(new []{ new ExtendedString(ench, MinecraftColor.Blue, MinecraftTextStyle.Regular) });
                 }
             }
             #endregion

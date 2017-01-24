@@ -174,13 +174,24 @@ namespace CCGE_Metro.Forms {
             TemporaryMenuItem.Permission = txtPermission.Text;
             TemporaryMenuItem.ViewPermission = txtViewPermission.Text;
             TemporaryMenuItem.PermissionMessage = txtPermissionMessage.Text;
-
+#if DEBUG
+            txtYaml.ResetText();
+            var content = TemporaryMenuItem.ToFormattedStrings();
+            foreach (var line in content) {
+                foreach (var token in line)
+                    txtYaml.AppendText($"({token.MinecraftTextStyle.Style.ToString()} {token.MinecraftColor.Name} \"{token.String}\"), ");
+                txtYaml.AppendText(Environment.NewLine);
+            }
+#else 
             txtYaml.Lines = TemporaryMenuItem.ToYamlText();
-
-            ToolTip.ToolTipText = TemporaryMenuItem.ToFormattedStrings();
-        }
+#endif 
+        ToolTip.ToolTipText = TemporaryMenuItem.ToFormattedStrings(); 
+#if DEBUG 
+        picTooltipPreview.Invalidate(); 
+#endif 
+}
         /// <summary>
-        /// Saves all data to the actual <see cref="MenuItem"/>.
+        // Saves all data to the actual <see cref="MenuItem"/>.
         /// </summary>
         /// <returns></returns>
         private bool Save() {
@@ -272,6 +283,21 @@ namespace CCGE_Metro.Forms {
             LoadCurrentItemData();
 
             ToolTip = new MinecraftToolTip { BackColor = TooltipBackgroundColor };
+#if DEBUG
+            picTooltipPreview.BackColor = ToolTip.BackColor;
+            picTooltipPreview.Paint += (obj, evt) => {
+                int x = ToolTip.Padding, y = ToolTip.Padding;
+
+                foreach (ExtendedString[] extendedStrings in ToolTip.ToolTipText) {
+                    foreach (ExtendedString extendedString in extendedStrings) {
+                        evt.Graphics.DrawString(extendedString.String, extendedString.Font, new SolidBrush(extendedString.Color), x, y);
+                        x += extendedString.Size.Width;
+                    }
+                    x = ToolTip.Padding;
+                    y += ExtendedString.CalculateSize(extendedStrings).Height + ToolTip.LineSpace;
+                }
+            };
+#endif
             UpdateCurrent();
 
             ToolTip.SetToolTip(tilePreview, TemporaryMenuItem.InternalName);

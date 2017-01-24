@@ -4,10 +4,18 @@ using System.Collections.Generic;
 using System.Drawing;
 
 namespace CCGE_Metro.Classes.Structures {
+    using static Settings;
     /// <summary>
     /// A <see cref="string"/> that has custom color and font style.
     /// </summary>
     public class ExtendedString : IComparable, ICloneable, IConvertible, IComparable<string>, IEnumerable<char>, IEquatable<string>, IEquatable<ExtendedString> {
+        #region Fields
+        public Color _color = Color.Empty;
+        public Font _font = new Font(DefaultFontfamily, DEFAULT_FONTSIZE, DEFAULT_FONTSTYLE);
+        public MinecraftColor _mcColor = MinecraftColor.Default;
+        public MinecraftTextStyle _mcTextStyle = MinecraftTextStyle.Regular;
+        #endregion
+
         #region Constructors
         /// <summary>
         /// Constructs a new instance of an <see cref="ExtendedString"/>.
@@ -38,6 +46,35 @@ namespace CCGE_Metro.Classes.Structures {
             String = str;
             Font = f;
         }
+                /// <summary>
+        /// Constructs a new instance of an <see cref="ExtendedString"/>.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="c"></param>
+        /// <param name="style"></param>
+        public ExtendedString(string str, MinecraftColor c, MinecraftTextStyle style) {
+            String = str;
+            MinecraftColor = c;
+            MinecraftTextStyle = style;
+        }
+        /// <summary>
+        /// Constructs a new instance of an <see cref="ExtendedString"/>.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="c"></param>
+        public ExtendedString(string str, MinecraftColor c) {
+            String = str;
+            MinecraftColor = c;
+        }
+        /// <summary>
+        /// Constructs a new instance of an <see cref="ExtendedString"/>.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="style"></param>
+        public ExtendedString(string str, MinecraftTextStyle style) {
+            String = str;
+            MinecraftTextStyle = style;
+        }
         /// <summary>
         /// Constructs a new instance of an <see cref="ExtendedString"/>.
         /// </summary>
@@ -49,14 +86,45 @@ namespace CCGE_Metro.Classes.Structures {
 
         #region Properties
         public string String { get; set; }
-        public Color Color { get; set; } = Color.Empty;
-        public Font Font { get; set; }
+        public Color Color {
+            get { return _color; }
+            set {
+                _color = value;
+                try {
+                    _mcColor = MinecraftColor.FromRGB(value.R, value.G, value.B);
+                } catch {
+                    _mcColor = new MinecraftColor(value);
+                }
+            }
+        }
+        public MinecraftColor MinecraftColor {
+            get { return _mcColor; }
+            set {
+                _mcColor = value;
+                _color = value.ToColor();
+            }
+        }
+        public Font Font {
+            get { return _font; }
+            set {
+                _font = value;
+                //_mcTextStyle = MinecraftTextStyle.FromStyle(value.Style);
+            }
+        }
+        public MinecraftTextStyle MinecraftTextStyle {
+            get { return _mcTextStyle; }
+            set {
+                _mcTextStyle = value;
+                if (Font != null) Font = new Font(Font.FontFamily, Font.Size, value.Style);
+                else Font = new Font(DefaultFontfamily, DEFAULT_FONTSIZE, value.Style);
+            }
+        }
         public SizeF SizeF {
             get {
                 if (string.IsNullOrEmpty(String)) return new SizeF(0, 0);
                 using (Image img = new Bitmap(1, 1))
                     using (Graphics graphics = Graphics.FromImage(img))
-                        return graphics.MeasureString(String, Font?? new Font(FontFamily.GenericSansSerif, 10, FontStyle.Regular));
+                        return graphics.MeasureString(String, Font?? new Font(DefaultFontfamily, DEFAULT_FONTSIZE, DEFAULT_FONTSTYLE));
             }
         }
         public Size Size => new Size((int)Math.Ceiling(SizeF.Width), (int)Math.Ceiling(SizeF.Height));
@@ -71,19 +139,16 @@ namespace CCGE_Metro.Classes.Structures {
         /// <returns></returns>
         public static ExtendedString[] Join(ExtendedString separator, ExtendedString[][] value) {
             if (value == null || value.Length <= 0) return null;
-
             List<ExtendedString> result = new List<ExtendedString>();
-
-            result.AddRange(value[0]);
-
-            for (int i = 1; i < value.Length; ++i) {
-                result.Add(new ExtendedString(Environment.NewLine));
-                result.AddRange(value[i]);
-            }
+            Array.ForEach(value, (obj) => { 
+                result.AddRange(obj); 
+                result.Add(separator);
+            });
+            result.RemoveAt(result.Count - 1);
             return result.ToArray();
         }
         /// <summary>
-        /// Concatenates a specified separator <see cref="System.String"/> between each array of specified <see cref="ExtendedString"/> arrays, yielding a single concatenated array of <see cref="ExtendedString"/>.
+        /// Concatenates a specified separator <see cref="string"/> between each array of specified <see cref="ExtendedString"/> arrays, yielding a single concatenated array of <see cref="ExtendedString"/>.
         /// </summary>
         /// <param name="separator">A specified separator <see cref="ExtendedString"/>.</param>
         /// <param name="value">Specified <see cref="ExtendedString"/> arrays.</param>
@@ -258,6 +323,11 @@ namespace CCGE_Metro.Classes.Structures {
             return String.Equals(other.String) && Color.Equals(other.Color) && Font.Equals(other.Font);
         }
         #endregion
+        #endregion
+
+        #region Static values
+        public static ExtendedString Empty => new ExtendedString(string.Empty);
+        public static ExtendedString NewLine => new ExtendedString(Environment.NewLine);
         #endregion
     }
 }

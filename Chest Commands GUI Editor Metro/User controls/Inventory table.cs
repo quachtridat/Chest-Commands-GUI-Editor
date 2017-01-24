@@ -253,7 +253,8 @@ namespace CCGE_Metro.User_controls {
 
         #region Cut cell
         public void CutCell() => Cut(SelectedCell);
-        public void Cut(TableCell src, TableCell dest) {
+        public void Cut(TableCell src, TableCell dest, bool overwrite = false) {
+            if (dest.Item != null && !overwrite) return;
             dest.Item = src.Item;
             src.Item = null;
             try { SetCellIcon(dest.Item.Item, dest);}
@@ -269,13 +270,13 @@ namespace CCGE_Metro.User_controls {
             TemporaryCell = src;
             CutCopyMode = CutCopyMode.Cut;
         }
-        public void Cut(Point srcLocation, Point destLocation, IndexBase indexBase) {
+        public void Cut(Point srcLocation, Point destLocation, IndexBase indexBase, bool overwrite = false) {
             switch (indexBase) {
                 case IndexBase.ZeroBasedIndex:
-                    Cut((TableCell) Table.GetControlFromPosition(srcLocation.X, srcLocation.Y), (TableCell) Table.GetControlFromPosition(destLocation.X, destLocation.Y));
+                    Cut((TableCell) Table.GetControlFromPosition(srcLocation.X, srcLocation.Y), (TableCell) Table.GetControlFromPosition(destLocation.X, destLocation.Y), overwrite);
                     break;
                 case IndexBase.OneBasedIndex:
-                    Cut((TableCell) Table.GetControlFromPosition(srcLocation.X - 1, srcLocation.Y - 1), (TableCell) Table.GetControlFromPosition(destLocation.X - 1, destLocation.Y - 1));
+                    Cut((TableCell) Table.GetControlFromPosition(srcLocation.X - 1, srcLocation.Y - 1), (TableCell) Table.GetControlFromPosition(destLocation.X - 1, destLocation.Y - 1), overwrite);
                     break;
                 default:
                     return;
@@ -293,8 +294,8 @@ namespace CCGE_Metro.User_controls {
                     return;
             }
         }
-        public void Cut(int srcCol, int srcRow, int destCol, int destRow, IndexBase indexBase) 
-            => Cut(new Point(srcCol, srcRow), new Point(destCol, destRow), indexBase);
+        public void Cut(int srcCol, int srcRow, int destCol, int destRow, IndexBase indexBase, bool overwrite = false) 
+            => Cut(new Point(srcCol, srcRow), new Point(destCol, destRow), indexBase, overwrite);
         public void Cut(int srcCol, int srcRow, IndexBase indexBase) 
             => Cut(new Point(srcCol, srcRow), indexBase);
 
@@ -302,7 +303,8 @@ namespace CCGE_Metro.User_controls {
 
         #region Copy cell
         public void CopyCell() => Copy(SelectedCell);
-        public void Copy(TableCell src, TableCell dest) {
+        public void Copy(TableCell src, TableCell dest, bool overwrite = false) {
+            if (dest.Item != null && !overwrite) return;
             dest.Item = src.Item.Clone() as MenuItem;
             MenuItem item = dest.Item;
             if (item != null) {
@@ -317,13 +319,13 @@ namespace CCGE_Metro.User_controls {
             TemporaryCell = src;
             CutCopyMode = CutCopyMode.Copy;
         }
-        public void Copy(Point srcLocation, Point destLocation, IndexBase indexBase) {
+        public void Copy(Point srcLocation, Point destLocation, IndexBase indexBase, bool overwrite = false) {
             switch (indexBase) {
                 case IndexBase.ZeroBasedIndex:
-                    Copy((TableCell)Table.GetControlFromPosition(srcLocation.X, srcLocation.Y), (TableCell)Table.GetControlFromPosition(destLocation.X, destLocation.Y));
+                    Copy((TableCell)Table.GetControlFromPosition(srcLocation.X, srcLocation.Y), (TableCell)Table.GetControlFromPosition(destLocation.X, destLocation.Y), overwrite);
                     break;
                 case IndexBase.OneBasedIndex:
-                    Copy((TableCell)Table.GetControlFromPosition(srcLocation.X - 1, srcLocation.Y - 1), (TableCell)Table.GetControlFromPosition(destLocation.X - 1, destLocation.Y - 1));
+                    Copy((TableCell)Table.GetControlFromPosition(srcLocation.X - 1, srcLocation.Y - 1), (TableCell)Table.GetControlFromPosition(destLocation.X - 1, destLocation.Y - 1), overwrite);
                     break;
                 default:
                     return;
@@ -341,42 +343,42 @@ namespace CCGE_Metro.User_controls {
                     return;
             }
         }
-        public void Copy(int srcCol, int srcRow, int destCol, int destRow, IndexBase indexBase) 
-            => Copy(new Point(srcCol, srcRow), new Point(destCol, destRow), indexBase);
+        public void Copy(int srcCol, int srcRow, int destCol, int destRow, IndexBase indexBase, bool overwrite = false) 
+            => Copy(new Point(srcCol, srcRow), new Point(destCol, destRow), indexBase, overwrite);
         public void Copy(int srcCol, int srcRow, IndexBase indexBase) 
             => Copy(new Point(srcCol, srcRow), indexBase);
         #endregion
 
         #region Paste cell
-        public void PasteCell() => Paste(SelectedCell);
-        public void Paste(TableCell dest) {
+        public void PasteCell(bool overwrite = false) => Paste(SelectedCell, overwrite);
+        public void Paste(TableCell dest, bool overwrite = false) {
             if (dest == null) return;
             switch (CutCopyMode) {
                 case CutCopyMode.None:
                     return;
                 case CutCopyMode.Cut:
-                    Cut(TemporaryCell, dest);
+                    Cut(TemporaryCell, dest, overwrite);
                     break;
                 case CutCopyMode.Copy:
-                    Copy(TemporaryCell, dest);
+                    Copy(TemporaryCell, dest, overwrite);
                     break;
                 default:
                     return;
             }
         }
-        public void Paste(Point destLocation, IndexBase indexBase) {
+        public void Paste(Point destLocation, IndexBase indexBase, bool overwrite = false) {
             switch (indexBase) {
                 case IndexBase.ZeroBasedIndex:
-                    Paste((TableCell)Table.GetControlFromPosition(destLocation.X, destLocation.Y));
+                    Paste((TableCell)Table.GetControlFromPosition(destLocation.X, destLocation.Y), overwrite);
                     break;
                 case IndexBase.OneBasedIndex:
-                    Paste((TableCell)Table.GetControlFromPosition(destLocation.X - 1, destLocation.Y - 1));
+                    Paste((TableCell)Table.GetControlFromPosition(destLocation.X - 1, destLocation.Y - 1), overwrite);
                     break;
                 default:
                     return;
             }
         }
-        public void Paste(int destCol, int destRow, IndexBase indexBase) => Paste(new Point(destCol, destRow), indexBase);
+        public void Paste(int destCol, int destRow, IndexBase indexBase, bool overwrite = false) => Paste(new Point(destCol, destRow), indexBase, overwrite);
         #endregion
 
         #region Swap 2 cells

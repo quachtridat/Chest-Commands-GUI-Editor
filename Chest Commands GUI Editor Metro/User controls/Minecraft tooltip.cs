@@ -43,7 +43,7 @@ namespace CCGE_Metro.User_controls {
             result.Width += padding*2;
             result.Height += padding*2;
             result.Height += lineSpace*(extendedStrings.Length - 1);
-            return result.Width < TOOLTIP_MINIMUM_WIDTH && result.Height < TOOLTIP_MINIMUM_HEIGHT ? TooltipMinimumSize : result;
+            return result.Width < TOOLTIP_MINIMUM_WIDTH || result.Height < TOOLTIP_MINIMUM_HEIGHT ? TooltipMinimumSize : result;
         }
         #endregion
     }
