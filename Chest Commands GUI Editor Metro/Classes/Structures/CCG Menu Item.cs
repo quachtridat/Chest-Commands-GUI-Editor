@@ -29,44 +29,39 @@ namespace CCGE_Metro.Classes.Structures {
         public static bool IsDuplicatedInternalName(MenuItem item, MenuItem[,] menuItems) 
             => menuItems.Cast<MenuItem>().Any(i => i != null && !i.IsBeingModified && i.InternalName.Equals(item.InternalName));
         /// <summary>
-        /// Returns a jagged array of <see cref="ExtendedString"/>s that represents the current object in the style of a Minecraft hover-tooltip.
+        /// Returns a jagged array of <see cref="MinecraftString"/>s that represents the current object in the style of a Minecraft hover-tooltip.
         /// </summary>
         /// <returns></returns>
-        public ExtendedString[][] ToFormattedStrings() {
-            // Set default values
-            Font font = new Font(Settings.DefaultFontfamily, Settings.DEFAULT_FONTSIZE, Settings.DEFAULT_FONTSTYLE);
-            Color fontColor = Settings.TooltipForegroundColor;
-
-            // Get menu item's extended string arrays as list
-            List<ExtendedString[]> exStrList = new List<ExtendedString[]>();
+        public MinecraftString[][] ToFormattedStrings() {
+            List<MinecraftString[]> result = new List<MinecraftString[]>();
 
             #region Name
             if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(EscapedName)) {
-                exStrList.Add(MinecraftFormatting.GetFormattedStrings(Name, MinecraftColor.White, MinecraftTextStyle.Regular));
+                result.Add(MinecraftFormatting.GetFormattedStrings(Name, MinecraftColor.White, MinecraftFontStyle.Regular));
             }
             #endregion
 
             #region Lore
             if (Lore != null && Lore.Length > 0) {
                 // Add new empty line to separate from name
-                exStrList.Add(new []{ ExtendedString.NewLine });
+                result.Add(new []{ MinecraftString.NewLine });
                 foreach (string line in Lore)
-                    exStrList.Add(MinecraftFormatting.GetFormattedStrings(line, MinecraftColor.DarkPurple, MinecraftTextStyle.Italic));
+                    result.Add(MinecraftFormatting.GetFormattedStrings(line, MinecraftColor.DarkPurple, MinecraftFontStyle.Italic));
             }
             #endregion
 
             #region Enchantments
             if (Enchantments != null && Enchantments.Length > 0) {
                 // Add new empty line to separate from lore lines
-                exStrList.Add(new []{ ExtendedString.NewLine });
+                result.Add(new []{ MinecraftString.NewLine });
                 foreach (MinecraftEnchantment e in Enchantments) {
                     string ench = $"{e.Name} {Helpers.LatinNumber(e.Level)}";
-                    exStrList.Add(new []{ new ExtendedString(ench, MinecraftColor.Blue, MinecraftTextStyle.Regular) });
+                    result.Add(new []{ new MinecraftString(ench, MinecraftColor.Blue, MinecraftFontStyle.Regular) });
                 }
             }
             #endregion
 
-            return exStrList.ToArray();
+            return result.ToArray();
         }
 
         #region System.IClonable member

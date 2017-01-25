@@ -179,7 +179,7 @@ namespace CCGE_Metro.Forms {
             var content = TemporaryMenuItem.ToFormattedStrings();
             foreach (var line in content) {
                 foreach (var token in line)
-                    txtYaml.AppendText($"({token.MinecraftTextStyle.Style.ToString()} {token.MinecraftColor.Name} \"{token.String}\"), ");
+                    txtYaml.AppendText($"({token.MinecraftFontStyle.Style.ToString()} {token.MinecraftColor.Name} \"{token.String}\"), ");
                 txtYaml.AppendText(Environment.NewLine);
             }
 #else 
@@ -288,13 +288,13 @@ namespace CCGE_Metro.Forms {
             picTooltipPreview.Paint += (obj, evt) => {
                 int x = ToolTip.Padding, y = ToolTip.Padding;
 
-                foreach (ExtendedString[] extendedStrings in ToolTip.ToolTipText) {
-                    foreach (ExtendedString extendedString in extendedStrings) {
-                        evt.Graphics.DrawString(extendedString.String, extendedString.Font, new SolidBrush(extendedString.Color), x, y);
-                        x += extendedString.Size.Width;
+                foreach (MinecraftString[] mcStrings in ToolTip.ToolTipText) {
+                    foreach (MinecraftString mcString in mcStrings) {
+                        evt.Graphics.DrawString(mcString.String, new Font(DefaultFontfamily, DEFAULT_FONTSIZE, mcString.MinecraftFontStyle.Style), new SolidBrush(mcString.MinecraftColor.ToColor()), x, y);
+                        x += mcString.Size.Width;
                     }
                     x = ToolTip.Padding;
-                    y += ExtendedString.CalculateSize(extendedStrings).Height + ToolTip.LineSpace;
+                    y += MinecraftString.CalculateSize(mcStrings).Height + ToolTip.LineSpace;
                 }
             };
 #endif

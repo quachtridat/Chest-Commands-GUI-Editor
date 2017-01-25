@@ -12,7 +12,7 @@
         /// Appends text with specified <see cref="System.Drawing.Color"/> to the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
-        /// <param name="text"><see cref="System.String"/>.</param>
+        /// <param name="text"><see cref="string"/>.</param>
         /// <param name="color">Text <see cref="System.Drawing.Color"/>.</param>
         public static void AppendText(this System.Windows.Forms.RichTextBox box, string text, System.Drawing.Color color) {
             box.SelectionStart = box.TextLength;
@@ -25,7 +25,7 @@
         /// Appends text with specified <see cref="System.Drawing.Font"/> to the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
-        /// <param name="text"><see cref="System.String"/>.</param>
+        /// <param name="text"><see cref="string"/>.</param>
         /// <param name="font">Text <see cref="System.Drawing.Font"/>.</param>
         public static void AppendText(this System.Windows.Forms.RichTextBox box, string text, System.Drawing.Font font) {
             box.SelectionStart = box.TextLength;
@@ -38,7 +38,7 @@
         /// Appends text with specified <see cref="System.Drawing.Color"/> and <see cref="System.Drawing.Font"/> to the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
-        /// <param name="text"><see cref="System.String"/>.</param>
+        /// <param name="text"><see cref="string"/>.</param>
         /// <param name="color">Text <see cref="System.Drawing.Color"/>.</param>
         /// <param name="font">Text <see cref="System.Drawing.Font"/>.</param>
         public static void AppendText(this System.Windows.Forms.RichTextBox box, string text, System.Drawing.Color color, System.Drawing.Font font) {
@@ -51,24 +51,21 @@
             box.SelectionColor = box.ForeColor;
         }
         /// <summary>
-        /// Appends an <see cref="ExtendedString"/> to the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
+        /// Appends an <see cref="MinecraftString"/> to the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
-        /// <param name="exStr"><see cref="ExtendedString"/>.</param>
-        public static void AppendText(this System.Windows.Forms.RichTextBox box, ExtendedString exStr) {
-            if (!string.IsNullOrEmpty(exStr.String))
-                if (exStr.Color == System.Drawing.Color.Empty && exStr.Font == null) box.AppendText(exStr.String);
-                else if (exStr.Color != System.Drawing.Color.Empty && exStr.Font == null) box.AppendText(exStr.String, exStr.Color);
-                else if (exStr.Color == System.Drawing.Color.Empty && exStr.Font != null) box.AppendText(exStr.String, exStr.Font);
-                else box.AppendText(exStr.String, exStr.Color, exStr.Font);
+        /// <param name="mcStr"><see cref="MinecraftString"/>.</param>
+        public static void AppendText(this System.Windows.Forms.RichTextBox box, MinecraftString mcStr) {
+            if (!string.IsNullOrEmpty(mcStr.String))
+                box.AppendText(mcStr.String, mcStr.MinecraftColor.ToColor(), new System.Drawing.Font(Settings.DefaultFontfamily, Settings.DEFAULT_FONTSIZE, mcStr.MinecraftFontStyle.Style));
         }
         /// <summary>
-        /// Appends text of an array of <see cref="System.String"/> with specified <see cref="System.Drawing.Color"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
+        /// Appends text of an array of <see cref="string"/> with specified <see cref="System.Drawing.Color"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
-        /// <param name="text">An array of <see cref="System.String"/>.</param>
+        /// <param name="text">An array of <see cref="string"/>.</param>
         /// <param name="color">Text <see cref="System.Drawing.Color"/>.</param>
-        /// <param name="separate"><see cref="CCGE_Metro.Classes.Extensions.RichTextBoxExt.LineSeparateOptions"/> value.</param>
+        /// <param name="separate"><see cref="LineSeparateOptions"/> value.</param>
         public static void AppendText(this System.Windows.Forms.RichTextBox box, string[] text, System.Drawing.Color color, LineSeparateOptions separate = LineSeparateOptions.None) {
             foreach (string line in text)
                 switch (separate) {
@@ -78,12 +75,12 @@
                 }
         }
         /// <summary>
-        /// Appends text of an array of <see cref="System.String"/> with specified <see cref="System.Drawing.Font"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
+        /// Appends text of an array of <see cref="string"/> with specified <see cref="System.Drawing.Font"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
-        /// <param name="text">An array of <see cref="System.String"/>.</param>
+        /// <param name="text">An array of <see cref="string"/>.</param>
         /// <param name="font">Text <see cref="System.Drawing.Font"/>.</param>
-        /// <param name="separate"><see cref="CCGE_Metro.Classes.Extensions.RichTextBoxExt.LineSeparateOptions"/> value.</param>
+        /// <param name="separate"><see cref="LineSeparateOptions"/> value.</param>
         public static void AppendText(this System.Windows.Forms.RichTextBox box, string[] text, System.Drawing.Font font, LineSeparateOptions separate = LineSeparateOptions.None) {
             foreach (string line in text)
                 switch (separate) {
@@ -93,13 +90,13 @@
                 }
         }
         /// <summary>
-        /// Appends text of an array of <see cref="System.String"/> with specified <see cref="System.Drawing.Color"/> and <see cref="System.Drawing.Font"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
+        /// Appends text of an array of <see cref="string"/> with specified <see cref="System.Drawing.Color"/> and <see cref="System.Drawing.Font"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
-        /// <param name="text"><see cref="System.String"/>.</param>
+        /// <param name="text"><see cref="string"/>.</param>
         /// <param name="color"><see cref="System.Drawing.Color"/>.</param>
         /// /// <param name="font">Text <see cref="System.Drawing.Font"/>.</param>
-        /// <param name="separate"><see cref="CCGE_Metro.Classes.Extensions.RichTextBoxExt.LineSeparateOptions"/> value.</param>
+        /// <param name="separate"><see cref="LineSeparateOptions"/> value.</param>
         public static void AppendText(this System.Windows.Forms.RichTextBox box, string[] text, System.Drawing.Color color, System.Drawing.Font font, LineSeparateOptions separate = LineSeparateOptions.None) {
             foreach (string line in text)
                 switch (separate) {
@@ -109,17 +106,17 @@
                 }
         }
         /// <summary>
-        /// Appends text of an array of <see cref="ExtendedString"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
+        /// Appends text of an array of <see cref="MinecraftString"/> to the end of the current text of a <see cref="System.Windows.Forms.RichTextBox"/>.
         /// </summary>
         /// <param name="box"><see cref="System.Windows.Forms.RichTextBox"/> instance.</param>
-        /// <param name="exStrArr">An array of <see cref="ExtendedString"/>.</param>
-        /// <param name="separate"><see cref="CCGE_Metro.Classes.Extensions.RichTextBoxExt.LineSeparateOptions"/> value.</param>
-        public static void AppendText(this System.Windows.Forms.RichTextBox box, ExtendedString[] exStrArr, LineSeparateOptions separate = LineSeparateOptions.None) {
-            foreach (ExtendedString exStr in exStrArr)
+        /// <param name="mcStrArr">An array of <see cref="MinecraftString"/>.</param>
+        /// <param name="separate"><see cref="LineSeparateOptions"/> value.</param>
+        public static void AppendText(this System.Windows.Forms.RichTextBox box, MinecraftString[] mcStrArr, LineSeparateOptions separate = LineSeparateOptions.None) {
+            foreach (MinecraftString mcStr in mcStrArr)
                 switch (separate) {
-                    case LineSeparateOptions.EmptyLineBefore: box.AppendText(System.Environment.NewLine); box.AppendText(exStr); break;
-                    case LineSeparateOptions.EmptyLineAfter: box.AppendText(exStr); box.AppendText(System.Environment.NewLine); break;
-                    default: box.AppendText(exStr); break;
+                    case LineSeparateOptions.EmptyLineBefore: box.AppendText(System.Environment.NewLine); box.AppendText(mcStr); break;
+                    case LineSeparateOptions.EmptyLineAfter: box.AppendText(mcStr); box.AppendText(System.Environment.NewLine); break;
+                    default: box.AppendText(mcStr); break;
                 }
         }
     }

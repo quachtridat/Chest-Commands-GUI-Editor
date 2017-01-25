@@ -5,7 +5,7 @@ namespace CCGE_Metro.User_controls {
     using static Settings;
     public class MinecraftToolTip : MetroFramework.Components.MetroToolTip {
         #region Properties
-        public ExtendedString[][] ToolTipText { get; set; }
+        public MinecraftString[][] ToolTipText { get; set; }
         [System.ComponentModel.Description(@"Line padding.")] public int Padding { get; set; } = (int) TOOLTIP_PADDING;
         [System.ComponentModel.Description(@"Space between each line.")] public int LineSpace { get; set; } = (int) TOOLTIP_LINE_SPACE;
         [System.ComponentModel.Description(@"Background color.")] public new Color BackColor {
@@ -27,22 +27,21 @@ namespace CCGE_Metro.User_controls {
         private void ToolTipDraw(object sender, System.Windows.Forms.DrawToolTipEventArgs e) {
             e.DrawBackground();
             int x = Padding, y = Padding;
-
-            foreach (ExtendedString[] extendedStrings in ToolTipText) {
-                foreach (ExtendedString extendedString in extendedStrings) {
-                    e.Graphics.DrawString(extendedString.String, extendedString.Font, new SolidBrush(extendedString.Color), x, y);
-                    x += extendedString.Size.Width;
+            foreach (MinecraftString[] mcStrings in ToolTipText) {
+                foreach (MinecraftString mcString in mcStrings) {
+                    e.Graphics.DrawString(mcString.String, new Font(DefaultFontfamily, DEFAULT_FONTSIZE, mcString.MinecraftFontStyle.Style), new SolidBrush(mcString.MinecraftColor.ToColor()), x, y);
+                    x += mcString.Size.Width;
                 }
                 x = Padding;
-                y += ExtendedString.CalculateSize(extendedStrings).Height + LineSpace;
+                y += MinecraftString.CalculateSize(mcStrings).Height + LineSpace;
             }
         }
-        private static Size CalculateSize(ExtendedString[][] extendedStrings, int padding, int lineSpace) {
-            if (extendedStrings == null || extendedStrings.Length == 0) return new Size(0, 0);
-            Size result = ExtendedString.CalculateSize(extendedStrings);
+        private static Size CalculateSize(MinecraftString[][] minecraftStrings, int padding, int lineSpace) {
+            if (minecraftStrings == null || minecraftStrings.Length == 0) return new Size(0, 0);
+            Size result = MinecraftString.CalculateSize(minecraftStrings);
             result.Width += padding*2;
             result.Height += padding*2;
-            result.Height += lineSpace*(extendedStrings.Length - 1);
+            result.Height += lineSpace*(minecraftStrings.Length - 1);
             return result.Width < TOOLTIP_MINIMUM_WIDTH || result.Height < TOOLTIP_MINIMUM_HEIGHT ? TooltipMinimumSize : result;
         }
         #endregion

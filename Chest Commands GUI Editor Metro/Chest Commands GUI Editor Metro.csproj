@@ -80,6 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Extensions\Util.cs" />
+    <Compile Include="Classes\Structures\Minecraft Color.cs" />
+    <Compile Include="Classes\Structures\Minecraft Font Style.cs" />
     <Compile Include="Forms\About.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,7 +129,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\Structures\CCG Menu Item.cs" />
-    <Compile Include="Classes\Structures\Extended String.cs" />
+    <Compile Include="Classes\Structures\Minecraft String.cs" />
     <Compile Include="Classes\Structures\Minecraft Enchantment.cs" />
     <Compile Include="Classes\Structures\Minecraft Item.cs" />
     <Compile Include="User controls\Table cell.cs">
