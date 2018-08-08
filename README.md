@@ -9,5 +9,5 @@ Editing Chest Commands GUI menu files has never been easier!
 * Loads missing player heads automatically
 * Color and formatting codes are fully-supported
 
-###### I'm currently working on this project!
+###### This project is discontinued!
 ###### Contact or support me: quachtridat@yahoo.com.vn
